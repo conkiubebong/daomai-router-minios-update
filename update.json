@@ -1,6 +1,6 @@
 {
-  "latest": "0.2.0",
+  "latest": "0.3.0",
   "released_at": "2026-07-09",
-  "notes": "Web UI on port 18080, web-based root password change, custom SSH port management, and daomai-agent self-update.",
+  "notes": "Full router-engine port from proxy_web_debian: storage foundation, nftables/PPPoE/proxy-hosting/tc-shaping/DNS-DDNS/Scan-isolation/client-online-detection/mobile-self-service, fresh-install interface auto-sync as lan_phone, and an admin web UI restyled to match the production router's look.",
   "asset_pattern": "*.zip"
 }

@@ -1,0 +1,6 @@
+{
+  "latest": "0.2.0",
+  "released_at": "2026-07-09",
+  "notes": "Web UI on port 18080, web-based root password change, custom SSH port management, and daomai-agent self-update.",
+  "asset_pattern": "*.zip"
+}

@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.6",
+  "latest": "0.4.7",
   "released_at": "2026-07-11",
-  "notes": "Default root password is now daomai (works for both console/SSH login and the Web UI, since they share the same Linux root password). SSH is now LAN-only by default in nftables -- WAN access requires an explicit opt-in NAT via the Internet tab's new 'Remote SSH access' panel, mirroring the existing Remote Web UI/Public API NAT pattern.",
+  "notes": "Cosmetic-only rebrand: the boot-time console banner text now reads 'DAOMAIOS' instead of 'MiniOS'. Note the ISO output filename still uses the internal 'minios' identifier (deliberately not renamed -- deeply coupled to the boot process across two initramfs implementations, GRUB/EFI paths, and the ISO volume label; a full rebrand needs its own careful incremental pass with real boot-testing after each step).",
   "asset_pattern": "*.zip"
 }

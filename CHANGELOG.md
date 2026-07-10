@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.7 — 2026-07-11
+
+- Cosmetic-only rebrand: the boot-time console banner text now reads "DAOMAIOS" instead of
+  "MiniOS". Note the ISO output filename still uses the internal "minios" identifier
+  (deliberately not renamed -- deeply coupled to the boot process across two initramfs
+  implementations, GRUB/EFI paths, and the ISO volume label; a full rebrand needs its own
+  careful incremental pass with real boot-testing after each step).
+
 ## v0.4.6 — 2026-07-11
 
 - Default root password is now `daomai` (works for both console/SSH login and the Web UI, since

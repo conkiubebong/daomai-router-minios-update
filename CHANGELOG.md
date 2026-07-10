@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.5 — 2026-07-11
+
+- Mobile self-service now runs on its own dedicated port (18082) instead of being distinguished
+  by IP-matching on the same port as the admin UI (18080) -- fixes a bug where a fresh
+  single-NIC box's only reachable IP (the LAN-phone gateway) made the admin UI unreachable,
+  always showing mobile.html instead. Accessing the router's gateway IP on port 80 always shows
+  mobile self-service; port 18080 always shows the admin UI.
+
 ## v0.4.3 — 2026-07-10
 
 - Boot menu now skips the interactive language-selection screen (`minios-cmd -mln en_US` instead

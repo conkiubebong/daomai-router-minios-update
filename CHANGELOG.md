@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.4.8 — 2026-07-11
+
+Bundled router-agent fixes built on top of v0.4.7 (pre-rebrand base), deliberately skipping the
+untested MiniOS->DAOMAIOS boot-splash rebrand, which caused a real "failed to load ldlinux.c32"
+boot failure on real hardware that's still under separate investigation. Supersedes v0.4.9 as the
+recommended build until that rebrand issue is resolved.
+
+- Fixed the LAN-phone bridge (`br-phone`) silently losing its member interfaces and going
+  carrier-DOWN a few minutes after a successful apply -- NetworkManager was re-claiming
+  `lan_phone`-role interfaces out from under the bridge. `applyLANPhoneBridgeCore` now tells
+  NetworkManager to release a port (`nmcli device set <if> managed no`) before enslaving it
+  into `br-phone`, and hands it back (`managed yes`) when a port leaves the `lan_phone` role.
+- Bandwidth shaping now bypasses LAN-to-LAN traffic on `br-phone`/`ifb-daomai`, only capping
+  traffic that actually goes to/from the internet through the router's own LAN-phone gateway IP.
+- Hid agent-managed virtual interfaces (`br-phone`, `ifb-daomai`) from the Internet tab's
+  interfaces list; they no longer show a spurious role combobox/settings button.
+
 ## v0.4.9 — 2026-07-11
 
 - Fixed the LAN-phone bridge (`br-phone`) silently losing its member interfaces and going

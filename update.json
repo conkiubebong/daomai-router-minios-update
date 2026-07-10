@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.9",
+  "latest": "0.4.8",
   "released_at": "2026-07-11",
-  "notes": "Fixed the LAN-phone bridge (br-phone) silently losing its member interfaces and going carrier-DOWN a few minutes after a successful apply -- NetworkManager was re-claiming lan_phone-role interfaces out from under the bridge. applyLANPhoneBridgeCore now tells NetworkManager to release a port (nmcli device set <if> managed no) before enslaving it into br-phone, and hands it back (managed yes) when a port leaves the lan_phone role.",
+  "notes": "Bundled router-agent fixes built on top of v0.4.7 (pre-rebrand base): LAN-phone bridge (br-phone) NetworkManager conflict fix, bandwidth shaping LAN-to-LAN bypass, and hiding agent-managed virtual interfaces from the interfaces list. Deliberately skips the untested MiniOS->DAOMAIOS boot-splash rebrand, which caused a real boot failure on real hardware. Supersedes v0.4.9 as the recommended build until that rebrand issue is resolved.",
   "asset_pattern": "*.zip"
 }

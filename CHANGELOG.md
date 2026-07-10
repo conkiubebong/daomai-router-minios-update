@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.2 — 2026-07-10
+
+- Console tty1 now auto-logs into root (`agetty --autologin`) instead of forcing a first-login
+  password change via `daomai-force-password-reset` — that service is still shipped but no longer
+  enabled by default, so a deployment wanting the forced-reset security posture back can
+  `systemctl enable --now daomai-force-password-reset` manually.
+
 ## v0.4.1 — 2026-07-10
 
 - Added `restoreRuntimeStateOnBoot` (`cmd/daomai-agent/main.go` / `router_api.go`): every

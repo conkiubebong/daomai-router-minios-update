@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.1",
+  "latest": "0.4.2",
   "released_at": "2026-07-10",
-  "notes": "Added restoreRuntimeStateOnBoot so daomai-agent re-applies its own LAN-phone bridge/DHCP, proxy, nftables, tc shaping, and NIC tuning from its own database on every start (reboot or crash-restart), fixing clients not being recognized after a reboot since the prior daomai-apply.service restore read a stale, separate Python database; and changed the pre-boot-restore nftables baseline forward chain from policy accept to policy drop so nothing can leak/forward through the router before daomai-agent finishes its own apply.",
+  "notes": "Console tty1 now auto-logs into root (agetty --autologin) instead of forcing a first-login password change via daomai-force-password-reset -- that service is still shipped but no longer enabled by default, so a deployment wanting the forced-reset security posture back can systemctl enable --now daomai-force-password-reset manually.",
   "asset_pattern": "*.zip"
 }

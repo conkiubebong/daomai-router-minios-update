@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.9 — 2026-07-11
+
+- Fixed the LAN-phone bridge (`br-phone`) silently losing its member interfaces and going
+  carrier-DOWN a few minutes after a successful apply -- NetworkManager was re-claiming
+  `lan_phone`-role interfaces out from under the bridge. `applyLANPhoneBridgeCore` now tells
+  NetworkManager to release a port (`nmcli device set <if> managed no`) before enslaving it
+  into `br-phone`, and hands it back (`managed yes`) when a port leaves the `lan_phone` role.
+
 ## v0.4.7 — 2026-07-11
 
 - Cosmetic-only rebrand: the boot-time console banner text now reads "DAOMAIOS" instead of

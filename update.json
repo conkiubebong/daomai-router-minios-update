@@ -1,6 +1,6 @@
 {
-  "latest": "0.3.0",
-  "released_at": "2026-07-09",
-  "notes": "Full router-engine port from proxy_web_debian: storage foundation, nftables/PPPoE/proxy-hosting/tc-shaping/DNS-DDNS/Scan-isolation/client-online-detection/mobile-self-service, fresh-install interface auto-sync as lan_phone, and an admin web UI restyled to match the production router's look.",
+  "latest": "0.4.0",
+  "released_at": "2026-07-10",
+  "notes": "Mobile self-service overhaul (vi/en i18n, layout reorder, Delimiter+RTC and IP-type+Mode and Group+Scan paired rows, RTC/Scan as checkboxes, collapsible Proxy card, live IP-Public and per-client task-stats checks, delete-proxy button), a tproxy ct-state fix so NAT-forwarded traffic (e.g. ADB) survives a client also being in proxy mode, a mobile_hide_mode_enabled setting to hide Mode on the self-service page, and moving the Clients-tab refresh-interval controls into the Setting popup.",
   "asset_pattern": "*.zip"
 }

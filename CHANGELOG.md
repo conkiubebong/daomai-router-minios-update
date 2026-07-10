@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.4.1 — 2026-07-10
+
+- Added `restoreRuntimeStateOnBoot` (`cmd/daomai-agent/main.go` / `router_api.go`): every
+  daomai-agent start (reboot OR crash-restart, since the systemd unit has `Restart=always`) now
+  re-applies LAN-phone bridge/DHCP, proxy reload, nftables, tc shaping, and NIC tuning from its
+  own database — fixes clients not being recognized after a reboot, since the only prior
+  boot-time restore mechanism (`daomai-apply.service`) ran Python's own `boot_restore.py`
+  against a completely separate, stale database.
+- Changed the pre-boot-restore nftables baseline (`/etc/nftables.d/daomai.nft`) forward chain
+  from `policy accept` to `policy drop`, so nothing can leak/forward through the router between
+  early boot and daomai-agent finishing its own apply — fail closed instead of fail open.
+
 ## v0.4.0 — 2026-07-10
 
 - Mobile self-service page overhaul: own vi/en i18n dictionary with phone-local language

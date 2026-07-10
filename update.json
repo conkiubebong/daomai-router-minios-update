@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.5",
+  "latest": "0.4.6",
   "released_at": "2026-07-11",
-  "notes": "Mobile self-service now runs on its own dedicated port (18082) instead of being distinguished by IP-matching on the same port as the admin UI (18080) -- fixes a bug where a fresh single-NIC box's only reachable IP (the LAN-phone gateway) made the admin UI unreachable, always showing mobile.html instead. Accessing the router's gateway IP on port 80 always shows mobile self-service; port 18080 always shows the admin UI.",
+  "notes": "Default root password is now daomai (works for both console/SSH login and the Web UI, since they share the same Linux root password). SSH is now LAN-only by default in nftables -- WAN access requires an explicit opt-in NAT via the Internet tab's new 'Remote SSH access' panel, mirroring the existing Remote Web UI/Public API NAT pattern.",
   "asset_pattern": "*.zip"
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.6 — 2026-07-11
+
+- Default root password is now `daomai` (works for both console/SSH login and the Web UI, since
+  they share the same Linux root password). SSH is now LAN-only by default in nftables -- WAN
+  access requires an explicit opt-in NAT via the Internet tab's new "Remote SSH access" panel,
+  mirroring the existing Remote Web UI/Public API NAT pattern.
+
 ## v0.4.5 — 2026-07-11
 
 - Mobile self-service now runs on its own dedicated port (18082) instead of being distinguished

@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.3 — 2026-07-10
+
+- Boot menu now skips the interactive language-selection screen (`minios-cmd -mln en_US` instead
+  of the default `multilang`) -- boots straight to the English boot menu.
+
 ## v0.4.2 — 2026-07-10
 
 - Console tty1 now auto-logs into root (`agetty --autologin`) instead of forcing a first-login

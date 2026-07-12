@@ -1,5 +1,41 @@
 # Changelog
 
+## v0.4.10 — 2026-07-12
+
+Multi-WAN internet fix, port uniqueness, faster client discovery, bandwidth shaping fix. Built on
+top of v0.4.8 (pre-rebrand base).
+
+- Fixed clients getting no internet on a freshly-assigned dhcp_wan/static_wan egress
+  (DNS_PROBE_FINISHED_NO_INTERNET): the real `/apply/nftables` handler never set up
+  per-egress policy routing at all (an earlier attempt had fixed a different, unreachable
+  dead-code copy of the handler by mistake); nftables also incorrectly gated a client's
+  internet access on its egress's momentary health-check status instead of just "does it
+  have a real, non-disabled egress" (matching the Python reference).
+- Fixed the gateway-fallback gap for fresh dhcp_wan/static_wan egresses whose own gateway
+  column hadn't been populated yet.
+- Fixed the "ID PORT NAT" DNS-Proxy assignment silently never saving (a decoding bug meant
+  it was dropped on every save); duplicating a PPPoE session ("Nhan ban") now correctly
+  carries it over to the clone.
+- Added uniqueness enforcement for HTTP/SOCKS5 proxy ports (both plain and NAT) so two
+  proxies can no longer silently claim the same port.
+- PPPoE session delete now cleans up its systemd unit in the background (faster response)
+  and no longer leaves it listed as "failed" after removal; deleting a pppoe-type egress
+  through the generic delete endpoint now gets the same cleanup as the dedicated path.
+- Public PPPoE rotate link now logs its systemctl call through the audit trail like every
+  other system mutation.
+- Client auto-discovery: actively pings the DHCP pool to prime the ARP cache instead of
+  only reading whatever's already there, dropped the discovery interval to 5s, and removed
+  the manual "Scan LAN"/"+ Client"/"Import CSV" buttons (now fully automatic). Also fixed
+  client-list auto-refresh silently freezing whenever any input anywhere on the page was
+  focused, not just inside the Clients tab.
+- Bandwidth shaping: added fq_codel as each client's HTB leaf qdisc, fixing a real ~20%
+  throughput shortfall from TCP's congestion-control sawtooth against the hard rate
+  ceiling (burst/cburst sizing alone, from v0.4.9, wasn't enough on its own).
+- Reduced the syslinux boot menu's hidden-autoboot wait from ~10s to ~0.1s on BIOS/legacy
+  boot (UEFI/GRUB already booted immediately).
+- Interface card UI: raw ifname now always shown on its own line below the editable
+  display name.
+
 ## v0.4.8 — 2026-07-11
 
 Bundled router-agent fixes built on top of v0.4.7 (pre-rebrand base), deliberately skipping the

@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.8",
-  "released_at": "2026-07-11",
-  "notes": "Bundled router-agent fixes built on top of v0.4.7 (pre-rebrand base): LAN-phone bridge (br-phone) NetworkManager conflict fix, bandwidth shaping LAN-to-LAN bypass, and hiding agent-managed virtual interfaces from the interfaces list. Deliberately skips the untested MiniOS->DAOMAIOS boot-splash rebrand, which caused a real boot failure on real hardware. Supersedes v0.4.9 as the recommended build until that rebrand issue is resolved.",
+  "latest": "0.4.10",
+  "released_at": "2026-07-12",
+  "notes": "Multi-WAN internet fix (DNS_PROBE_FINISHED_NO_INTERNET on fresh dhcp_wan/static_wan egress), DNS-Proxy port assignment save fix, proxy port uniqueness enforcement, faster/active client auto-discovery (5s + ARP priming), bandwidth shaping fq_codel fix for the ~20% throughput shortfall, and PPPoE delete/rotate cleanup fixes. Built on top of v0.4.8 (pre-rebrand base).",
   "asset_pattern": "*.zip"
 }

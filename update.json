@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.10",
+  "latest": "0.4.11",
   "released_at": "2026-07-12",
-  "notes": "Multi-WAN internet fix (DNS_PROBE_FINISHED_NO_INTERNET on fresh dhcp_wan/static_wan egress), DNS-Proxy port assignment save fix, proxy port uniqueness enforcement, faster/active client auto-discovery (5s + ARP priming), bandwidth shaping fq_codel fix for the ~20% throughput shortfall, and PPPoE delete/rotate cleanup fixes. Built on top of v0.4.8 (pre-rebrand base).",
+  "notes": "First cluster of the minios->daomaios rebrand (login-hint fix, cosmetic text only -- the bootloader/ISO-identity rename is a separate, higher-risk cluster not attempted here). Includes everything from v0.4.10: multi-WAN internet fix, DNS-Proxy port assignment save fix, proxy port uniqueness enforcement, faster/active client auto-discovery, bandwidth shaping fq_codel fix, and PPPoE delete/rotate cleanup fixes.",
   "asset_pattern": "*.zip"
 }

@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.4.11 — 2026-07-12
+
+First cluster of the minios->daomaios rebrand, deliberately scoped to low-risk, text-only
+changes (the bootloader/LIVEKITNAME/ISO-identity rename that broke boot in an earlier attempt
+is a separate, higher-risk cluster, not attempted here).
+
+- Fixed the login page still showing "Mac dinh: admin / admin" and pre-filling the username
+  field with "admin" -- stale leftover from before login switched to authenticating against
+  the real Linux root account. Now correctly shows/pre-fills root/daomai.
+- Renamed purely cosmetic "MiniOS" mentions in Go code comments and the self-update HTTP
+  client's User-Agent string to "DaoMaiOS".
+
 ## v0.4.10 — 2026-07-12
 
 Multi-WAN internet fix, port uniqueness, faster client discovery, bandwidth shaping fix. Built on

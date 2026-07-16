@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.19 - 2026-07-17
+
+Self-update channel and PPPoE runtime repair release.
+
+- Fixed `daomai-agent` checking the old `conkiubebong/daomaios-update` GitHub Releases repo. It now checks `conkiubebong/daomai-router-minios-update`, which is the actual update zip release repo.
+- Fixed PPPoE reconnects after DNS/NAT changes rendering NAT, proxy, load-balance, and policy-route state against the physical NIC (`enp7s0`) while the PPP runtime interface (`ppp0`) was temporarily down.
+- PPPoE ip-up/ip-down hooks now reapply proxy/NAT/routing state when the live PPP interface changes, keeping router DNS/DDNS/update traffic on the restored PPP default route.
+- Bundled the current DaoMai router agent and web UI from `daomai-router-minios` master.
+
 ## v0.4.11 — 2026-07-12
 
 First cluster of the minios->daomaios rebrand, deliberately scoped to low-risk, text-only

@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.11",
-  "released_at": "2026-07-12",
-  "notes": "First cluster of the minios->daomaios rebrand (login-hint fix, cosmetic text only -- the bootloader/ISO-identity rename is a separate, higher-risk cluster not attempted here). Includes everything from v0.4.10: multi-WAN internet fix, DNS-Proxy port assignment save fix, proxy port uniqueness enforcement, faster/active client auto-discovery, bandwidth shaping fq_codel fix, and PPPoE delete/rotate cleanup fixes.",
+  "latest": "0.4.19",
+  "released_at": "2026-07-17",
+  "notes": "Fixes the self-update channel to read GitHub Releases from conkiubebong/daomai-router-minios-update, and fixes PPPoE reconnects after DNS/NAT changes so NAT/proxy/routing use the live pppX interface instead of the physical NIC.",
   "asset_pattern": "*.zip"
 }

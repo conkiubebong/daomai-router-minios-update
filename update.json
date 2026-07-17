@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.25",
+  "latest": "0.4.27",
   "released_at": "2026-07-17",
-  "notes": "Fixes br-phone keeping a stale gateway IP after dhcp_gateway changes to a different subnet, and a misleading ISO-update status message.",
+  "notes": "Splits ISO update into download+verify (with progress) then a separate confirm-to-flash step; allows ISO re-flash even when current == latest.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

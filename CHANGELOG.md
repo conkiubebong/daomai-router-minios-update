@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.27 - 2026-07-17
+
+ISO download/flash split release.
+
+- Added `POST /api/update/iso/prepare`: downloads and SHA256-verifies the latest release's ISO into a pending location without ever touching the boot disk, and `GET /api/update/iso/prepare/status` for the Web UI to poll a live download progress bar.
+- `POST /api/update/iso/apply` now only writes an already-prepared, already-verified ISO -- it refuses to run and errors clearly if no ISO was prepared first, instead of downloading and writing in one uninterruptible call.
+- The Web UI's ISO button now downloads first, shows real progress, then pops a second confirmation once the download is verified before actually flashing the disk. Declining that confirmation keeps the verified ISO ready to flash later without re-downloading.
+- Allows re-flashing the ISO even when `current == latest` (a prior zip hot-update can already have bumped VERSION without ever touching the booted image).
+- Fixed the `br-phone` stale gateway IP after a `dhcp_gateway` subnet change, and a misleading ISO-update status message.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `33aa5461`.
+
 ## v0.4.25 - 2026-07-17
 
 br-phone gateway bug fix release.

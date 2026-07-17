@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.24 - 2026-07-17
+
+ISO self-flash update release.
+
+- Added a full ISO self-update path: `POST /api/update/iso/apply` on `daomai-agent` verifies the release ISO's SHA256, backs up `router.db`, `dd`s the ISO over the boot disk, restores the persistence partition, then reboots -- an alternative to the zip hot-update for changes that need a full OS re-flash.
+- This is the first release to publish `daomaios_<version>.iso` + `.iso.sha256` as GitHub Release assets alongside the existing update zip, specifically so `/api/update/iso/apply` has something to fetch and verify.
+- Removed the redundant PPPoE username line from each session's summary card on the Internet tab; it's already editable in that session's config form.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `4b5d8cfb`.
+
 ## v0.4.23 - 2026-07-17
 
 PPPoE boot recovery release.

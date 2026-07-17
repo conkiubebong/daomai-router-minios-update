@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.23 - 2026-07-17
+
+PPPoE boot recovery release.
+
+- Fixed a toram/live-boot reboot gap where generated PPPoE peer files and `daomai-*.service` units disappeared after power loss, but boot restore did not regenerate/start them from the persisted router database.
+- Clears stale PPPoE `runtime_ifname`/online state during boot restore before reconnecting, so policy routing/proxy/nft generation does not render against an old `ppp0` from the previous boot.
+- Boot restore now starts enabled PPPoE services before proxy/nft/tc reconciliation; the PPP `ip-up` hook then records the live `pppX`, public IP, route table default, and online status.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `044122db`.
+
 ## v0.4.21 - 2026-07-17
 
 Update zip packaging fix.

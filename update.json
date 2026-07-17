@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.21",
+  "latest": "0.4.23",
   "released_at": "2026-07-17",
-  "notes": "Repackages the NAT/DDNS update zip with Linux-safe web/ paths so the router updater can extract it correctly.",
+  "notes": "Restores PPPoE services from the persisted database on boot and clears stale PPP runtime interfaces before reconnect.",
   "asset_pattern": "*.zip"
 }

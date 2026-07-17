@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.32 - 2026-07-17
+
+DNS Proxy nftables reapply fix.
+
+- Fixed the DNS Proxy panel's save/delete actions never re-generating/re-applying nftables: after v0.4.30's fix made a DNS Proxy's own egress selector actually control a linked proxy's WAN NAT rule, changing that selector either way (detaching to No_Nat, or re-attaching to a real egress) had no live effect until the agent happened to restart -- the kernel kept running whatever ruleset was already loaded. Verified live: re-attaching "nat_01" to a real pppoe egress now correctly restores external access again.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `241b7263`.
+
 ## v0.4.31 - 2026-07-17
 
 Clients tab "Group" filter release.

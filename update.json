@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.24",
+  "latest": "0.4.25",
   "released_at": "2026-07-17",
-  "notes": "Adds an ISO self-flash update path (POST /api/update/iso/apply) alongside the existing zip hot-update; first release to ship daomaios_<version>.iso + .iso.sha256 assets.",
+  "notes": "Fixes br-phone keeping a stale gateway IP after dhcp_gateway changes to a different subnet, and a misleading ISO-update status message.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

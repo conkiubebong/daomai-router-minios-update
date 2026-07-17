@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.25 - 2026-07-17
+
+br-phone gateway bug fix release.
+
+- Fixed `ip addr replace` only replacing an address when it exactly matches the previous one (same IP + prefix). Moving `dhcp_gateway` to a different subnet left the OLD address live on `br-phone` alongside the new one, so the router kept answering DHCP on both subnets -- phones just kept renewing against the still-reachable old gateway and never picked up the change, even after toggling Wi-Fi. Now flushes the bridge's IPv4 addresses before applying the new one.
+- Fixed the ISO-update panel showing "no .iso available" instead of "already up to date" once `current == latest`.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `622242a6`.
+
 ## v0.4.24 - 2026-07-17
 
 ISO self-flash update release.

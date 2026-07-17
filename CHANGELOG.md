@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.31 - 2026-07-17
+
+Clients tab "Group" filter release.
+
+- Added a "Group" hide/show filter next to the existing "Columns" one in the Clients tab: same instant/persisted mechanism (one CSS rule + localStorage, no "Apply" click) but per row instead of per column, so a long client list can be decluttered down to just the groups you care about. Independent of the existing single-group filter in the Filter panel.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `e769b4aa`.
+
 ## v0.4.30 - 2026-07-17
 
 DNS Proxy NAT fix + mobile proxy-auto + system clock release.

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.30",
+  "latest": "0.4.31",
   "released_at": "2026-07-17",
-  "notes": "Fixes DNS Proxy No_Nat not disabling proxy WAN exposure, adds mobile proxy-auto mode + rotate button, and adds NTP time sync + clock persistence (router had neither, causing TLS certificate-time failures).",
+  "notes": "Adds a Clients-tab \"Group\" hide/show filter next to the existing Columns filter (instant, persisted, per-row instead of per-column).",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

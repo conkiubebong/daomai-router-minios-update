@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.33 - 2026-07-17
+
+PPPoE PMTU blackhole fix.
+
+- Fixed a real connectivity bug reported live: Google/Facebook loaded fast, but other sites (e.g. GitHub) either hung or rendered with missing CSS/JS. Classic PPPoE PMTU blackhole -- the pppoe link's own MTU was already correctly set to 1492, but that alone never clamped a LAN client's own TCP handshake (negotiated off the client's own 1500-MTU interface) for forwarded traffic, so any response requiring a full-size segment silently vanished wherever ICMP "fragmentation needed" gets filtered upstream (very common). Small responses (basic HTML, QUIC/HTTP3) never hit this, which is why some sites appeared to work fine.
+- Adds TCP MSS clamping (`tcp flags syn tcp option maxseg size set rt mtu`) to the forward chain -- self-adjusts per route/egress type, not a hardcoded value. Verified live: applied cleanly and confirmed present in the running kernel ruleset.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `2baed637`.
+
 ## v0.4.32 - 2026-07-17
 
 DNS Proxy nftables reapply fix.

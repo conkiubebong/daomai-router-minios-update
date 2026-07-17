@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.32",
+  "latest": "0.4.33",
   "released_at": "2026-07-17",
-  "notes": "Fixes the DNS Proxy panel's save/delete never re-applying nftables, so detaching/re-attaching a DNS Proxy's egress now takes effect immediately instead of only after an agent restart.",
+  "notes": "Fixes a PPPoE PMTU blackhole (some sites loaded fine, others like GitHub hung/missing CSS) by clamping forwarded TCP MSS to the route MTU.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

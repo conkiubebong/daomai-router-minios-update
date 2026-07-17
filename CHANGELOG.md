@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.30 - 2026-07-17
+
+DNS Proxy NAT fix + mobile proxy-auto + system clock release.
+
+- Fixed a real security-relevant bug: setting a DNS Proxy ("id nat" target, e.g. "nat_01") back to No_Nat in the DNS Proxy panel still let every proxy pointed at it be reached from the WAN -- the panel's own egress selector never actually fed into the "Proxy NAT port" nftables rule at all. Now clears a proxy's WAN NAT ports when its DNS Proxy target is detached, both in the preview and live-apply paths.
+- Mobile self-service now supports "proxy auto" devices: a new "proxy auto" mode option locks the proxy line-edit/type read-only and shows a rotate button next to it, calling the exact same pool-rotation logic (dead-proxy skip, per-proxy device cap) as the admin web UI's own rotate button -- not a reimplementation.
+- Added real NTP time sync (systemd-timesyncd) and clock persistence across reboots (fake-hwclock, saved every 15 min). The router previously had neither installed at all: a dead/absent RTC (seen live reading back 2020) combined with no time source left the system clock sitting arbitrarily wrong after a toram boot, with nothing to correct it -- causing an outright TLS "certificate not yet valid" failure on the update-check HTTPS request (and any other HTTPS call) even though the network path itself was fine.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `37b01fda`.
+
 ## v0.4.27 - 2026-07-17
 
 ISO download/flash split release.

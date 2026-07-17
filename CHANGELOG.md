@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.21 - 2026-07-17
+
+Update zip packaging fix.
+
+- Repacked the v0.4.20 NAT/DDNS update with Linux-safe zip entry paths (`web/...` instead of Windows-style `web\...`) so the router updater can find the top-level `web/` directory after extraction.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `6b6cf69e`.
+
 ## v0.4.20 - 2026-07-17
 
 Realtime NAT/DDNS update test release.

@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.20",
+  "latest": "0.4.21",
   "released_at": "2026-07-17",
-  "notes": "Adds per-port NAT enable switches, refreshes PPPoE public IP after public rotate, and checks DNS NAT/DDNS IP changes every 5 seconds.",
+  "notes": "Repackages the NAT/DDNS update zip with Linux-safe web/ paths so the router updater can extract it correctly.",
   "asset_pattern": "*.zip"
 }

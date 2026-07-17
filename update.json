@@ -1,6 +1,6 @@
 {
-  "latest": "0.4.19",
+  "latest": "0.4.20",
   "released_at": "2026-07-17",
-  "notes": "Fixes the self-update channel to read GitHub Releases from conkiubebong/daomai-router-minios-update, and fixes PPPoE reconnects after DNS/NAT changes so NAT/proxy/routing use the live pppX interface instead of the physical NIC.",
+  "notes": "Adds per-port NAT enable switches, refreshes PPPoE public IP after public rotate, and checks DNS NAT/DDNS IP changes every 5 seconds.",
   "asset_pattern": "*.zip"
 }

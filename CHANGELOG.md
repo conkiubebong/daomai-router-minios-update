@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.20 - 2026-07-17
+
+Realtime NAT/DDNS update test release.
+
+- Added an enable/disable switch to each per-port NAT row in the client NAT popup. Disabled rows stay saved but are hidden from active `OUTPUT_NAT`.
+- Public PPPoE rotate now polls the runtime PPP interface after restart and updates the stored Public IP when the new address appears.
+- DNS NAT/DDNS now checks the mapped NAT IP every 5 seconds and triggers the configured update URL when the IP changes.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `f78e5c05`.
+
 ## v0.4.19 - 2026-07-17
 
 Self-update channel and PPPoE runtime repair release.

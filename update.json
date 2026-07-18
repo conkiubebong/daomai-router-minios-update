@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.33",
-  "released_at": "2026-07-17",
-  "notes": "Fixes a PPPoE PMTU blackhole (some sites loaded fine, others like GitHub hung/missing CSS) by clamping forwarded TCP MSS to the route MTU.",
+  "latest": "0.4.34",
+  "released_at": "2026-07-18",
+  "notes": "Fixes plain http:// browsing on LAN-phone clients being hijacked to the router's own self-service page for every site, not just the router's own IP.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

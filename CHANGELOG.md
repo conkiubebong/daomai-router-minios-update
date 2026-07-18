@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.34 - 2026-07-18
+
+Mobile self-service port-80 redirect scoping fix.
+
+- Fixed a real live bug: browsing to any plain `http://` site (e.g. `http://deviceinfo.me`) on a LAN-phone client redirected to the router's own mobile self-service page instead of the actual site, while `https://` sites worked normally. Root cause: the nftables rule redirecting port 80 to the self-service portal was unscoped -- it hijacked every port-80 request regardless of destination, not just requests aimed at the router's own gateway IP. Scoped the rule to `ip daddr <router IP>` so arbitrary HTTP browsing now passes through untouched; only requests actually aimed at the router itself (or the existing blocked-client self-service escape hatch) still redirect.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `ff53ab0d`.
+
 ## v0.4.33 - 2026-07-17
 
 PPPoE PMTU blackhole fix.

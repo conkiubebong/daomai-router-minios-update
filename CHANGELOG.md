@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.35 - 2026-07-21
+
+File-integrity watchdog (self-heal via reboot).
+
+- `daomai-agent` now MD5-checks its own Web UI static assets (`index.html`, `static/**`: js/png/css/swagger) and its own binary every 30s, against a pristine baseline baked directly into the binary at build time (Web UI via `go:embed`, the binary's own hash sealed by a build-time patch step) -- not a separate file an attacker could edit to match a tampered build. A first-pass violation is rechecked after 3s before being treated as confirmed, to rule out reading a file mid-write.
+- On confirmed tamper, reboots the router: because DaoMaiOS boots `toram` (the whole OS runs from RAM), a reboot genuinely restores every file from the pristine boot image. Reboots are rate-limited by a cooldown persisted across reboots, so a persistent attacker or false positive can't fast-loop the hardware.
+- The watchdog automatically pauses during a legitimate hot update (`Update zip`) so it never false-positives on its own in-place binary/web swap; a release's own agent binary always carries the baseline matching its own bundled web files.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `0fa5086b`.
+
 ## v0.4.34 - 2026-07-18
 
 Mobile self-service port-80 redirect scoping fix.

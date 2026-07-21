@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.34",
-  "released_at": "2026-07-18",
-  "notes": "Fixes plain http:// browsing on LAN-phone clients being hijacked to the router's own self-service page for every site, not just the router's own IP.",
+  "latest": "0.4.35",
+  "released_at": "2026-07-21",
+  "notes": "Adds a file-integrity watchdog: daomai-agent now MD5-checks its own Web UI static assets and its own binary against a baseline baked in at build time, and reboots (rate-limited) to restore the pristine state on confirmed tamper.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

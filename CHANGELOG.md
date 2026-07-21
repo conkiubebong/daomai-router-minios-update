@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.36 - 2026-07-22
+
+Mobile self-service proxy_line validation fix.
+
+- Fixed a live bug: saving the Mobile Self-Service page with the Internet dropdown set to `No_Internet` (or any mode that doesn't need a proxy, e.g. `blocked`/`direct`) wrongly failed with "proxy_line required". The mobile form always resends the current proxy-line input's value on every save regardless of what the user actually touched, and the backend rejected any empty value unconditionally. Now only requires a non-empty proxy line for modes that actually need an upstream (`proxy`/`mixed`).
+- A client that switches off `proxy_auto` this way (empty proxy line, mode changed to blocked/direct) is now also correctly unenrolled from the proxy pool, instead of staying flagged and keeping getting reassigned pool proxies it no longer wants.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `d93b59aa`.
+
 ## v0.4.35 - 2026-07-21
 
 File-integrity watchdog (self-heal via reboot).

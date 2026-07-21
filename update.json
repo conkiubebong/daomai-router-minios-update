@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.35",
-  "released_at": "2026-07-21",
-  "notes": "Adds a file-integrity watchdog: daomai-agent now MD5-checks its own Web UI static assets and its own binary against a baseline baked in at build time, and reboots (rate-limited) to restore the pristine state on confirmed tamper.",
+  "latest": "0.4.36",
+  "released_at": "2026-07-22",
+  "notes": "Fixes Mobile Self-Service saves wrongly requiring a proxy line for modes that don't need a proxy (e.g. No_Internet/blocked/direct).",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

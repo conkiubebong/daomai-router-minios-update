@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.39 - 2026-07-24
+
+Three broken button fixes.
+
+- Fixed the "Đổi mật khẩu" (Change Password) topbar button: it had no click handler at all since the web UI was rewritten as a split-file SPA, so clicking it did nothing and there was no way to change the admin password from the web UI. Now wired to `POST /api/admin/password`, with client-side new/confirm password mismatch validation and success/error feedback shown in the modal.
+- Fixed the System/DHCP "Apply" button: clicking Cancel on the confirmation dialog still sent the apply request to the backend (the backend correctly rejected it without applying anything, but the button now stops immediately on Cancel like every other destructive-action button in the UI).
+- Fixed the "Check IP" button: it silently did nothing when the proxy ID field was left empty. Now shows an inline error.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `2e627600`.
+
 ## v0.4.38 - 2026-07-24
 
 Dynamic-client reaper fix.

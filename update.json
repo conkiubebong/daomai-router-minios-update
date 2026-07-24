@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.37",
+  "latest": "0.4.38",
   "released_at": "2026-07-24",
-  "notes": "Fixes dynamic IP reclaim inheriting the previous device's access policy, static client IP changes not applying to live dnsmasq, and rejects setting ip_type back to dynamic while a proxy/NAT port is attached.",
+  "notes": "Fixes the Auto-reap expired dynamic IPs DHCP setting: it never actually deleted offline dynamic clients, so the Dashboard client count and DHCP client list kept accumulating stale ghost entries forever.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

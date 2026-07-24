@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.38 - 2026-07-24
+
+Dynamic-client reaper fix.
+
+- Fixed the "Auto-reap expired dynamic IPs" DHCP setting: it never actually deleted offline dynamic clients. It compared each client's original creation time against the configured timeout instead of how long the client had actually been offline, and its `LastSeen`-empty check was practically unreachable since every dynamic client gets `LastSeen` stamped immediately on creation. A dynamic client that connected once and later dropped offline for good would linger in the clients table forever, inflating the Dashboard's total client count and the DHCP client list. Now the reaper uses each client's real last-online timestamp (falling back to creation time only if it was never confirmed online) and only reaps clients that are actually offline.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `0dcb22f0`.
+
 ## v0.4.37 - 2026-07-24
 
 Dynamic IP reclaim, static IP apply, and ip_type guard fixes.

@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.37 - 2026-07-24
+
+Dynamic IP reclaim, static IP apply, and ip_type guard fixes.
+
+- Fixed a serious bug: when a dynamic DHCP lease was reclaimed from a stale/offline client and handed to a new device, the new device inherited the previous device's internet access, mode, and bandwidth settings instead of getting the default new-client policy (e.g. `No_Internet`). The DHCP lease importer now deletes the stale dynamic claimant and lets the new MAC get a clean client record under whatever default policy is configured, rather than silently rewriting the existing record's identity.
+- Fixed a serious bug: changing a static client's IP address in the admin UI had no real effect on the network -- the physical device kept getting its old IP from dnsmasq even after a WiFi reconnect, because the live dnsmasq config was regenerated to disk but never actually installed/reloaded. Client create/update now synchronously applies the full LAN-phone DHCP config (regenerate, validate, install as the live config, restart dnsmasq, prune stale leases) whenever a static client's IP/MAC/name changes.
+- Added a clear rejection instead of a silent revert: setting a client's `ip_type` back to `dynamic` while a proxy or NAT port forward is still attached is now rejected with an explicit error, in both the admin API and mobile self-service, instead of being silently ignored or inconsistently allowed.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `cfddbcef`.
+
 ## v0.4.36 - 2026-07-22
 
 Mobile self-service proxy_line validation fix.

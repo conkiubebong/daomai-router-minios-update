@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.41 - 2026-07-26
+
+ISO update reboot choice.
+
+- Changed the ISO update flow so writing the ISO and rebooting are separate decisions: after the verified ISO is written to the boot disk, the UI asks whether to reboot now or keep running until a later manual reboot.
+- `/api/update/iso/apply` now accepts `reboot=false`; old callers that omit it still reboot automatically for compatibility.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `ab068bbe`.
+
 ## v0.4.40 - 2026-07-26
 
 DHCP stale-client cleanup runtime fix.

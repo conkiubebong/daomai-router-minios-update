@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.40",
+  "latest": "0.4.41",
   "released_at": "2026-07-26",
-  "notes": "Fixes stale DHCP dynamic-client cleanup: default cleanup settings are now seeded, and deleted expired clients immediately reapply nftables and tc shaping so old roles and bandwidth limits do not linger on reused IPs.",
+  "notes": "ISO update now writes the verified image to the boot disk first, then asks whether to reboot immediately or keep running until a later manual reboot.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

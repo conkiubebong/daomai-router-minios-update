@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.40 - 2026-07-26
+
+DHCP stale-client cleanup runtime fix.
+
+- Fixed dynamic DHCP clients not being cleaned up on fresh/default installs: the backend did not seed `static_ip_timeout_minutes` and `static_ip_reaper_enabled`, even though the UI showed the cleanup as enabled with a 30-minute timeout.
+- Fixed stale runtime policy after an expired dynamic client is deleted: the reaper now regenerates and applies nftables and tc shaping immediately, so the deleted client's internet role and bandwidth limits do not remain attached to the old IP when DHCP later reuses it.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `64400b2b`.
+
 ## v0.4.39 - 2026-07-24
 
 Three broken button fixes.

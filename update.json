@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.39",
-  "released_at": "2026-07-24",
-  "notes": "Fixes 3 broken buttons in the web UI: the Change Password button was completely dead (no click handler), the System/DHCP Apply button ignored Cancel, and the Check IP button silently did nothing on an empty ID.",
+  "latest": "0.4.40",
+  "released_at": "2026-07-26",
+  "notes": "Fixes stale DHCP dynamic-client cleanup: default cleanup settings are now seeded, and deleted expired clients immediately reapply nftables and tc shaping so old roles and bandwidth limits do not linger on reused IPs.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

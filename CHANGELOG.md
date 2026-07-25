@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.42 - 2026-07-26
+
+Hot-update stability and ISO follow-up fix.
+
+- Fixed a race after installing an update zip: the old agent process could run one more integrity-watchdog pass before `systemctl restart daomai-agent` stopped it, see the newly installed binary/Web UI as mismatched against its old embedded baseline, and reboot the toram system back to the old ISO.
+- After a zip update succeeds, the ISO download/write controls are immediately re-enabled from the current release metadata so users can still flash the matching ISO even when the running version already equals the latest release.
+- Repacked the update zip with POSIX `web/...` paths so Linux extraction creates the expected `web` directory.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `817d5459`.
+
 ## v0.4.41 - 2026-07-26
 
 ISO update reboot choice.

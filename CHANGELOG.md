@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.44 - 2026-07-30
+
+Backup/restore redesign + lower persist partition floor.
+
+- Lowered the persist partition's minimum trailing free space from 512MB to 64MB: the old floor was an arbitrary sanity check, not based on actual database size (router.db is a few MB even under heavy use). 500MB-1GB RAM installs can now get a working persist partition instead of being rejected outright.
+- Backups are now strictly manual: removed the automatic "pre_X" safety backups that used to be taken before every PPPoE/LAN-phone apply operation.
+- Simplified the backup format to a single raw `.db` file: "Backup" now streams a fresh snapshot straight back as a download the moment you click it -- nothing is kept on the router, so nothing can silently accumulate and fill the disk (the old zip format also bundled `generated/` config files, which are pure derived artifacts already regenerated from the database on every boot).
+- Rewrote and fixed Restore: pick a `.db` file from your computer -- it's validated as a genuine SQLite database, written to both the live running database and the persist-partition copy at the same time, then the router reboots immediately to apply it. This closes a real race where an untimely reboot/power loss shortly after a restore could silently undo it. Also fixes the previous Restore button always failing outright with an error (the frontend never sent a parameter the backend required).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `2c1eeddf`.
+
 ## v0.4.43 - 2026-07-30
 
 Proxy delete cleanup + immediate proxy-auto pool pick.

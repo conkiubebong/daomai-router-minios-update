@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.43",
+  "latest": "0.4.44",
   "released_at": "2026-07-30",
-  "notes": "Fixes a proxy delete leaving referencing clients with a dangling proxy_id, and makes enabling \"proxy auto\" force an immediate pool pick instead of silently staying on the old manual proxy.",
+  "notes": "Redesigns Backup/Restore to a single raw .db file (download-only, nothing kept on the router) with a fixed Restore that writes to both the live and persist-partition copies then reboots, and lowers the persist-partition minimum from 512MB to 64MB for small RAM/storage installs.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.42",
-  "released_at": "2026-07-26",
-  "notes": "Fixes hot-update follow-up behavior: the old agent no longer lets the integrity watchdog reboot back to the old ISO during its restart window, and the ISO download button stays available even after installing the latest zip.",
+  "latest": "0.4.43",
+  "released_at": "2026-07-30",
+  "notes": "Fixes a proxy delete leaving referencing clients with a dangling proxy_id, and makes enabling \"proxy auto\" force an immediate pool pick instead of silently staying on the old manual proxy.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

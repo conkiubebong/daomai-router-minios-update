@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.43 - 2026-07-30
+
+Proxy delete cleanup + immediate proxy-auto pool pick.
+
+- Fixed a proxy delete leaving referencing clients broken: `clients.proxy_id` had no `ON DELETE` clause, so deleting a proxy still assigned to a client (manual or "proxy auto") left that client with a permanently dangling `proxy_id` -- its Proxy cell in the admin UI just went blank with no error, silently losing its proxied traffic path. Deleting a proxy now clears `proxy_id` on every client still referencing it first.
+- Fixed "proxy auto" silently doing nothing when the client already had a live (non-dead) manually-assigned proxy: switching it to "proxy auto" via the mode dropdown used to keep it stuck on that same old proxy indefinitely instead of ever drawing from the pool, since the sticky "keep unless dead" rule doesn't distinguish a pool pick from a leftover manual one. Enabling "proxy auto" now forces one immediate pool reassignment, in both the admin app and mobile self-service.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `071fbe11`.
+
 ## v0.4.42 - 2026-07-26
 
 Hot-update stability and ISO follow-up fix.

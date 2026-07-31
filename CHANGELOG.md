@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.45 - 2026-07-31
+
+Multiple DNS Proxies (DDNS hostnames) per egress.
+
+- The DNS Proxy tab no longer limits an egress to one DDNS hostname: a DNS Proxy is really just an independent DDNS registration for that egress's current public IP, and a real need surfaced -- tracking one egress with two different DDNS hostnames at once (e.g. ahead of adding a second PPPoE line, so one hostname can move to it later without touching the first). Removed the constraint that used to reject this with "dns proxy egress_id already exists"; it was never load-bearing for the actual auto-update mechanism, which already updates every DNS Proxy row independently.
+- Includes an automatic one-time migration that rebuilds the `dns_proxies` table on the next boot for already-deployed routers, preserving all existing data -- no manual steps needed after updating.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `0701a2ad`.
+
 ## v0.4.44 - 2026-07-30
 
 Backup/restore redesign + lower persist partition floor.

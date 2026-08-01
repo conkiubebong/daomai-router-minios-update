@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.46",
+  "latest": "0.4.47",
   "released_at": "2026-08-01",
-  "notes": "The Update tab's ISO section can now write to a disk other than the currently-booted USB (e.g. an internal HDD/SSD), via a new disk picker with size/model/boot-disk labels and a clear warning before overwriting anything other than the boot USB.",
+  "notes": "Split ISO 'flash to a different disk' into its own panel with a direct USB-clone option (no download needed), and fixed a stale JS cache-bust bug that made sessions opened before v0.4.44/v0.4.46 show HTTP 404 on Backup and miss the disk picker.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

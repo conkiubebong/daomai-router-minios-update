@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.47 - 2026-08-01
+
+Split "flash to a different disk" into its own panel + fix stale cached JS.
+
+- The "Cap nhat ISO" panel goes back to its original behavior: no disk picker, it always auto-detects and re-flashes whatever disk this session actually booted from.
+- Added a separate "Ghi ISO vao o khac" panel with its own disk picker, offering two independent ways to write a chosen disk (e.g. an internal HDD/NVMe): download+verify the latest release ISO and write it there, or clone the currently-booted USB straight across via `dd` with no internet download or SHA256 check at all -- useful when there's no network access, or when you just want an exact copy of the router you're already running (including its current config/router.db).
+- Fixed a real bug affecting every browser session opened before the v0.4.44/v0.4.46 releases: the admin page's JS cache-busting version string for `08-system-misc.js` was never bumped across those two releases, so those sessions kept running pre-redesign JS against the new backend -- showing "HTTP 404" on Backup and missing the ISO disk picker entirely. All JS cache-bust versions are now refreshed; affected sessions just need one hard refresh (or will pick it up automatically once this version is installed).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `9b0623fa`.
+
 ## v0.4.46 - 2026-08-01
 
 Flash ISO to a different disk.

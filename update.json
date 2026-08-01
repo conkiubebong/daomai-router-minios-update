@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.47",
+  "latest": "0.4.48",
   "released_at": "2026-08-01",
-  "notes": "Split ISO 'flash to a different disk' into its own panel with a direct USB-clone option (no download needed), and fixed a stale JS cache-bust bug that made sessions opened before v0.4.44/v0.4.46 show HTTP 404 on Backup and miss the disk picker.",
+  "notes": "Fixed mobile self-service showing bandwidth 5 instead of the real 0 (unlimited), added a self-service local IP change field with duplicate/subnet validation, and fixed dnsmasq not re-applying when only the IP value changed (phones would keep their old address after a self-service IP change).",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

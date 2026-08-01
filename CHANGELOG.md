@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.48 - 2026-08-01
+
+Fix mobile bandwidth display bug + add self-service local IP change.
+
+- Fixed mobile self-service silently showing a bandwidth limit of "5" for a client whose real, stored limit is "0" (unlimited) -- the admin web app already showed the correct value; mobile's response builder was rewriting 0 into a hardcoded 5 before sending it.
+- Added a "Local IP (LAN)" field to the mobile self-service page: a client can now request its own static IP reservation directly instead of only toggling static/dynamic. The new address is validated (a real IPv4, inside the router's LAN subnet, not the router's own gateway address) and duplicates against another device are rejected with a clear error.
+- Fixed a real gap that would have made the new IP field silently not work on reconnect: self-service's runtime-change detection only re-applied dnsmasq (regenerate + prune the stale lease + restart) when `ip_type` or the name changed, never when only the IP value changed. A phone that changed its IP would keep getting its OLD address until this was fixed. The admin web app's own client-edit path already had this right; self-service now matches it.
+- After a successful local-IP change, the page now tells the user to toggle WiFi off/on to pick up the new address, instead of confusingly showing "device not registered" (the phone's own connection is still using its old address until it reconnects).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `0c2603f2`.
+
 ## v0.4.47 - 2026-08-01
 
 Split "flash to a different disk" into its own panel + fix stale cached JS.

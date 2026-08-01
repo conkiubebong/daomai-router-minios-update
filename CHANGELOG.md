@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.46 - 2026-08-01
+
+Flash ISO to a different disk.
+
+- The Update tab's ISO section can now write to a disk other than the currently-booted USB. A new disk picker combobox lists every disk the router sees (size, model, and whether it's the current boot USB or already has data/mounted), defaulting to the current boot disk so nothing changes unless you pick something else. This lets you write the router image onto an internal HDD/SSD instead, so the router can boot from that disk without the USB stick plugged in.
+- Writing to a disk other than the current boot disk safely skips the `router.db` backup/restore steps that only make sense for re-flashing in place -- there's nothing existing on a fresh disk to protect, and the currently-running system's own persist partition is never touched.
+- The target disk is validated against the live disk list before anything is written, and picking a disk other than the boot USB shows a separate, explicit warning naming the exact disk that will be erased.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `e57d0217`.
+
 ## v0.4.45 - 2026-07-31
 
 Multiple DNS Proxies (DDNS hostnames) per egress.

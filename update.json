@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.45",
-  "released_at": "2026-07-31",
-  "notes": "The DNS Proxy tab no longer limits an egress to one DDNS hostname -- multiple DNS Proxies can now share the same egress. Existing routers migrate automatically on their next boot, no manual steps needed.",
+  "latest": "0.4.46",
+  "released_at": "2026-08-01",
+  "notes": "The Update tab's ISO section can now write to a disk other than the currently-booted USB (e.g. an internal HDD/SSD), via a new disk picker with size/model/boot-disk labels and a clear warning before overwriting anything other than the boot USB.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

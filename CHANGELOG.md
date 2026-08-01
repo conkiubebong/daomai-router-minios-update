@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.49 - 2026-08-01
+
+Fix deleted client's DHCP lease resurrecting it as a new client.
+
+- Fixed a real bug found live: deleting a client only ever removed its DB row -- the underlying dnsmasq DHCP lease for that IP/MAC was never touched, so it stayed on disk. The next periodic lease-import pass saw the still-present lease and silently recreated the exact same device as a brand-new client, even though it was no longer reachable.
+- Client delete now stops dnsmasq, prunes that client's lease line, and restarts dnsmasq, the same ordering already used for static-IP reservation changes.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `bd238659`.
+
 ## v0.4.48 - 2026-08-01
 
 Fix mobile bandwidth display bug + add self-service local IP change.

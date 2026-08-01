@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.48",
+  "latest": "0.4.49",
   "released_at": "2026-08-01",
-  "notes": "Fixed mobile self-service showing bandwidth 5 instead of the real 0 (unlimited), added a self-service local IP change field with duplicate/subnet validation, and fixed dnsmasq not re-applying when only the IP value changed (phones would keep their old address after a self-service IP change).",
+  "notes": "Fixed a deleted client's DHCP lease never being released, which let the next lease-import pass silently recreate it as a brand-new client even though the device was gone.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

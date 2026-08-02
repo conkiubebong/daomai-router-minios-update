@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.50 - 2026-08-03
+
+Fix a leaked-transaction code smell that could wedge the database.
+
+- Fixed a bug in `ReconcileEgressForInterfaceRole`'s unknown-interface path: it returned the result of `tx.Commit()` directly while leaving the function's internal error state as "not found", which made the deferred safety-net rollback fire after the commit had already run. Found live: the agent's single database connection got stuck ("cannot start a transaction within a transaction"), and every save (clients, NAT ports, everything) silently failed until the agent was restarted. Fixed to route the commit result correctly, and added a regression test.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `63462bf4`.
+
 ## v0.4.49 - 2026-08-01
 
 Fix deleted client's DHCP lease resurrecting it as a new client.

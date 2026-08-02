@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.49",
-  "released_at": "2026-08-01",
-  "notes": "Fixed a deleted client's DHCP lease never being released, which let the next lease-import pass silently recreate it as a brand-new client even though the device was gone.",
+  "latest": "0.4.50",
+  "released_at": "2026-08-03",
+  "notes": "Fixed a leaked-transaction bug that could wedge the database's single connection, silently failing every save (clients, NAT ports, etc.) until the agent was restarted.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

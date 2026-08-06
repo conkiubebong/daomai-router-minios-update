@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.51",
+  "latest": "0.4.52",
   "released_at": "2026-08-06",
-  "notes": "Fixed the real cause of the database-wedging bug: canceled browser requests could abandon a background database transaction (live-poll interface sync, setting an interface's role such as dhcp_wan, Detect, VLAN create), stalling every future save until the agent was restarted.",
+  "notes": "Fixed \"flash ISO to a different disk\" always showing an empty disk list on real routers -- a data-format mismatch reading lsblk's output made disk detection silently fail every time.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

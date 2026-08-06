@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.52 - 2026-08-06
+
+Fix "flash ISO to a different disk" never listing any disks.
+
+- The disk picker combobox always showed empty on every real router: the code expected disk sizes from `lsblk` in a text format, but real `lsblk` output uses a plain number, so reading the disk list always failed silently. The router's own disk and any other attached disks now show up correctly, with size, model, and mounted status.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `49ced324`.
+
 ## v0.4.51 - 2026-08-06
 
 Fix the database-wedging bug for real this time (context cancellation).

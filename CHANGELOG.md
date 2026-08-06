@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.51 - 2026-08-06
+
+Fix the database-wedging bug for real this time (context cancellation).
+
+- The previous release's fix addressed one code smell but the underlying database lockup ("cannot start a transaction within a transaction", every save silently failing) recurred, this time confirmed live while setting an interface's role (e.g. to dhcp_wan). Root cause: several database write operations -- live-poll's interface sync (running every ~6 seconds), the role-change reconcile behind setting dhcp_wan/pppoe_wan/etc., the "Detect" button, and VLAN creation -- used the browser request's own context for a multi-statement transaction. If that request got canceled mid-flight (tab switch, navigation, an overlapping poll), the transaction could be abandoned in a way that left the agent's single database connection stuck for every future request.
+- These operations now use an internal context that can't be canceled by the browser, matching a defensive pattern already used elsewhere in the same code for the same reason.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `1665bf74`.
+
 ## v0.4.50 - 2026-08-03
 
 Fix a leaked-transaction code smell that could wedge the database.

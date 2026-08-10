@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.53",
+  "latest": "0.4.54",
   "released_at": "2026-08-10",
-  "notes": "Fixed an unvalidated LAN gateway save silently breaking every later DHCP/bridge apply, and the dhcp_wan watchdog missing stale/expired leases.",
+  "notes": "Added support contact info in the Web Admin topbar, refreshed Dashboard system stats every 800ms, and displayed CPU model, clock speed, and core count under the CPU gauge.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

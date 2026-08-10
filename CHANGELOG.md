@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.54 - 2026-08-10
+
+Add admin support contact info and improve Dashboard system stats visibility.
+
+- The Web Admin topbar now shows support contact info with a Telegram link and Facebook name, so admins can find the support channel directly from the router UI.
+- Dashboard system stats now refresh every 800ms instead of 1500ms for snappier CPU/RAM/disk feedback; the data source is still lightweight `/proc` reads.
+- The CPU gauge now also shows the detected CPU model, clock speed, and logical core count from `/proc/cpuinfo`.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `8819feaf150866d313b83855b7217435daed139a`.
+
 ## v0.4.53 - 2026-08-10
 
 Fix LAN gateway save breaking DHCP/bridge applies, dhcp_wan watchdog missing stale leases, and other admin-reported bugs.

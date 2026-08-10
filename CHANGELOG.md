@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.55 - 2026-08-11
+
+Fix DHCP WAN links getting a valid lease but remaining unable to reach the internet.
+
+- A `dhcp_wan` interface could receive a working IP address and gateway from DHCP yet remain stuck with a gateway-less policy-routing default route, causing all traffic through that WAN to fail. The router now recovers the gateway directly from the interface's dhclient lease when it is missing from both the database and current route, installs the correct `via` route, and saves the learned gateway so it appears in the admin UI and remains available for future reconciles.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `0fa28887ddff93adbf22c731de207fcce070a79c`.
+
 ## v0.4.54 - 2026-08-10
 
 Add admin support contact info and improve Dashboard system stats visibility.

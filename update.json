@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.52",
-  "released_at": "2026-08-06",
-  "notes": "Fixed \"flash ISO to a different disk\" always showing an empty disk list on real routers -- a data-format mismatch reading lsblk's output made disk detection silently fail every time.",
+  "latest": "0.4.53",
+  "released_at": "2026-08-10",
+  "notes": "Fixed an unvalidated LAN gateway save silently breaking every later DHCP/bridge apply, and the dhcp_wan watchdog missing stale/expired leases.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

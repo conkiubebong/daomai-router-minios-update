@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.53 - 2026-08-10
+
+Fix LAN gateway save breaking DHCP/bridge applies, dhcp_wan watchdog missing stale leases, and other admin-reported bugs.
+
+- `PUT /settings` persisted `dhcp_gateway` with no validation. An unparseable value silently broke every later DHCP/LAN-bridge apply for the rest of the admin's session -- confirmed live. The gateway is now validated before it's saved, and an invalid value is rejected outright instead of corrupting later applies. The DHCP panel in the web UI also now refreshes after a successful save; previously a successful save could look like it had no effect until the admin navigated away and back.
+- The `dhcp_wan` background watchdog only forced a renew when an interface had completely lost its IPv4 address, so a stale/expired-but-still-present lease was never noticed or renewed. It now also checks the interface's own dhclient lease-file expiry. Also fixed a race where changing an interface's role away from `dhcp_wan` could release dhclient without holding the same per-interface lock the renew path uses.
+- The "flash ISO to a different disk" admin feature now triggers a best-effort USB rescan before listing disks, so a drive plugged in after boot is more likely to show up without a reboot. A live investigation on an actual test router found the existing disk-listing code already parses real `lsblk` output correctly -- the reported symptom on that unit turned out to be a hardware/connection issue, not a software defect; the rescan is a genuine defensive improvement, not a fix for a confirmed bug.
+- Investigated a reported "DNS Proxy settings don't save" issue; could not reproduce a backend defect after tracing the full save path and testing a live create/update/read round trip directly against a running test router (everything persisted correctly). Added a permanent regression test as a guard.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `fc88f8738e70ffea24df8f3e4400cea251bf14ba`.
+
 ## v0.4.52 - 2026-08-06
 
 Fix "flash ISO to a different disk" never listing any disks.

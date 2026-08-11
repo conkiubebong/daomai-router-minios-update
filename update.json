@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.55",
+  "latest": "0.4.56",
   "released_at": "2026-08-11",
-  "notes": "Fixed DHCP WAN links receiving a valid lease but remaining offline because their policy-routing default route had no gateway; the router now recovers and persists the gateway directly from the dhclient lease.",
+  "notes": "Fixed two already-known DHCP clients swapping IP addresses in one lease snapshot causing one client's saved mode, proxy assignment, bandwidth limits, group, comment, and other settings to be reset; relocating clients are now updated in place with their configuration preserved.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

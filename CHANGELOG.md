@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.56 - 2026-08-11
+
+Fix known DHCP clients losing their saved routing and device settings when they swap IP addresses.
+
+- When two already-known dynamic clients renewed into each other's previous IP addresses in the same dnsmasq lease snapshot, one client could be deleted and recreated with new-device defaults. This silently reset its mode (for example, `proxy` to `direct`), proxy assignment, bandwidth limits, group, comment, and other saved settings. The lease importer now recognizes both clients as relocating within the same snapshot and updates them in place, preserving their existing configuration regardless of lease-file line order; genuinely stale address claimants are still removed normally.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `b9124c29d248b3780f6e1004649a65eefdfe3cbb`.
+
 ## v0.4.55 - 2026-08-11
 
 Fix DHCP WAN links getting a valid lease but remaining unable to reach the internet.

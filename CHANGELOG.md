@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.57 - 2026-08-14
+
+Add clear confirmation and duplicate warnings when reusing or bulk-importing proxies.
+
+- Mobile Self-Service now detects when an entered proxy is already assigned to other devices and shows their names and IP addresses before saving. Confirming shares the same existing proxy without creating a duplicate; declining leaves the entered proxy line untouched and saves nothing.
+- Proxy Pool bulk paste now warns before importing when a proxy is repeated in the pasted list or already exists in the pool, listing each affected `host:port` and its occurrence count. Import behavior is unchanged: duplicates are still skipped.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `bda326b50d92600071249b7180f29ca5d76d0f97`.
+
 ## v0.4.56 - 2026-08-11
 
 Fix known DHCP clients losing their saved routing and device settings when they swap IP addresses.

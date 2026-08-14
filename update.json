@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.57",
+  "latest": "0.4.58",
   "released_at": "2026-08-14",
-  "notes": "Mobile Self-Service now asks before sharing a proxy already used by other devices and reuses the existing proxy after confirmation; Proxy Pool bulk paste now warns before import with each repeated or already-existing proxy and its occurrence count while keeping the same duplicate-skipping behavior.",
+  "notes": "The Internet tab's New Client Policy panel now uses configurable mixed-mode and dynamic-IP defaults, consolidates internet blocking into the exit-route selector or blocked mode, and presents the settings in a clearer single-column layout; the same defaults apply to API-created and automatically discovered clients.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

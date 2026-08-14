@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.58 - 2026-08-14
+
+Redesign the Internet tab's New Client Policy panel and make new devices usable immediately by default.
+
+- New clients now default to `mixed` mode with dynamic IPs, so both direct and proxied traffic work without an admin editing each device first. Both defaults are configurable in the redesigned panel.
+- Removed the redundant "Allow new IPs online" toggle. The exit-route selector now controls the same policy directly: choose `No_Internet` to block new devices, or explicitly choose `blocked` mode when a real default exit route is configured.
+- Renamed the exit-route field for clarity and changed the panel to a clean single-column layout for the added mode and IP-type controls.
+- The same defaults now apply consistently whether a client is created through the admin API or discovered automatically from DHCP leases and network neighbors.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `36143e61a295a77391d3a658b05f690639e35435`.
+
 ## v0.4.57 - 2026-08-14
 
 Add clear confirmation and duplicate warnings when reusing or bulk-importing proxies.

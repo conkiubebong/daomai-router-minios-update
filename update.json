@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.58",
-  "released_at": "2026-08-14",
-  "notes": "The Internet tab's New Client Policy panel now uses configurable mixed-mode and dynamic-IP defaults, consolidates internet blocking into the exit-route selector or blocked mode, and presents the settings in a clearer single-column layout; the same defaults apply to API-created and automatically discovered clients.",
+  "latest": "0.4.59",
+  "released_at": "2026-08-16",
+  "notes": "Add per-client Bypass Proxy: a new Bypass Proxy tab captures domains a proxied device visits (via sing-box's live connection sniffing) and lets an admin save them as reusable named bypass lists; a new Clients-tab column and a New Client Policy default let each device (or newly discovered devices) skip the upstream proxy for chosen domains, enforced directly inside sing-box's own routing rules.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

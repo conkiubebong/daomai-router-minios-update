@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.59 - 2026-08-16
+
+Add per-client Bypass Proxy: exempt chosen domains from a device's upstream proxy.
+
+- New **Bypass Proxy** tab: paste a device's LAN IP and start a live capture session. The router watches that device's already-proxied connections (via sing-box's own per-connection domain sniffing) and streams visited domains into a log, newest first, with an adjustable row cap and a clear-log control. Any domain can be added to a staging list and saved as a named, reusable bypass list; saved lists can be edited (one domain per line) or deleted.
+- New **Bypass Proxy** column on the Clients tab: a checkbox plus a target selector (off / a private custom domain list for that device / any saved bypass list) per device.
+- The Internet tab's New Client Policy panel gained a matching Bypass Proxy default, so newly discovered devices can automatically inherit a bypass list.
+- Enforcement happens inside sing-box itself: for a bypassed client, matching domains route directly instead of through the upstream proxy, reusing the SNI sniffing already active on the tproxy inbound -- no separate DNS-log tailing or ipset/nftables plumbing required. Capture requires the target device to already be in proxy mode, since only proxied traffic reaches sing-box's sniffing point.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `82e391746c218f0e2b57ffcb5d0d6d69cc7e7873`.
+
 ## v0.4.58 - 2026-08-14
 
 Redesign the Internet tab's New Client Policy panel and make new devices usable immediately by default.

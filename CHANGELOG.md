@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.60 - 2026-08-18
+
+Fix silent NAT-port data loss on power-loss reboot and a stale NAT ports popup.
+
+- The persist-to-USB snapshot (survives a `toram` reboot) and the manual "Create backup" feature both ran SQLite's `VACUUM INTO` on a separate connection with no `busy_timeout`, so a snapshot could fail instantly with `database is locked (SQLITE_BUSY)` whenever it raced the router's own background writes -- confirmed live on a real unit. Repeated silent failures meant the last successfully persisted snapshot could be much older than expected, so a NAT port (or other recent change) added hours earlier could be missing after an unclean power-loss reboot even though the rest of that client's settings were untouched. Both snapshot paths now set a 5-second `busy_timeout` before `VACUUM INTO`, and the persist retry loop now waits briefly between attempts instead of retrying back-to-back.
+- The per-client NAT ports popup rendered from data captured when the client table row was last built, so reopening it after an out-of-band change (including the exact data-loss scenario above) could show stale enable/disable state, or make adding a port that had actually been lost look like a no-op. It now always fetches the client's current data before rendering.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `a8eb49383bfceb70ea55d61fc6ed15c5f6d24d2f`.
+
 ## v0.4.59 - 2026-08-16
 
 Add per-client Bypass Proxy: exempt chosen domains from a device's upstream proxy.

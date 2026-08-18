@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4.66 - 2026-08-18
+
+Fix LAN NAT hairpin reply traffic also being policy-routed out the wrong WAN.
+
+- v0.4.65 fixed the forward leg of hairpin NAT (a LAN client's request to the router's own public IP). This release fixes the matching reply leg: the LAN target's reply packet is itself sourced from a registered client with its own assigned WAN egress, so it was being sent down that egress's policy-routing table too -- which has no route back to the LAN -- instead of back to the original requester.
+- Confirmed live end-to-end: a raw TCP connect to a RustDesk-style port-forward via the DDNS hostname from a LAN client now succeeds, where it previously stuck at a half-open TCP handshake indefinitely.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `4b9f9c6b38218f0e2b57ffcb5d0d6d69cc7e7873`.
+
+## v0.4.65 - 2026-08-18
+
+Fix LAN NAT hairpin (loopback) traffic timing out despite correct DNAT/masquerade rules.
+
+- The v0.4.64 hairpin feature's DNAT and masquerade rules were both correct, but `mark_egress` (which runs before DNAT, at a higher network-stack priority) was policy-routing a LAN client's hairpin request out that client's own assigned WAN egress table before DNAT ever rewrote the destination to the LAN target -- that WAN table has no route back to the local LAN subnet. `mark_egress` now skips fwmark assignment for the exact (public IP, protocol, port) combinations the hairpin DNAT rule itself targets.
+- Confirmed live via a real RustDesk port-forward test; this release fixed the request leg only -- see v0.4.66 for the matching reply-leg fix found in the same test.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `3b2288e3c5218f0e2b57ffcb5d0d6d69cc7e7873`.
+
 ## v0.4.64 - 2026-08-19
 
 Add opt-in LAN NAT loopback (hairpin NAT).

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.63",
+  "latest": "0.4.64",
   "released_at": "2026-08-18",
-  "notes": "Fix NAT popup UDP/comment metadata being dropped across the client update database round-trip.",
+  "notes": "Add an opt-in LAN NAT loopback switch in Internet → DNS Proxy for testing public DDNS/NAT addresses from inside the LAN.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

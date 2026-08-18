@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.64 - 2026-08-19
+
+Add opt-in LAN NAT loopback (hairpin NAT).
+
+- Internet → DNS Proxy now has a switch before “+ Thêm DNS Proxy”. When enabled, LAN clients can reach the router's current public NAT address/DDNS and receive replies correctly.
+- Rules are scoped to DNATed LAN flows and the current WAN public IP; default is off.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `06776f19`.
+
 ## v0.4.63 - 2026-08-19
 
 Fix NAT popup metadata being dropped during client updates.

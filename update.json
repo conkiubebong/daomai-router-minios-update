@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.62",
+  "latest": "0.4.63",
   "released_at": "2026-08-18",
-  "notes": "Fix PPPoE proxy duplication so cloned proxies retain UDP relay settings, and fix NAT popup note/UDP persistence.",
+  "notes": "Fix NAT popup UDP/comment metadata being dropped across the client update database round-trip.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.63 - 2026-08-19
+
+Fix NAT popup metadata being dropped during client updates.
+
+- Preserve per-port NAT notes and UDP toggles across the client update database round-trip.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `dbd11410`.
+
 ## v0.4.62 - 2026-08-18
 
 Fix PPPoE proxy duplication and NAT popup persistence.

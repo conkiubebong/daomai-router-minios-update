@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.62 - 2026-08-18
+
+Fix PPPoE proxy duplication and NAT popup persistence.
+
+- PPPoE duplication copies the source proxy's UDP relay setting.
+- NAT popup notes and UDP toggles persist per port and reload correctly.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `5e032ebf1d23d18d2b5bebe98d0711a66f6322e8`.
+
 ## v0.4.61 - 2026-08-18
 
 Add per-port comment and UDP toggle to NAT ports, and a hot-update safety net.

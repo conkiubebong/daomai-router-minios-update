@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.61",
+  "latest": "0.4.62",
   "released_at": "2026-08-18",
-  "notes": "Add per-port comment and UDP toggle to the Clients-tab NAT ports popup (for tools like RustDesk that need both TCP and UDP on the same port), and a hot-update safety net: daomai-agent now verifies a downloaded update zip's agent binary and web UI actually match before committing to the swap, so a mismatched release package fails cleanly with rollback instead of silently rebooting the router. Also fixes SQLite snapshot lock contention and a stale NAT ports popup.",
+  "notes": "Fix PPPoE proxy duplication so cloned proxies retain UDP relay settings, and fix NAT popup note/UDP persistence.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

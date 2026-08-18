@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.61 - 2026-08-18
+
+Add per-port comment and UDP toggle to NAT ports, and a hot-update safety net.
+
+- The per-client NAT ports popup (Clients tab) now has a free-text note field per row (e.g. "RustDesk") and a UDP toggle -- enabling it forwards both TCP and UDP on that port number, matching what RustDesk and similar remote-access tools need.
+- `daomai-agent` now verifies a downloaded hot-update zip's agent binary and web UI actually match each other before committing to the swap and restarting. A mismatched release package (an operator packaging mistake, not a router bug -- this is exactly what happened with the initial v0.4.60 zip, since fixed) now fails cleanly with a clear error and automatic rollback instead of silently rebooting the router about 30 seconds after the update appeared to succeed.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `0761aa2860218f0e2b57ffcb5d0d6d69cc7e7873`.
+
 ## v0.4.60 - 2026-08-18
 
 Fix silent NAT-port data loss on power-loss reboot and a stale NAT ports popup.

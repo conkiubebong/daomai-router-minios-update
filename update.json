@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.60",
+  "latest": "0.4.61",
   "released_at": "2026-08-18",
-  "notes": "Fix silent NAT-port data loss and a stale NAT popup after a router reboot: SQLite VACUUM INTO snapshots (auto-persist and manual backup) now set a busy_timeout so a lock race no longer fails the snapshot outright, and the NAT ports popup now always fetches fresh data before showing enable/disable state.",
+  "notes": "Add per-port comment and UDP toggle to the Clients-tab NAT ports popup (for tools like RustDesk that need both TCP and UDP on the same port), and a hot-update safety net: daomai-agent now verifies a downloaded update zip's agent binary and web UI actually match before committing to the swap, so a mismatched release package fails cleanly with rollback instead of silently rebooting the router. Also fixes SQLite snapshot lock contention and a stale NAT ports popup.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

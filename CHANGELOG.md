@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.71 - 2026-08-22
+
+Fix client traffic leaking through the main routing table for a disconnected egress.
+
+- `applyPolicyRouting` used to skip a pppoe egress entirely (no `ip rule`/route table installed at all) whenever it had never dialed successfully. nftables' `mark_egress` still fwmarks that egress's clients' traffic regardless, so with no matching policy-routing rule, Linux silently falls through to the next rule (the main table) instead of failing outright -- if the main table happens to have any other default route, that client's traffic leaks out through it instead of correctly having no internet, since Linux policy routing has no "no route for this mark" failure mode. A disconnected pppoe egress now still gets its `ip rule` installed, with an explicit `ip route replace unreachable default table <N>` placeholder so fwmark'd traffic is definitively rejected instead of silently leaking elsewhere. Once pppd actually connects, the existing ip-up hook's own route replace naturally overwrites this placeholder with the real one.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `90b2d18fcc2a2c48adfc4b3cb478c8bf579abdb8`.
+
 ## v0.4.70 - 2026-08-22
 
 Fix false-online PPPoE status and a misleading DDNS rotate error.

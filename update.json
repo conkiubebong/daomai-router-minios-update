@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.70",
+  "latest": "0.4.71",
   "released_at": "2026-08-22",
-  "notes": "Fix egresscheck falsely reporting a never-connected PPPoE session as online (a probe success for a pppoe egress with no live runtime interface is no longer trusted), and stop the PPPoE rotate button from showing a misleading DDNS error when no update_url is configured.",
+  "notes": "Fix client traffic silently leaking through the main routing table when a client's assigned pppoe egress has no live connection -- a disconnected pppoe egress now gets an explicit unreachable-route placeholder so its traffic is rejected instead of leaking out whatever other route the box happens to have.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

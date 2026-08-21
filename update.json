@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.66",
-  "released_at": "2026-08-18",
-  "notes": "Fix LAN NAT hairpin (loopback) traffic timing out end-to-end even though the v0.4.64 DNAT/masquerade rules were correct: mark_egress was policy-routing both the forward and reply legs out the wrong WAN egress table before DNAT/un-NAT ever ran. Confirmed live with a real RustDesk port-forward test via DDNS from a LAN client.",
+  "latest": "0.4.67",
+  "released_at": "2026-08-21",
+  "notes": "Fix mobile self-service proxy_line required error resurfacing when the mode field is hidden; copy PPPoE ServiceName when duplicating a session (needed by some ISPs, confirmed live: Viettel); add per-session MAC virtualization (macvlan) scoped to ISP=viettel PPPoE accounts only, FPT/VNPT dial unchanged.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

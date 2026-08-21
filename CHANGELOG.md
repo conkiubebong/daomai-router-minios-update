@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.67 - 2026-08-21
+
+Fix mobile self-service proxy_line bug, copy PPPoE ServiceName on duplicate, add per-session MAC virtualization for Viettel.
+
+- `mobile_hide_mode_enabled` couldn't persist (missing from the settings allowlist), and even once set, `UpdateSelf` still rejected an empty proxy_line for proxy/mixed clients even though the mode selector was hidden from the user -- this resurfaced "proxy_line required" on every save, including ones that never touched the proxy line.
+- PPPoE session duplication now also copies `ServiceName`: some ISPs (confirmed live: Viettel, via a real Mikrotik reference config) key PPPoE session admission on the PADI Service-Name tag, and a clone that silently dropped it back to empty failed to dial on those lines.
+- Added per-session MAC virtualization (macvlan), scoped to `isp = "viettel"` PPPoE accounts only per live confirmation that FPT/VNPT dial the shared physical/VLAN interface fine as-is: each duplicated Viettel session gets its own macvlan device with a random locally-administered MAC instead of sharing the parent WAN port's real MAC. New ISP dropdown on the PPPoE admin form.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `5973872b42e587ff63fabca65ba45d90aa3a5ff0`.
+
 ## v0.4.66 - 2026-08-18
 
 Fix LAN NAT hairpin reply traffic also being policy-routed out the wrong WAN.

@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.68 - 2026-08-21
+
+Fix ISO-update database backup safety, PPPoE REST locking, and mobile self-service validation.
+
+- Coordinate the periodic persistence loop with ISO updates and use the checked SQLite snapshot path for the pre-flash database backup, preventing a race while the persistence partition is unmounted or rewritten.
+- Hold `pppoeMu` in the direct PPPoE REST create, update, and delete handlers so they cannot race apply, duplicate, delete, or finalize operations.
+- Relax mobile self-service `proxy_line` validation when a save is not changing the proxy line, avoiding false validation failures for existing proxy or mixed clients.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `c3511b6714d81b84113a9f6a5a60c166ee34d2be`.
+
 ## v0.4.67 - 2026-08-21
 
 Fix mobile self-service proxy_line bug, copy PPPoE ServiceName on duplicate, add per-session MAC virtualization for Viettel.

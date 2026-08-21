@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.69",
+  "latest": "0.4.70",
   "released_at": "2026-08-22",
-  "notes": "Fix silent PPPoE macvlan-creation failures (now surfaced instead of swallowed), fix the admin UI showing the wrong MAC for duplicated Viettel sessions, make PPPoE accounts inherit ISP from their physical/VLAN interface automatically, and enable LAN NAT hairpin (loopback) by default for new installs.",
+  "notes": "Fix egresscheck falsely reporting a never-connected PPPoE session as online (a probe success for a pppoe egress with no live runtime interface is no longer trusted), and stop the PPPoE rotate button from showing a misleading DDNS error when no update_url is configured.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

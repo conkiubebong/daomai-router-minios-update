@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.70 - 2026-08-22
+
+Fix false-online PPPoE status and a misleading DDNS rotate error.
+
+- `egresscheck` used to trust a successful public-IP probe even for a pppoe egress with no live runtime interface. A pppoe session whose pppd never actually connected has no ip-up-hook-installed policy-routing rule of its own yet, so a SO_MARK'd probe for that egress's fwmark silently fell through to the kernel's main routing table (Linux policy routing has no "no route for this mark" failure) and could report success via a completely unrelated network path -- confirmed live: a PPPoE session stuck retrying PPPoE Discovery forever still showed "online" with a public IP. A probe success for a pppoe egress with no live runtime interface is now never trusted, regardless of what the probe itself returned.
+- The PPPoE rotate button's best-effort DDNS update-IP call now skips entirely when the associated DNS Proxy has no `update_url` configured (a normal, valid state) instead of surfacing a "no update_url configured" error toast unrelated to whether the rotate itself succeeded.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `3cc7e73c7cc1267b065f96702809ad74faaf609a`.
+
 ## v0.4.69 - 2026-08-22
 
 Fix PPPoE macvlan reliability and MAC display, add ISP auto-inheritance, enable NAT hairpin by default.

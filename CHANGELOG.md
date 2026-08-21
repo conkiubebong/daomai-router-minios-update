@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.69 - 2026-08-22
+
+Fix PPPoE macvlan reliability and MAC display, add ISP auto-inheritance, enable NAT hairpin by default.
+
+- `applyPPPoEAccountLocked`/`duplicatePPPoESessionOne` used to silently ignore a failed macvlan device creation and still start pppd and report success -- a duplicated Viettel session that failed to get its virtual interface looked identical to a working one. Now surfaces the real failure instead of pretending it worked.
+- The admin UI's "MAC:" display for each PPPoE session card was reading the shared physical/VLAN card's own MAC instead of each account's per-session virtual MAC, so every duplicated session on one card displayed the exact same MAC regardless of the underlying kernel devices -- this looked exactly like (and was mistaken live for) the MAC-virtualization feature itself being broken.
+- PPPoE accounts now inherit their ISP tag from the physical/VLAN interface they dial over when not set explicitly on the account itself. Live-confirmed root cause of Viettel MAC virtualization never engaging: `isp` on the interface (the pre-existing control that already requires a tagged VLAN for Viettel) and `isp` on the PPPoE account are two separate fields -- an admin who only ever tagged the interface got every account silently landing with no virtual MAC at all.
+- LAN NAT hairpin (loopback) is now enabled by default for new/unset installs instead of requiring an explicit opt-in toggle.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `63d713b245310d9d97343411b0cab7848080a3b6`.
+
 ## v0.4.68 - 2026-08-21
 
 Fix ISO-update database backup safety, PPPoE REST locking, and mobile self-service validation.

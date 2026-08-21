@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.68",
-  "released_at": "2026-08-21",
-  "notes": "Fix the ISO-update database backup race by coordinating persistence writes and using a checked SQLite snapshot, close the pppoeMu locking gap in direct PPPoE REST handlers, and relax mobile self-service proxy_line validation when the request is not changing the proxy line.",
+  "latest": "0.4.69",
+  "released_at": "2026-08-22",
+  "notes": "Fix silent PPPoE macvlan-creation failures (now surfaced instead of swallowed), fix the admin UI showing the wrong MAC for duplicated Viettel sessions, make PPPoE accounts inherit ISP from their physical/VLAN interface automatically, and enable LAN NAT hairpin (loopback) by default for new installs.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

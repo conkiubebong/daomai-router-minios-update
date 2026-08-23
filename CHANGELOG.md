@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.73 - 2026-08-23
+
+Fix UEFI machines failing to boot after a self-triggered ISO update.
+
+- Writing a new ISO onto the currently-booted disk in place with `dd` changes that disk's partition UUIDs/signature even though the file contents are otherwise identical to before. Some UEFI firmware pins its existing NVRAM boot entry to the OLD UUID, so after a self-triggered "Update ISO" that entry still shows in the firmware's boot menu (the label is stored separately from the UUID it targets) but fails to actually resolve when selected, bouncing back to firmware setup instead of booting -- confirmed live on a real UEFI machine, while writing the identical image externally via Rufus/Etcher (never touches NVRAM) was unaffected. The agent now refreshes the UEFI boot entry right after writing the new ISO: deletes any of its own prior entry, then creates a fresh one pointing at the newly-written EFI System Partition. Best-effort only -- never fails the update, and does nothing on non-UEFI machines.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `87665c44c036591087f64335226c05fd4e4cfb88`.
+
 ## v0.4.72 - 2026-08-23
 
 Split Viettel VLAN handling, fix dhcp_wan local IP sync, stop auto-creating placeholder PPPoE sessions.

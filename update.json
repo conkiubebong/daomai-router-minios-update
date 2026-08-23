@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.71",
-  "released_at": "2026-08-22",
-  "notes": "Fix client traffic silently leaking through the main routing table when a client's assigned pppoe egress has no live connection -- a disconnected pppoe egress now gets an explicit unreachable-route placeholder so its traffic is rejected instead of leaking out whatever other route the box happens to have.",
+  "latest": "0.4.72",
+  "released_at": "2026-08-23",
+  "notes": "Split the interface ISP dropdown Viettel option into direct-dial and VLAN-required variants, fix dhcp_wan egress local IP never syncing from the live DHCP lease, and stop auto-materializing an empty PPPoE session when switching a port to pppoe_wan.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

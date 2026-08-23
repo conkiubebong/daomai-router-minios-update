@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.72 - 2026-08-23
+
+Split Viettel VLAN handling, fix dhcp_wan local IP sync, stop auto-creating placeholder PPPoE sessions.
+
+- The interface ISP dropdown forced "Viettel" to always mean "needs a tagged VLAN sub-interface", hiding the session-management UI entirely until a VLAN was created -- live testing confirmed Viettel can also dial directly on the physical port (no VLAN needed) given a unique per-session MAC. Split into "viettel" (direct) and "viettel_vlan35" (needs VLAN first); both still get macvlan MAC virtualization, only the VLAN requirement differs.
+- `egress.local_ip` for `dhcp_wan` never got synced from the live DHCP lease -- confirmed live, switching a port to `dhcp_wan` left the egress form's Local IP field permanently blank despite a real lease being active. `applyPolicyRouting` now syncs it, mirroring the existing gateway fallback.
+- Switching an interface to `pppoe_wan` and saving used to retype a leftover egress in place, auto-materializing an empty, credential-less PPPoE session card with no way to make it not appear short of deleting it again. A pppoe egress now only ever comes from the explicit "+ Thêm phiên PPPoE" action.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `e39928b403a5d59c678da5be0b84f1bf57063438`.
+
 ## v0.4.71 - 2026-08-22
 
 Fix client traffic leaking through the main routing table for a disconnected egress.

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.79",
+  "latest": "0.4.80",
   "released_at": "2026-09-07",
-  "notes": "Fixes an ISO write that could fail immediately with \"database is locked\", and adds a Rufus-style install mode: format the target disk with a partition table of your choice (MBR or GPT), lay the system out on it, and give the whole remaining disk to configuration storage instead of scavenging leftover space. The current configuration is copied across, so the installed disk boots already configured.",
+  "notes": "Fixes the ISO write failing with \"database is locked\" -- properly this time, by taking the snapshot through the agent's own connection instead of a second one that fights it for the lock. Also makes LAN scan isolation actually block: its rule was in a netfilter hook that bridged phone-to-phone traffic never reaches, and it now drops ARP as well as IP, because host discovery on a local subnet is ARP.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

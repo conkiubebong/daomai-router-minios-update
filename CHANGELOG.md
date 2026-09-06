@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.80 - 2026-09-07
+
+The ISO write really works now, and LAN scan isolation blocks something for the first time.
+
+- v0.4.79 did not fix the ISO write. The same error came straight back: `Ghi ISO loi o buoc backup-db: backup router.db failed: snapshot: database is locked (5) (SQLITE_BUSY)`. That release raised the busy timeout from 5 to 30 seconds, treating the symptom as impatience. It is not. The snapshot opened a SECOND, independent connection to router.db and competed with the agent's own connection for the file lock -- and the database is not in WAL mode, so a writer holds an EXCLUSIVE lock that blocks readers outright, while roughly nine tickers write every few seconds. During an ISO update, when this matters most, there may be no quiet moment to wait for at all; a longer wait only makes the losing wait longer.
+- The snapshot now runs through the agent's own handle, which is pinned to a single connection, so the VACUUM queues behind the agent's other statements instead of competing with them. Two statements on one connection cannot deadlock, so the conflict does not have to be waited out -- it cannot occur. The previous fix also shipped with a test that could not have caught this (it held one lock briefly, which a retry loop rides out either way); the new tests write continuously for the whole snapshot, the way the real tickers do, and were checked against a build with the fix disabled, where both fail.
+- LAN scan isolation blocked nothing at all. The switch put its rule in the ip family's forward hook, but every phone sits on br-phone in one subnet, so a phone reaching another phone resolves its MAC by ARP and the frames are forwarded by the bridge at layer 2 -- that hook is never traversed. The switch saved, showed in the UI, produced a set and a rule, and isolated clients went on scanning the whole LAN. It now lives in the bridge family, where those frames actually pass; enabling br_netfilter would have worked too but pushes every LAN packet through netfilter for the sake of one rule.
+- ARP is now dropped as well as IP, and that is not an extra: host discovery on a local subnet IS ARP. `nmap -sn` from a phone never sends an IP packet to its neighbours, it ARPs each address and lists whoever answers, so blocking IP alone would still have handed over a full inventory of the LAN. Requests are matched on the sender and replies on the target, and the router stays reachable both ways or the client would lose its gateway too. Verified against a running kernel: the full generated ruleset was loaded with `nft -f` and the bridge chain read back with all three rules present.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `265e71ca`.
+
 ## v0.4.79 - 2026-09-07
 
 A Rufus-style install mode with a choice of MBR or GPT, and an ISO write that no longer trips over a busy database.

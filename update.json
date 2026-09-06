@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.78",
+  "latest": "0.4.79",
   "released_at": "2026-09-07",
-  "notes": "Zip updates now survive a reboot instead of silently reverting to the version the ISO shipped -- this needs a 0.4.78-or-later ISO once, because the boot-time restore lives in the image. The Clients filter also gains a bulk advanced search: paste a list of MACs, IPs or proxies, tick several groups/modes at once, and everything filters as you type.",
+  "notes": "Fixes an ISO write that could fail immediately with \"database is locked\", and adds a Rufus-style install mode: format the target disk with a partition table of your choice (MBR or GPT), lay the system out on it, and give the whole remaining disk to configuration storage instead of scavenging leftover space. The current configuration is copied across, so the installed disk boots already configured.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

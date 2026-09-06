@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.77",
+  "latest": "0.4.78",
   "released_at": "2026-09-07",
-  "notes": "One panel now writes DaoMaiOS to a disk and picks the method itself -- download the latest ISO, or copy the running disk (no download, and it carries the current configuration). Writing a prepared ISO now asks for confirmation, and Cai update stays usable when already on the latest version.",
+  "notes": "Zip updates now survive a reboot instead of silently reverting to the version the ISO shipped -- this needs a 0.4.78-or-later ISO once, because the boot-time restore lives in the image. The Clients filter also gains a bulk advanced search: paste a list of MACs, IPs or proxies, tick several groups/modes at once, and everything filters as you type.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

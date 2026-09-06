@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.78 - 2026-09-07
+
+Zip updates survive a reboot, and the Clients tab gains a bulk advanced search.
+
+- A zip update used to be lost at every reboot. The router boots with `toram`: the root filesystem is a read-only squashfs in RAM with a tmpfs layer over it, and a zip update writes the new agent, web UI and VERSION onto that tmpfs -- so it took effect at once and was gone at the next restart, silently putting the router back on whatever version its ISO shipped. Only `router.db` survived, because that alone was copied to the persistence storage. "Zip = until you reboot, ISO = permanent" was the real difference between the two update paths and it was written down nowhere. The installed files now get the same treatment as the database, and a step running before the agent service starts puts them back.
+- Restoring an executable at every boot is a good way to build a machine that cannot be rescued, so three rules gate it. Newer only: a saved copy is used only when its version is strictly newer than the image's, so flashing a newer ISO takes over. Verified before trusted: the restored files go through the same self-check the zip update runs and are rolled back to the image's own copy if it fails. One chance: a marker is written before restoring and cleared once the agent has stayed up for three minutes, so a restore that never got that far is moved aside instead of being restored into another failed boot.
+- Note this needs the unit file, which ships in the image: a router has to be on a 0.4.78-or-later ISO once before its zip updates start persisting. Until then the save still happens and `/api/update/apply` reports when it could not, so "it will revert on restart" is no longer silent either way.
+- The Clients filter gains an advanced section, collapsed under the filter panel and opened from a link at the bottom left. Paste a list of names, MACs, local IPs, proxies, regions or bandwidths and a machine shows up if it matches any entry; wildcards still work, MACs compare separator-insensitively, and newlines, commas, spaces, semicolons and tabs all separate. Group, Internet, mode, proxy status and NAT become dropdowns of checkboxes so several values can be picked at once. IP type and status stay in the basic row, where a single combobox already covers their two and three values.
+- Everything filters as it is typed rather than waiting for the button, debounced so pasting a 300-line list costs one pass instead of one per character. The table still patches rows one at a time rather than rebuilding, which is what makes live filtering usable at all.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `6d6e4c9d`.
+
 ## v0.4.77 - 2026-09-07
 
 One disk-write panel that picks its own method, and "Cai update" stays usable on the latest version.

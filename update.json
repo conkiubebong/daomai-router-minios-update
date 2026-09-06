@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.80",
+  "latest": "0.4.81",
   "released_at": "2026-09-07",
-  "notes": "Fixes the ISO write failing with \"database is locked\" -- properly this time, by taking the snapshot through the agent's own connection instead of a second one that fights it for the lock. Also makes LAN scan isolation actually block: its rule was in a netfilter hook that bridged phone-to-phone traffic never reaches, and it now drops ARP as well as IP, because host discovery on a local subnet is ARP.",
+  "notes": "The mobile self-service page now refreshes itself instead of loading once and going stale -- without ever overwriting a field you are typing in, pausing while the page is hidden, and showing a live dot plus a flash on values that actually changed. Its look is lighter too: lifted cards on a soft gradient instead of flat grey and hard borders.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

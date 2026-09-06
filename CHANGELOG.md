@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.81 - 2026-09-07
+
+The phone page is live now, and lighter to look at.
+
+- The mobile portal was never live: it loaded once and then sat there. Everything on it is live data -- the proxy the pool assigned, the public IP after a rotate, the CPU and RAM of this device's own sing-box instance, anything an admin changes from the desktop UI -- so a phone left open showed a picture that quietly went stale, with no way to tell that it had.
+- Polling is the easy half; polling without wrecking the form is the part that needed care, because a full load writes every input and a naive timer would delete a proxy string half-typed on a phone keyboard. A field you are typing in, or have changed since the last full load, is never overwritten; read-only rows always are. Nothing refreshes while a save or rotate is in flight. Polling stops when the page is hidden -- a phone in a pocket should not be talking to the router -- and refreshes at once on return rather than showing whatever was true when it was put away. Repeated failures back off to a minute instead of hammering a router that is rebooting, and recover on the first success.
+- You can see that it is live rather than having to trust it: a value that actually changed flashes once, and a dot beside the title reads green (healthy), amber (fetching), red (refreshes failing) or grey (page in the background). Both respect `prefers-reduced-motion`.
+- One bug found while writing this: `liveRefresh` returns early while a mutation is in flight, and that early return sat before the `finally` that arms the next tick -- so a single save would have ended the live refresh for good, silently. Every exit path now reschedules.
+- Lighter look: a soft gradient ground with lifted cards instead of flat grey and hard borders, one set of CSS custom properties instead of colours scattered through the rules, softer focus rings and slightly larger touch targets, and the proxy card -- the reason the page exists -- tinted rather than being one more white box.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `02ff6305`.
+
 ## v0.4.80 - 2026-09-07
 
 The ISO write really works now, and LAN scan isolation blocks something for the first time.

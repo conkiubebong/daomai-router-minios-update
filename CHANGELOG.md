@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.76 - 2026-09-07
+
+Stop the persistence partition search from formatting the EFI partition.
+
+- `waitForNewPartition` returned "the last partition lsblk lists" and is called immediately after `partprobe`, on a disk the kernel is still re-reading. An iso-hybrid disk already has two partitions -- the ISO filesystem and the EFI System Partition -- so a poll landing before the new partition was published returned the ESP, which the caller then ran `mkfs.ext4` over. That destroys the ESP and leaves a machine that will not boot under UEFI at all, from a race whose entire purpose was to wait for the race to settle. `udevadm settle` runs first and usually wins, which is why this had not been seen in the field; installing onto another disk (v0.4.75) made it materially more reachable, because that path creates the partition seconds after `dd` rewrote the whole disk, exactly when udev is busiest. The partitions are now snapshotted before one is created, and only a name that was not there before is accepted.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `cf16524f9`.
+
 ## v0.4.75 - 2026-09-07
 
 Installing onto another disk now carries this router's configuration across.

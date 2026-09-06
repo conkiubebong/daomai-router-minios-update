@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.76",
+  "latest": "0.4.77",
   "released_at": "2026-09-07",
-  "notes": "Stop the persistence partition search from formatting the EFI partition. Polling for the newly-created partition right after partprobe could return the EFI System Partition instead, which was then formatted as ext4 -- leaving a machine that will not boot under UEFI. Recommended for anyone using the v0.4.75 install-to-another-disk flow.",
+  "notes": "One panel now writes DaoMaiOS to a disk and picks the method itself -- download the latest ISO, or copy the running disk (no download, and it carries the current configuration). Writing a prepared ISO now asks for confirmation, and Cai update stays usable when already on the latest version.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

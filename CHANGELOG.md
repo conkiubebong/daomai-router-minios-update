@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.77 - 2026-09-07
+
+One disk-write panel that picks its own method, and "Cai update" stays usable on the latest version.
+
+- The two ISO panels are now one. The split between "update the ISO on the boot disk" and "write the ISO to another disk" was a distinction in the UI that did not exist in the backend -- both call the same endpoint, differing only in whether a target disk is sent. One panel with a target picker covers both, and writing to the disk the router booted from still offers the reboot afterwards.
+- The axis that IS real is the method, so it is detected per situation and shown as a plain sentence before anything is written. Target is the boot disk: write the ISO, because a disk cannot be copied onto itself. A newer release exists: write the ISO, because cloning would just mean updating the target again straight afterwards. Release ships no ISO: clone. Already on the latest and writing to another disk: clone, because it avoids a ~330MB download into the RAM overlay and the target comes up as a working copy of this router rather than a fresh install to configure by hand. The choice can be overridden.
+- Writing a prepared ISO asked for no confirmation at all. The warning lived only in the download step that chains into the write, so declining it left the ISO prepared and the button relabelled to "write it" -- and pressing that erased a whole disk silently. The picker stayed editable in between, so the disk erased need not even be the one the earlier warning named.
+- Choosing the method with no release information read "not checked yet" as "this release has no ISO" and quietly steered to the clone path.
+- "Cai update" stays enabled when already on the latest version. Being on the right version does not mean the installed files still match that release: a rollback, an edited web file, or an integrity warning all leave the box on the right version with the wrong files, and re-installing the current release is the repair. It was refused on both sides -- the backend returned "already up to date" and the button was disabled -- leaving an admin with nothing to try.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `d64ef066`.
+
 ## v0.4.76 - 2026-09-07
 
 Stop the persistence partition search from formatting the EFI partition.

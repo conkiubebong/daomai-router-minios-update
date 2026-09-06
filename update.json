@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.73",
-  "released_at": "2026-08-23",
-  "notes": "Fix a boot failure after self-triggered ISO updates on UEFI machines: writing the new image onto the currently-booted disk in place could leave a stale NVRAM boot entry that shows in the firmware menu but fails to resolve when selected. The agent now refreshes the UEFI boot entry right after writing the new ISO.",
+  "latest": "0.4.74",
+  "released_at": "2026-09-07",
+  "notes": "Keep configuration on media written from the ISO rather than with dd: the agent now falls back to a folder on the boot medium's own filesystem, and failing that to a dedicated partition on an internal disk. Also fixes a self-update that could leave such media unbootable, validates the DHCP pool and PPPoE credentials, adds a one-URL proxy assignment API for tools, and cuts the background database-write and proxy-restart load.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.75 - 2026-09-07
+
+Installing onto another disk now carries this router's configuration across.
+
+- A router running from media written FROM the ISO keeps its configuration in a folder on the boot partition itself, so re-flashing that same stick means `dd` rewrites the filesystem holding it. Installing onto the internal disk sidesteps that entirely and leaves the USB intact as a fallback -- but it only helped if the new install came up already configured, which it did not. Writing the image to a disk other than the boot disk now gives that disk its own persistence partition, seeded with a copy of the live database. The source is only ever read, so a failed install or a wrong BIOS boot order still lands on a working router.
+- The Info tab's "write the ISO to another disk" picker preselects the internal disk and explains why, but only when the router is actually running in that boot-filesystem mode, and only for a disk that is neither the boot disk nor in use. Deliberately a suggestion the admin has to confirm rather than an automatic target: writing the image is a whole-disk `dd` that erases whatever the target held.
+- Persistence now prefers a DAOMAI-PERSIST partition on the disk it booted from. After an install both disks carry one and `blkid -L` returns whichever it finds first, so a machine booted from the internal disk could silently keep saving onto the USB -- and lose everything the moment someone unplugged it.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `5bcb79db4747854064ddd4da1b5412b81f7bbcdf`.
+
 ## v0.4.74 - 2026-09-07
 
 Keep configuration on media written from the ISO, add a one-URL proxy API for tools, and cut the background write/restart load.

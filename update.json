@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.74",
+  "latest": "0.4.75",
   "released_at": "2026-09-07",
-  "notes": "Keep configuration on media written from the ISO rather than with dd: the agent now falls back to a folder on the boot medium's own filesystem, and failing that to a dedicated partition on an internal disk. Also fixes a self-update that could leave such media unbootable, validates the DHCP pool and PPPoE credentials, adds a one-URL proxy assignment API for tools, and cuts the background database-write and proxy-restart load.",
+  "notes": "Installing onto another disk now carries this router's configuration across: the target disk gets its own persistence partition seeded from the live database, so the first boot from it comes up already configured. The Info tab suggests the internal disk when the router is running from ISO-written media, and persistence now prefers the partition on the disk it actually booted from.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.82 - 2026-09-07
+
+Browsers stop serving the previous release's interface after an update.
+
+- "I updated the router and the interface looks exactly the same" had a cause, and it was not the update failing. Neither the admin UI nor the phone portal sent any `Cache-Control` at all. With only a `Last-Modified` to go on, browsers fall back to heuristic caching: they invent a freshness lifetime of roughly a tenth of the file's age and serve from cache without asking the router anything. On a file that has not changed in a week that is hours of showing the previous release's pages.
+- Worse for the admin UI than for the phone: a zip update swaps the agent binary and the web files together, so a browser holding week-old JavaScript against a freshly swapped binary is a version mismatch nothing anywhere reports -- the UI simply behaves oddly.
+- Both now send `no-cache, must-revalidate`. Deliberately not `no-store`: the browser keeps its copy and revalidates, so an unchanged file costs a 304 with no body rather than re-downloading every script on every page load. Over a LAN that is a few milliseconds, which is the right price for never showing a stale interface.
+- Updating from an older version, this release is what fixes it going forward; one hard refresh or a private tab may still be needed to get past a copy the browser cached under the old rules.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `74028d6e`.
+
 ## v0.4.81 - 2026-09-07
 
 The phone page is live now, and lighter to look at.

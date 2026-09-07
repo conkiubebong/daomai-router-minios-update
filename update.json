@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.81",
+  "latest": "0.4.82",
   "released_at": "2026-09-07",
-  "notes": "The mobile self-service page now refreshes itself instead of loading once and going stale -- without ever overwriting a field you are typing in, pausing while the page is hidden, and showing a live dot plus a flash on values that actually changed. Its look is lighter too: lifted cards on a soft gradient instead of flat grey and hard borders.",
+  "notes": "Browsers no longer serve the previous release's interface after an update. Neither the admin UI nor the phone portal sent any Cache-Control, so browsers cached both by guesswork and could show old pages for hours -- and old JavaScript against a freshly swapped binary. Both now revalidate, while still getting a cheap 304 when nothing changed.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

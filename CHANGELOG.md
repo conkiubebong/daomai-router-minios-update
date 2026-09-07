@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.4.83 - 2026-09-07
+
+The rotate-IP button now sits where the Internet is chosen, and the admin UI is lighter.
+
+- Rotating a PPPoE address lived only in the Internet tab, which is the wrong place to look when the question is "this one phone needs a new IP". Both the client row in the admin table and the phone's own page now carry the button right beside the Internet selector they already use.
+- The button rotates the **saved** egress, not whatever is currently showing in the combobox. Restarting pppd acts on the session actually carrying traffic, so rotating a session that has been picked but not saved would do something other than what the screen shows; changing the selector disables the button until the row is saved. Before it fires, the confirmation says how many other clients share that session and will lose connectivity for a few seconds.
+- A bug this surfaced: `restartPPPoEAccount` never refreshed the stored `public_ip`. It only caught up on the next egress check, up to five minutes later, so the Internet tab's own long-standing "Xoay IP" button kept displaying the pre-rotate address long after the rotate had finished. It now starts the same background waiter the public rotate endpoint uses, and the admin row polls until the address really changes before flashing the new one into place.
+- The phone page gets `POST /api/public/self/rotate-internet`. Unauthenticated like the rest of `/api/public/self`, so it resolves the egress from the caller's own source IP and never from anything named in the request, and it is rate-limited per session -- holding the button down must not be able to keep a shared link down.
+- The admin interface is brighter and softer: a light gradient ground, gentler hairlines, pill-shaped chips, rounded panels with a shallow shadow, a tinted table header, and focus rings for keyboard use. Plain CSS, no library added, and `prefers-reduced-motion` is honoured.
+- On the phone page, proxy type, delimiter and WebRTC now share one row and the "custom" delimiter is gone.
+- One real bug found while checking the phone page: three lines of JavaScript had been left sitting above `<!doctype html>` by an earlier bad edit, so the browser rendered them as text across the top of the page. Removed -- the same code already existed correctly inside the script.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `8706a984`.
+
 ## v0.4.82 - 2026-09-07
 
 Browsers stop serving the previous release's interface after an update.

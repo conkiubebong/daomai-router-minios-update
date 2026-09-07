@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.82",
+  "latest": "0.4.83",
   "released_at": "2026-09-07",
-  "notes": "Browsers no longer serve the previous release's interface after an update. Neither the admin UI nor the phone portal sent any Cache-Control, so browsers cached both by guesswork and could show old pages for hours -- and old JavaScript against a freshly swapped binary. Both now revalidate, while still getting a cheap 304 when nothing changed.",
+  "notes": "Rotating a PPPoE address is now reachable from the Internet selector itself -- in the admin client table and on the phone portal -- instead of only from the Internet tab. The stored public IP also refreshes right after a rotate rather than up to five minutes later, so both UIs show the new address on their own. The admin interface is lighter and softer, and three stray lines of JavaScript that were being painted as text at the top of the phone page are gone.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

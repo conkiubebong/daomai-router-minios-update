@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.4.84 - 2026-09-08
+
+A client in "proxy" mode no longer goes out on the ISP's own IP when its proxy is unusable.
+
+- The Mode column has always told the operator that "proxy" means forced through a proxy. It was not forced. A client in that mode whose proxy could not be used still got fwmarked out to the WAN exactly like a direct client, so it ran on the ISP's real address at the moment the operator believed it was behind a proxy. Reading the generated ruleset shows it plainly: such a client appears only in `cli_fwmark`, with no tproxy rule anywhere.
+- Three routes reach that state and all of them are ordinary. The pool has not assigned a proxy yet, which is every phone that has just come up with proxy auto on. The proxy row was deleted -- `clients.proxy_id` is the one referencing column with no foreign key, so the id outlives the row it points at. Or the proxy exists with an empty host and port, which validation allows because it only requires a name.
+- Only "proxy" changes. "mixed" means both direct and proxied by definition, so going out direct when there is no proxy is correct there rather than a leak.
+- Three related cleanups, each of which either produced that state or left something behind. Deleting a PPPoE session deleted its companion proxy row without first clearing `clients.proxy_id`, the same step the ordinary proxy-delete path already performed. Clearing a client's proxy ran no runtime sync at all, so the orphaned sing-box instance was left running and connections already open kept flowing through the proxy -- the conntrack flush skips every client whose proxy is nil, which is exactly the set just cleared. And a mode or proxy change did not regenerate nftables unless a NAT field happened to change in the same edit, which under the new rule decides whether the client reaches the internet at all.
+- `fallback_direct` is gone from the proxy form. It was stored and updated faithfully and read by nothing, so toggling it changed nothing.
+
+PPPoE sessions can be selected and rotated from the Internet tab itself.
+
+- The tick box now sits at the head of each session row on the port card. The session table that already had one lives inside each port's "Cài đặt" panel, which is not where an operator looks when rotating a batch.
+- Each session gets an auto-rotate toggle beside its rotate button, off by default because a rotate drops every client on that session for a few seconds. The interval is entered in minutes and stored in seconds, clamped to 30 seconds at both ends -- a redial takes about eight seconds, so anything below that leaves the session dialling almost continuously.
+- Right-click selects this session, the highlighted range, every PPPoE on this port, or every PPPoE in the tab, with the matching deselects. A bar under the port list rotates whatever is ticked, or sets their interval and turns auto-rotate on for them in the same step.
+- Bulk rotate runs one session at a time. Each rotate is a pppd redial, and firing dozens at once only congests the line and hides which one failed.
+
+The icon is now DaoMai's own.
+
+- The previous one was a redrawing of a licensed super-sentai character. Editing it would not have helped, since recolouring or redrawing a protected design still produces a derivative work, and the parts that make that character recognisable are exactly the parts that would have had to stay.
+- The replacement is drawn from scratch: a red-and-gold masked figure with a five-petal apricot blossom where the crest was, and signal arcs, because the product is a router. Vector source lives in `brand/`, exported to every size the platforms ask for -- web 16 through 512 with a 180 apple-touch icon, and Android mipmaps mdpi through xxxhdpi carrying both legacy launcher bitmaps and 108dp adaptive-icon foregrounds, plus the 512 Play Store asset.
+- The phone portal served only its own page, so its new icon links would have come back as HTML. It now serves `static/img/` as well -- that directory alone.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `da0703da`.
+
 ## v0.4.83 - 2026-09-07
 
 The rotate-IP button now sits where the Internet is chosen, and the admin UI is lighter.

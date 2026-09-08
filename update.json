@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.83",
+  "latest": "0.4.84",
   "released_at": "2026-09-07",
-  "notes": "Rotating a PPPoE address is now reachable from the Internet selector itself -- in the admin client table and on the phone portal -- instead of only from the Internet tab. The stored public IP also refreshes right after a rotate rather than up to five minutes later, so both UIs show the new address on their own. The admin interface is lighter and softer, and three stray lines of JavaScript that were being painted as text at the top of the phone page are gone.",
+  "notes": "A client set to mode \"proxy\" whose proxy was unusable -- not yet assigned by the pool, deleted, or saved with an empty host -- still went out to the WAN on the ISP's own IP, exactly like a direct client, while the Mode column said \"forced through proxy\". It is now blocked instead. PPPoE sessions can be ticked and rotated straight from the Internet tab, with an optional per-session auto-rotate timer. The icon is a new original mascot, exported at every web and Android size.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

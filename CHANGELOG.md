@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4.85 - 2026-09-10
+
+Three faults that only show up once a port carries more than one PPPoE session.
+
+- Every session on a port reported the same traffic. The per-egress counters were read from `egress.IfName`, which for PPPoE is the physical port (`enp7s0`) that every session on that line shares -- so each session was shown the whole port's total, identical numbers and identical graphs. A session gets its own interface once it dials (`ppp0`, `ppp1`), recorded in `runtime_ifname`, and that is where the counters have to come from. A session that has never dialled now reads zero instead of borrowing another session's traffic.
+- Reading that code turned up a second problem beside it: a single egress whose counter could not be read -- one undialled PPPoE session was enough -- flipped the whole snapshot into demo mode, so egresses that were genuinely running got replaced by invented graphs with nothing on screen to say so. Demo numbers now require `/sys/class/net` to be missing altogether, which is the case they were written for.
+- The command log grew without limit. Every shell command the agent runs inserts a row carrying its stdout and stderr, up to 8000 bytes each, and nothing ever deleted any of it. A burst of bulk work -- duplicating or deleting a few dozen PPPoE sessions -- writes thousands of rows in minutes, and on a router booted `toram` with a small persist partition that is exactly the road to the disk-write error being reported. The newest 2000 rows are kept, and a large trim is followed by a vacuum, because `DELETE` alone leaves the pages on the free list and hands no RAM back.
+- Duplicating sessions in bulk redid the whole list's work each time. Creating one session called `pppoe.Generate` over every existing account -- three files written per account, per call -- rebuilt the combined secrets from scratch, and ran a global `systemctl daemon-reload`. Creating the Nth session therefore cost N, so creating 100 came to roughly 15,150 file writes and 100 daemon-reloads, which is what made the last requests of a large batch time out and left the UI reporting server errors. During a batch each session now writes only its own three files; the shared work -- secrets, one daemon-reload, then starting the sessions that were queued -- happens once in the finalize step that already existed. That is 300 writes and one reload for the same 100 sessions.
+
+Two build-side repairs that a rebuilt build server exposed.
+
+- The image now installs `debian-archive-keyring`, so a router can run `apt update` on its own.
+- The offline apt cache in `vendor/` was stale: 49 packages, missing `efibootmgr`, `syslinux` and `dosfstools`, which were added to the package list when the Rufus-style install mode was written. `OFFLINE=1` -- the switch that exists precisely for building without a mirror -- could therefore not build at all, and nobody noticed because the build server always had network and an accumulated cache. Those packages and their dependencies are now in the cache.
+- This ISO was built in offline mode, so it carries kernel 6.1.0-51 from that cache rather than 6.1.0-53. Same Debian bookworm 6.1.0 line and it boots normally; it is why this image is about 40MB smaller than 0.4.84.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `935ba310`.
+
 ## v0.4.84 - 2026-09-08
 
 A client in "proxy" mode no longer goes out on the ISP's own IP when its proxy is unusable.

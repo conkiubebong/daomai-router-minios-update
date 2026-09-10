@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.84",
-  "released_at": "2026-09-07",
-  "notes": "A client set to mode \"proxy\" whose proxy was unusable -- not yet assigned by the pool, deleted, or saved with an empty host -- still went out to the WAN on the ISP's own IP, exactly like a direct client, while the Mode column said \"forced through proxy\". It is now blocked instead. PPPoE sessions can be ticked and rotated straight from the Internet tab, with an optional per-session auto-rotate timer. The icon is a new original mascot, exported at every web and Android size.",
+  "latest": "0.4.85",
+  "released_at": "2026-09-10",
+  "notes": "Every PPPoE session on a port reported the same traffic: the counters were read from the physical port they all share, so each session was shown the whole port's total. They now count on their own ppp interface. The command log grew without limit and was the road to the disk-write error seen after bulk PPPoE work; it is now capped at the newest 2000 rows. Duplicating sessions in bulk redid the whole list's work every time -- creating 100 sessions cost about 15,150 file writes and 100 daemon-reloads, now 300 writes and one reload.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

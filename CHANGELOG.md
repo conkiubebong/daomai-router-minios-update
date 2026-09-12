@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.4.86 - 2026-09-12
+
+Restoring a backup then rebooting came back with the old data.
+
+- Restore writes the uploaded database over router.db, but the running agent process still holds the OLD file handle -- SQLite opened it at startup and has no idea the file was replaced. A second later the reboot arrives, and the SIGTERM handler copied that old database straight over the freshly restored persist copy. Persist writes now freeze from the moment a restore lands until the reboot, because from that point what this process still holds is stale by definition.
+
+The command log no longer lives in the configuration database.
+
+- Every shell command the agent runs inserted a row carrying its stdout and stderr. A router with a handful of PPPoE sessions and a few NAT ports had a 7MB database, nearly all of it log, and that table rode along in every backup -- downloading a backup of a few dozen configuration rows meant downloading megabytes of command output, and restoring one dragged another machine's log onto this one. It is now a rotated file beside the database, on the RAM overlay rather than the persistent storage.
+
+Deleting clients in bulk left their DHCP leases behind, and they came back seconds later as new devices.
+
+- The five-second discovery pass recreated exactly the clients that were just deleted, because a bulk delete's items skip the per-client lease release that the single-delete path already had (and was added for this exact reason once before). MACs are now queued and released together at the end of the batch.
+
+A failing persist write said nothing.
+
+- The Info tab kept reporting the configuration storage as healthy even while a full or failing storage medium meant nothing since the last successful write would survive a reboot. The last write error now shows in red on that same line.
+
+Assigning one shared proxy to many clients at once failed for most of them.
+
+- Clients run on independent queues so unrelated bulk actions can proceed in parallel, but the "one service for many IPs" path checks whether a proxy with the shared name exists before creating it -- a classic check-then-create race. Several clients sharing one upstream compute the identical name, their checks run on separate concurrent queues, and everyone past the first hits the name's uniqueness constraint and fails. Reproduced with a harness built from the real dispatch code: 2 of 3 clients failed on every run before the fix, 0 failed over several runs after.
+
+Deleting or pasting many proxies into the pool got slower with size and could time out in the hundreds.
+
+- Neither request deferred the runtime sync, so every single item triggered a full nftables regeneration and rewrote a sing-box config file for every OTHER proxy still alive -- the Nth item redid the work of the previous N-1. Both now defer to one pass after the whole batch.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `85b49f60`.
+
 ## v0.4.85 - 2026-09-10
 
 Three faults that only show up once a port carries more than one PPPoE session.

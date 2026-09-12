@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.85",
-  "released_at": "2026-09-10",
-  "notes": "Every PPPoE session on a port reported the same traffic: the counters were read from the physical port they all share, so each session was shown the whole port's total. They now count on their own ppp interface. The command log grew without limit and was the road to the disk-write error seen after bulk PPPoE work; it is now capped at the newest 2000 rows. Duplicating sessions in bulk redid the whole list's work every time -- creating 100 sessions cost about 15,150 file writes and 100 daemon-reloads, now 300 writes and one reload.",
+  "latest": "0.4.86",
+  "released_at": "2026-09-12",
+  "notes": "Restoring a backup then rebooting came back with the old data, because this process still held the OLD file handle after restore overwrote router.db -- persist writes now freeze from the moment a restore lands until the reboot. The command log is out of the database entirely, into a rotated file: a router with a handful of PPPoE sessions had a 7MB database that was nearly all log, and that table rode along in every backup. Bulk client delete now releases DHCP leases together at the end, instead of leaving them for the five-second scan to resurrect the same clients as new. A failing persist write now shows in red on the Info tab instead of only in a log line. Assigning one shared proxy to many clients at once no longer fails for most of them (a real create-race, reproduced and fixed). Bulk delete/paste-import in the proxy pool no longer redoes a full nftables resync per item, which was the road to timeouts at a few hundred proxies.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

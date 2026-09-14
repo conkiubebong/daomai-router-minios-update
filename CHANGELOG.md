@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.4.87 - 2026-09-14
+
+The configuration database lives on the disk now, not in RAM.
+
+- It used to sit on the RAM overlay while a background loop copied it down to the persistent partition every few seconds. That copying layer, not the storage, was behind a long run of real failures: a restored backup overwritten by the stale database this process still held open, changes from the last 5-30 seconds lost to an untimely reboot, and copies that failed silently when the mount went away. The database now opens directly on the persistent partition and a commit is durable the moment it returns. Everything else still runs from RAM. WAL journalling with synchronous=NORMAL keeps the write rate down, and the background status writers were already gated on actual change -- last_seen refreshes at most once a minute, an already-offline client dirties no page -- so a quiet router barely writes at all.
+- Deliberately not a "write to a temp copy then copy back" scheme. That is the one design that can genuinely lose a write when two saves overlap, with the file left perfectly intact and no error anywhere.
+- Reformatting the disk still snapshots the database to RAM first and copies it back afterwards, and now closes the handle before unmounting: an open SQLite connection is enough to make umount fail with "target is busy".
+- Restoring a backup closes the database before replacing the file, and clears the WAL sidecars afterwards. A write-ahead log belonging to the OLD database, replayed on the next open, silently undoes the restore -- the same user-visible outcome as the bug fixed in 0.4.86, arriving by a different route.
+
+A client could be pointed at a proxy that no longer existed.
+
+- The proxy list on screen is a snapshot from seconds ago. If that proxy had since been deleted somewhere else, saving a client onto it answered 200 OK and left the client referencing a row that was not there: its Proxy cell simply went blank and it lost its proxied path, with nothing to explain why. Every other reference a client holds is a declared foreign key that SQLite refuses; proxy_id alone was a bare integer, and is now checked explicitly.
+
+A missing field is now marked where it is.
+
+- Saving a DNS Proxy row with an empty update URL answered "no update_url configured" -- true, and useless on a row with six boxes, since it names a database column rather than anything on screen. Some paths said even less: the generic form stopped at the first missing field, so three empty boxes meant pressing Save three times to learn all three. Every offending box now turns red, the cursor lands in the first one, and one message names them all using the same labels as the column headers.
+
+The command log survives a reboot.
+
+- It moved out of the database in 0.4.86 and onto the RAM overlay, which meant it vanished entirely on every reboot -- exactly when you want to read back what the machine was doing before it went down. It is now copied to the persistent storage once every 24 hours, and once more on a planned shutdown. A day with no new commands writes nothing.
+
+Bypass Proxy sits next to Proxy, and Logs moved to the end.
+
+Tests for the admin UI's add/edit/delete buttons at the scale they actually fail at.
+
+- 300 proxies, 300 clients, 300 NAT ports, 100 PPPoE duplicates, 200 concurrent creates and four tabs writing at once, all calling the same endpoints the buttons call and failing on any unsuccessful response rather than only checking the final count. No save is lost or rejected at those counts. They turned up one real defect: the NAT port route ignored the deferred-runtime flag, so opening several hundred ports regenerated the whole nftables ruleset per port.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `c6f473df`.
+
 ## v0.4.86 - 2026-09-12
 
 Restoring a backup then rebooting came back with the old data.

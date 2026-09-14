@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.88 - 2026-09-15
+
+Internet and its rotate button are visible on the mobile page without opening anything first.
+
+- On the mobile self-service page both sat at the bottom of the collapsed "Other options" block. Picking a WAN or rotating the PPPoE address is the most common reason someone opens that page at all, and it cost a tap on a chevron before the thing they came for was even on screen. Both now sit directly above that block, visible by default and full width. The rotate button still appears only for a PPPoE egress, since nothing else there has an address it could change.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `390fe04a`.
+
 ## v0.4.87 - 2026-09-14
 
 The configuration database lives on the disk now, not in RAM.

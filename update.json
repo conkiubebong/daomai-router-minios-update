@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.87",
-  "released_at": "2026-09-14",
-  "notes": "The configuration database lives directly on the persistent partition now instead of on the RAM overlay with a background loop copying it down every few seconds -- that copying layer was behind a long run of real failures, and a commit is durable the moment it returns. Everything else still runs from RAM; WAL with synchronous=NORMAL keeps the write rate down. Reformatting the disk still snapshots the database to RAM and copies it back, and now closes the handle first so the unmount cannot fail. Restoring a backup closes the database before replacing the file and clears the WAL sidecars afterwards, so a log belonging to the old database cannot silently undo the restore. A client can no longer be pointed at a proxy that was deleted elsewhere, which used to answer 200 OK and leave the Proxy cell blank with no explanation. Missing form fields are marked in red where they are, with one message naming them all. The command log is copied to storage once a day so it survives a reboot. Bypass Proxy sits next to Proxy, and Logs moved to the end.",
+  "latest": "0.4.88",
+  "released_at": "2026-09-15",
+  "notes": "On the mobile self-service page the Internet selector and its rotate button no longer sit at the bottom of the collapsed \"Other options\" block. Picking a WAN or rotating the PPPoE address is the most common reason to open that page, and it cost a tap on a chevron first. Both are now directly above that block, visible by default and full width; the rotate button still appears only for a PPPoE egress. Everything else is unchanged from 0.4.87, which moved the configuration database onto the persistent partition instead of copying it down from RAM every few seconds.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

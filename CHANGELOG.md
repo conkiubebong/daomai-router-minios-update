@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.90 - 2026-09-15
+
+Same router as v0.4.89. What changed is the check that stands between a build and a release.
+
+- The gate ran 14 tests, all about the configuration database surviving a reboot. It did not cover either fault fixed in 0.4.89 -- UDP switching itself off on a forwarded port, and a rotated PPPoE session coming back without internet -- even though both are exactly what it exists to catch: something the user loses silently, with nothing on screen to say why. It now runs 26, adding the NAT port, ip-up hook and PPPoE MAC tests.
+- It also counts them. A `-run` expression that matches nothing still exits 0, so "everything passed" and "nothing ran" were indistinguishable -- which is how three of its four original test names rotted away unnoticed and left it reporting ok in 0.013 seconds. Fewer than 20 passing tests now stops the build.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `8f22f8ec`.
+
 ## v0.4.89 - 2026-09-15
 
 UDP switched itself off on forwarded ports, with nobody touching it.

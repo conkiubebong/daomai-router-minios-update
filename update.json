@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.89",
+  "latest": "0.4.90",
   "released_at": "2026-09-15",
-  "notes": "UDP stopped switching itself off on forwarded ports: the five-second DHCP discovery pass rebuilt a client's forwarding rows from metadata it does not carry, and empty was read as \"no port wants UDP\". Rotating a PPPoE session no longer leaves the router without internet -- the ip-up hook runs as a separate process and was opening the wrong database, so it never set the session's route or re-applied nftables (a 0.4.87 regression). Every duplicated PPPoE session now gets its own MAC, not just Viettel ones, and sessions duplicated earlier are repaired at boot; the MAC can be edited by double-clicking it, with duplicates refused. New: install a zip or an ISO picked from your own PC, for a router that cannot reach the internet. The Internet tab refreshes the card or panel that changed instead of reloading the whole page.",
+  "notes": "Same router as 0.4.89; what changed is the release gate. It ran 14 tests, all about the configuration database surviving a reboot, and covered neither fault fixed in 0.4.89 -- UDP switching itself off on a forwarded port, and a rotated PPPoE session coming back without internet. It now runs 26, and counts them: a -run expression matching nothing still exits 0, so \"everything passed\" and \"nothing ran\" used to look identical, which is how three of its four original test names rotted away unnoticed.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

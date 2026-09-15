@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.88",
+  "latest": "0.4.89",
   "released_at": "2026-09-15",
-  "notes": "On the mobile self-service page the Internet selector and its rotate button no longer sit at the bottom of the collapsed \"Other options\" block. Picking a WAN or rotating the PPPoE address is the most common reason to open that page, and it cost a tap on a chevron first. Both are now directly above that block, visible by default and full width; the rotate button still appears only for a PPPoE egress. Everything else is unchanged from 0.4.87, which moved the configuration database onto the persistent partition instead of copying it down from RAM every few seconds.",
+  "notes": "UDP stopped switching itself off on forwarded ports: the five-second DHCP discovery pass rebuilt a client's forwarding rows from metadata it does not carry, and empty was read as \"no port wants UDP\". Rotating a PPPoE session no longer leaves the router without internet -- the ip-up hook runs as a separate process and was opening the wrong database, so it never set the session's route or re-applied nftables (a 0.4.87 regression). Every duplicated PPPoE session now gets its own MAC, not just Viettel ones, and sessions duplicated earlier are repaired at boot; the MAC can be edited by double-clicking it, with duplicates refused. New: install a zip or an ISO picked from your own PC, for a router that cannot reach the internet. The Internet tab refreshes the card or panel that changed instead of reloading the whole page.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

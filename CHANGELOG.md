@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.4.89 - 2026-09-15
+
+UDP switched itself off on forwarded ports, with nobody touching it.
+
+- Whether a port allows UDP, its comment and its enabled flag live only on the request body, never in the clients table. The reconcile step deletes every forwarding row for a client and rebuilds them from those three values, so a caller that has none passes empty strings -- and empty was read as "no port wants UDP". The caller doing this runs every five seconds: the DHCP discovery pass, tidying a client whose address changed. It is not a request and has no body to carry the metadata. Not supplying it now means keep what is there, read off the rows before they are deleted; supplying it still means exactly what it says, so turning UDP off by hand still turns it off.
+
+Rotating a PPPoE session left the router with no internet.
+
+- The ip-up hook runs as a separate process, and resolved the database through state only the main process ever sets. So it always concluded there was no persistent partition and opened the old RAM path: an empty database, where the account it was called for does not exist. It returned early, and everything the hook exists to do was skipped -- the session's route table never got its default route, its address was never updated, nftables was never re-applied. Introduced in 0.4.87 when the database moved onto the persistent partition.
+
+Every duplicated PPPoE session gets its own MAC, not just Viettel ones.
+
+- Two PPPoE sessions on one line presenting the same MAC is what stops both from staying connected. The mechanism to avoid it existed but was gated on one carrier, on the grounds that the others "dial exactly as before until confirmed otherwise on real hardware". That confirmation arrived. Sessions duplicated before this fix are given a MAC at boot, because neither an upgrade nor a backup restore would otherwise repair them -- a backup carries exactly those rows. The MAC can now be edited by double-clicking it on the session row; duplicates are refused, and an invalid address is rejected before it can reach the kernel.
+
+Installing from your own computer.
+
+- A zip or an ISO picked from the PC, for the case where this matters most: a router that cannot reach the internet cannot download its own update. The zip goes through the same install path as a downloaded one -- back up, swap, self-check, roll back on failure. A local file has no release checksum to compare against, so its own checksum is taken on upload and re-checked before writing, and an ISO must carry an ISO9660 signature to be accepted.
+
+The Internet tab no longer reloads the whole page to show a change.
+
+- A port's settings panel was built once from a snapshot and never updated, so duplicating a session left it showing a stale list until the page was reloaded. Opening it now rebuilds it from current data, an open panel refreshes itself when a batch of work finishes, and saving a port's settings, renewing its DHCP lease or renaming it rebuilds only that one card.
+
+A client can no longer be left pointing at a deleted proxy even under concurrent edits.
+
+- Checking the proxy exists before writing narrowed the window but could not close it: a bulk assign racing a delete can pass the check a moment before the row disappears. The delete now sweeps client references again after the row is gone, when no further write can get past the check.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `da348981`.
+
 ## v0.4.88 - 2026-09-15
 
 Internet and its rotate button are visible on the mobile page without opening anything first.

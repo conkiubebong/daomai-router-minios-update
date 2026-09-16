@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.4.91 - 2026-09-16
+
+A session showing its public address next to a green pill reading "offline", with 0 bps of traffic, on a line that was working. Three separate faults produced that one picture.
+
+The pill contradicted itself.
+
+- Its colour counted a public address as evidence of being up; its text printed the stored status verbatim. A session holding an address whose status had not caught up rendered green and said "offline", and a reader had no way to know which half to believe. Both now come from one decision, and it keeps to the side of the address: status is written by a check that runs every five minutes, so right after a redial it is simply stale, while an address only exists once the session has dialled.
+
+The status underneath it was wrong too, and so was the traffic.
+
+- The boot reset cleared every session's runtime interface name unconditionally. That is right after a real reboot, where no ppp interface exists yet and pppd refills it on dialling. It is wrong when only the agent restarts -- which is exactly what a zip hot-update does: pppd keeps running, the sessions stay up, and the ip-up hook never fires again because nothing redials, so the field stays empty until the next rotate. Traffic counters read that field, and the health check treats a session without it as not running, so the card goes to 0 bps and is forced offline while the line carries traffic. It now clears only sessions whose interface no longer holds an address.
+
+DNS proxies were not updated after a reboot.
+
+- The update goes out on a socket carrying the egress's fwmark, so it needs the policy routing rule to exist -- and the call sat a few lines above the nftables/policy-routing apply in the ip-up hook. Soon after boot it therefore went out before the rule was installed, failed, and was never retried. It now runs after that apply, with three attempts, and they are deliberately synchronous: the hook is a short-lived separate process, so putting retries on a goroutine there means the process exits before the second attempt, which looks like retrying without retrying.
+- It also only ever fired when the address had CHANGED, so an ISP handing back the same address after a reboot left a stale DNS record with nothing in the system to correct it. Every DNS proxy is now refreshed once per boot regardless.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `3b4d03b9`.
+
 ## v0.4.90 - 2026-09-15
 
 Same router as v0.4.89. What changed is the check that stands between a build and a release.

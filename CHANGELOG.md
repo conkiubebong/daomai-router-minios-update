@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.4.92 - 2026-09-17
+
+"Trắng xóa về mới tinh" -- a router's PPPoE sessions and NAT port-forwards gone, and restoring a backup appearing to change nothing at all.
+
+Restoring was not what destroyed them.
+
+- A full backup/restore round trip run against a copy of that router's own database brings all fifteen tables back to their original counts, PPPoE credentials and NAT rules included. What empties a configuration is the step before it: dropping a port's WAN role. That deletes every egress on the port, and `ON DELETE CASCADE` takes the PPPoE accounts and the NAT port-forwards with them. Measured on that same copy, turning the two `pppoe_wan` ports into `lan_phone` took egress 2 -> 0, pppoe_accounts 2 -> 0 and nat_ports 14 -> 0, from a single click, with nothing on screen to say it was about to happen. Restore, then set the port back to LAN, and it is destroyed a second time -- which is what made restoring look like it had never worked.
+- A role change now says what it costs before it does it. Saving a role answers 409 with the exact counts unless the request carries `confirm_destructive`, and the port's role selector puts them in a red dialog: "1 phiên PPPoE (mất luôn tài khoản và mật khẩu) · 3 luật NAT mở cổng". Only losses that were actually configured count -- an empty auto-created egress with nothing pointing at it still goes through untouched, so `dhcp_wan` -> `pppoe_wan` stays a one-click change. The check runs before the write: a refused save must not leave the new role behind in the database.
+
+Restore had a silent hole of its own.
+
+- Given no destination path to write to, it reported success having written nothing -- and the handler reboots the moment restore returns OK. The machine comes back up on exactly the configuration you were trying to replace, after an interface that said the restore had worked. That is now an error rather than a success it did not perform.
+
+- The web UI's API layer keeps the HTTP status and the response body on the error it throws, so a caller can act on a structured error instead of a single sentence of text.
+
+The release gate runs 34 tests, up from 26. The six additions guard the same thing it exists for: configuration disappearing without anyone asking for it. One of them runs the whole restore round trip and asserts every table comes back at its original count.
+
+Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `833a9b58`.
+
+
 ## v0.4.91 - 2026-09-16
 
 A session showing its public address next to a green pill reading "offline", with 0 bps of traffic, on a line that was working. Three separate faults produced that one picture.

@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.4.94 - 2026-09-19
+
+Two faults, and the first of them is the one v0.4.93 claimed to have fixed.
+
+**An address you type into a client still jumped back — v0.4.93 did not fix it.**
+
+- Reported again after upgrading, unchanged: changing a client from 20.20.255.209 to 20.20.2.3 saved, then reverted. On the router the row was still 20.20.255.209 with `ip_type` "dynamic".
+- The v0.4.93 patch was right about the cause and wrong about where to apply it. It promoted a row to a reservation only when the request carried no `ip_type` at all, reading "the request named `ip_type`" as "the admin chose this". But the client edit dialog puts `ip_type: ipTypeSel.value || "dynamic"` into the payload on **every** save, unconditionally. So the one condition guarding the fix excluded exactly the path every real user takes, and the code never ran outside its own tests.
+- A deliberate choice is the narrower thing: a row that is **currently static** and is being switched to dynamic. That, and only that, hands the address back to DHCP. Any other hand-typed address is a reservation, so the row goes static and the `dhcp-host` line follows, as it was always meant to.
+- The regression test now uses the dialog's exact payload, `ip_type` and all, rather than a hand-written minimal one. Against the v0.4.93 condition it fails; with the fix it passes. The two behaviours that must not break are covered too: deliberately switching a static row to dynamic is still respected, and a save that does not touch the address leaves `ip_type` alone.
+
+**NAT stopped working after an update until you opened a session and pressed save.**
+
+- Reported as "cập nhật xong thì NAT không hoạt động, phải bấm vào rồi bấm lưu lại". The cause was the agent restarting its own live PPPoE sessions on boot.
+- `resetPPPoERuntimeOnBoot` deliberately keeps `runtime_ifname` for sessions that are still dialled, so an agent restart does not make a live line look dead. The very next step then ran the full apply, which `systemctl restart`ed those same sessions and threw that work away. On the router: 17:58:13 the agent restarted and kept the live interface, 17:58:28 pppd was killed ("Connection terminated"), 17:58:29 ppp0 came back — and the nftables generator ran inside that one-second gap. It built the ruleset while `ppp0` did not exist, so every DNAT rule was skipped. Pressing save later regenerated them against a live interface, which is why that worked.
+- Boot restore now leaves a session that is genuinely dialled alone. An admin's own apply still restarts every session, because new peer files and credentials only take effect once pppd comes back — that distinction is what the two new tests pin down.
+- Those `systemctl` calls are also no longer blocking. Since v0.4.93 the generated unit waits for the physical port to carry link before dialling, so restarting a port with no cable in it blocked for 40 seconds with the unit stuck in `activating/start-pre`, stalling the whole restore behind a port nobody had plugged in.
+
+Built offline from the vendored apt cache, same package base and identical ISO size as v0.4.90–v0.4.93, from `daomai-router-minios` commit `ca7067a6`.
+
+
 ## v0.4.93 - 2026-09-19
 
 Three faults, all of them the router quietly undoing or disturbing something it should have left alone.

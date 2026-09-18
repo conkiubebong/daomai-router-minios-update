@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.4.93 - 2026-09-19
+
+Three faults, all of them the router quietly undoing or disturbing something it should have left alone.
+
+**An address you typed into a client kept jumping back.**
+
+- Reported live: changing a client from 20.20.255.209 to 20.20.2.3 saved, then reverted on its own. Confirmed on that router's own database -- the row sat at 20.20.255.209 with `ip_type` "dynamic", its MAC held a matching dnsmasq lease, and the dnsmasq config carried no `dhcp-host` line for it. Two sibling ports parked at 20.20.2.1 and 20.20.2.2 stayed put, because those rows are static and do have `dhcp-host` lines.
+- Only static clients get a reservation, so an address typed into a dynamic row never reached the device: it kept its pool address while the UI showed one nothing used. `ImportLeases` then saw the row disagree with the lease and, for a dynamic row, read that as "this device renewed into a new address" and synced the row back. Hence the revert.
+- An address an admin types is a reservation, not a transcription of what the device happens to hold, so an explicit IP change on a dynamic row now makes it static -- the same way attaching a proxy or opening a NAT port already forces static. A request that names `ip_type` itself is left alone. The rest of the chain already existed: the config is regenerated with the `dhcp-host` line, the stale lease is pruned, and the device re-requests onto the new address.
+
+**The router was broadcasting at its own LAN every 30 seconds.**
+
+- The ARP sweep pinged the whole DHCP range. Of 254 addresses roughly 240 are empty, and every empty one costs a burst of broadcast ARP -- the most expensive frame there is on a network carrying Wi-Fi, sent at the lowest basic rate and waking every power-saving station. Measured: br-phone transmitting 199 packets/s while receiving 71, and a neighbour table of 268 entries with 253 INCOMPLETE/FAILED, the residue of those sweeps. A RustDesk host on Wi-Fi showed a latency floor of 2.5ms spiking to 48ms; a wired machine on the same bridge port sat at 0.08-0.19ms.
+- The sweep now runs every 10 minutes and skips addresses that already belong to a known client. Little is given up: DHCP devices are still found within 5 seconds through the lease file and the neighbour table, neither of which broadcasts. Only the rare silent, statically-addressed device waits -- and waiting 10 minutes for that buys a 20x quieter LAN. Online status is unaffected; the status refresher already pings any client missing from the neighbour table, so the sweep was duplicating that work.
+
+**A PPPoE port with no cable in it was dialled forever.**
+
+- pppd fails PPPoE discovery, exits, and `Restart=always` brings it back five seconds later, round and round. On the live router `enp7s0` had `carrier=0` and its service was still "active running", writing 180 "Unable to complete PPPoE Discovery" lines an hour into a log that lives in RAM.
+- The generated unit now waits for the physical port to actually carry link before dialling. It brings the port up first -- what pppd would do anyway -- so a merely administratively-down port is not held back, and the wait is bounded so systemd still retries rather than hanging. It reads the physical port, not the macvlan: a macvlan's carrier follows its parent, and after a reboot the macvlan may not exist yet when systemd starts the unit.
+
+The release gate runs 45 tests, up from 34, and now covers the `pppoe` and `dhcpimport` packages too. Each fix was verified by removing the patch and confirming its tests fail -- including that the behaviour each one must NOT break (a device genuinely renewing into a new pool address still syncs) passes either way.
+
+Built offline from the vendored apt cache, same package base as v0.4.90-v0.4.92 (identical ISO size), from `daomai-router-minios` commit `34843490`.
+
+
 ## v0.4.92 - 2026-09-17
 
 "Trắng xóa về mới tinh" -- a router's PPPoE sessions and NAT port-forwards gone, and restoring a backup appearing to change nothing at all.

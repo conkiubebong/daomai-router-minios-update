@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.4.95 - 2026-09-19
+
+Three Web UI fixes: an error message that described a rule the entered value already met, a line of text charged to every row for something read rarely, and a durable address that could not be copied.
+
+**"Port NAT phải lớn hơn 20000" — said of a port that was.**
+
+- Reported from the bulk NAT dialog: 90001 entered, refused, with a message naming a rule 90001 already satisfies. Nothing said what was actually wrong.
+- The check was right and the wording was not. NAT ports are accepted in the range 20001–65535 — the same range `validateNATPort` enforces in the store — but the message named only the lower bound. 90001 is above 65535, the largest port number that exists, so the value was correctly rejected for a reason the message never gave.
+- The message now states the whole range, in both locales. One key covers all five places guarding this same two-sided condition, so the bulk dialog, the inline NAT editor and the per-row check all say the same true thing.
+- The dialog also no longer suggests a number that cannot be a port. Its auto-filled start is the highest NAT port in use plus one, and 65535 is a legal port, so a router already using the last one had the dialog pre-fill 65536 and then refuse its own suggestion.
+- The number fields carry `min`/`max` now, which bounds the spinner and turns on the browser's invalid styling. A typed value still reaches the JavaScript check — that remains the real gate, which is why the wording was the fix that mattered.
+
+**The egress IP moved into the rotate button's tooltip.**
+
+- The public IP of a client's PPPoE session sat as a line of text under the Internet cell. That line costs every client row a second line of height whether or not anyone wants to read the address — on a long list, the whole table is taller for something glanced at rarely.
+- Hovering ⟳ now leads with `IP hiện tại: <ip>` above the reason the button is enabled or disabled, so the address is one gesture away and the row stays one line tall. The tooltip carries the IP even when the button is disabled — before a save, or with no PPPoE credentials entered — so it is never hidden exactly when the button cannot be pressed.
+- After a successful rotate the tooltip updates in place, since it is now the only place the address appears. The toast still names the new IP as before.
+
+**"Copy ip:port" can now copy the DNS name instead.**
+
+- A NAT endpoint behind an egress with a DDNS hostname has two equally usable addresses, and the durable one was unreachable from the context menu: copy always emitted the public IP, which changes on every rotate, while the DNS name tracking it does not.
+- Copy now asks — but only when there is something to ask about. With no DDNS name behind any selected port the clipboard write happens exactly as before, because a dialog with one possible answer is just an extra click.
+- Neither answer is the cancel button. Escape and a backdrop click copy nothing, so a dismissed dialog cannot quietly pick a format that was never chosen.
+- Where several DDNS rows point at one egress — allowed on purpose since the `UNIQUE(egress_id)` constraint was dropped — the name is settled by lowest row id, so two consecutive copies cannot disagree.
+- The download button still emits IPs: it runs unattended, with nowhere to ask.
+
+Release gate: 45 tests, all passing. Built offline from the vendored apt cache, same package base and identical ISO size as v0.4.90–v0.4.94, from `daomai-router-minios` commit `32e4d99d`.
+
+
 ## v0.4.94 - 2026-09-19
 
 Two faults, and the first of them is the one v0.4.93 claimed to have fixed.

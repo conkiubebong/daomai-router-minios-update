@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4.96 - 2026-09-21
+
+**Editing a group no longer redraws the whole Clients tab.**
+
+- Reported: creating a group in the Clients tab refreshes the entire page, when only the new item and the parts that depend on it need to change.
+- Creating, renaming or deleting a group called `selectTab("clients_hub")`, which rebuilds the tab from scratch: an open filter panel collapses, a half-typed inline edit is thrown away, and the scroll position jumps back to the top — all to add one line to a table of groups.
+- The tab already had an in-place table refresh, but it does not cover this on its own. It rebuilds a row only when that client's own fields changed, and creating a group changes no client at all, so every row would keep the group list it was originally built with — missing exactly the group just created, which is the one the admin is about to assign.
+- So the four places a group change actually reaches are patched directly: the group select on each client row, the filter's group select, the count in mini-stats, and the group table itself.
+- Deleting is the one case that also moves clients — the server returns them to `No_Group` — and the in-place table refresh already handles that, so it runs first and the option lists are patched over the result.
+- Filtering by a group and then deleting that group used to leave the filter pointing at something gone. The select now falls back to "all groups" and the filter state is resynced from it, so the table and the control it is driven by cannot disagree.
+
+What survives an edit now: the open filter panel, any inline edit in progress, and the scroll position.
+
+Release gate: 45 tests, all passing. Built offline from the vendored apt cache, same package base and identical ISO size as v0.4.90–v0.4.95, from `daomai-router-minios` commit `cd60b48d`.
+
+
 ## v0.4.95 - 2026-09-19
 
 Three Web UI fixes: an error message that described a rule the entered value already met, a line of text charged to every row for something read rarely, and a durable address that could not be copied.

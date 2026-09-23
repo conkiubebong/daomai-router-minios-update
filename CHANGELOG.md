@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.4.97 - 2026-09-23
+
+**An admin can now hide any field on the self-service (mobile) page — and hiding one actually prevents editing it.**
+
+Settings in the Clients tab grows from one switch to ten, one per field, all off by default: Proxy, WebRTC, Internet, device Name, IP type, Mode, Local IP, Group, Scan and Bandwidth.
+
+**The switch that already existed only hid Mode from the screen.**
+
+- `mobile_hide_mode_enabled` was read in exactly two places, both of them building the payload sent down to the page. The save path — `applyOptionalClientFields` — applied `mode` straight from the request without ever consulting it.
+- `/api/public/self` needs no login; it identifies a device by its IP alone. So anyone who could open the page could also send the request directly and change Mode, while the setting's own description promised they could not. The only real barrier was not thinking of it.
+- Hidden fields are now stripped from the request body before anything reads it, so every one of these switches means what it says.
+- Stripped rather than rejected: the page submits the whole form on every save, including fields nobody touched, so returning an error for a hidden one would have blocked saving anything at all.
+
+**The two rotate buttons needed their own guards — they never went through the form.**
+
+- The rotate-IP button sits beside the Internet field and only appears when the egress is PPPoE. Hiding Internet without handling it left the button live, and one press drops every device sharing that PPPoE session for a few seconds. The rotate-proxy button has the same relationship to the Proxy field.
+- Both endpoints now refuse with 403 when their field is hidden. On the page itself, both buttons are re-shown by `syncEgressRotateButton`/`syncProxyAutoLock`, which run *after* the hide pass — so rather than depending on call order, those two read the hidden set themselves.
+
+**Hiding things does not leave holes.** A two-column row with one half hidden goes single-column; a row with both halves hidden disappears; the proxy card and the "other options" block vanish once everything inside them is gone. The `single-col` CSS also had to stop pinning `grid-column`, which only ever worked when the *right* column was the hidden one — hiding the left one left a gap where it used to be.
+
+**Tests.** Six in Go for the enforcement, including one that pins every field's setting key to the store's allowlist — miss that and ticking the box silently fails to save, a fault that would otherwise only surface on a real router. Plus a headless-Chrome test that drives the real `mobile.html` through ten hide combinations and reads the resulting DOM rather than re-implementing the logic; it was confirmed to fail when the rotate-button guard is removed and pass with it. It lives in `webtest/`, deliberately outside `web/`, because the build rsyncs `web/` into the ISO and a test file there would be served on the router itself. It is not part of the build's own gate, which runs only `go test`.
+
+Release gate: 45 tests, all passing. Built offline from the vendored apt cache, same package base and identical ISO size as v0.4.90–v0.4.96, from `daomai-router-minios` commit `43a16159`.
+
+
 ## v0.4.96 - 2026-09-21
 
 **Editing a group no longer redraws the whole Clients tab.**

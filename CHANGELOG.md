@@ -1,5 +1,41 @@
 # Changelog
 
+## v0.4.98 - 2026-09-27
+
+**A machine that reconnects no longer loses its UDP port forward.**
+
+- Reported from a live router: when the build server drops off and comes back, its RustDesk NAT port stops working. You either wait a while, or open the NAT table and save it again, before it recovers.
+- Both halves of that are the clue. Waiting is RustDesk giving up on UDP and falling back to its slower TCP relay; saving again is the only path that carries the missing fields. The UDP forward itself was gone.
+- `enabled`, `comments` and `udp` exist only in the request body — there is no column for them on `clients` — so a client loaded from the database carries three empty strings. `ReconcileNATPorts` deletes every `nat_ports` row and rebuilds them from those strings, and empty meant "no UDP, no comment, no enabled state".
+- A guard for exactly this already existed, and its comment already described this failure. It simply asked the wrong question: `len(extra) < 3`, meaning *did the caller pass the arguments*. `ReconcileClientUpdate` always passes all three, taken from the struct, so on that path the count is 3, the guard never fired, and three empty strings were treated as a deliberate instruction. The DHCP sweep calls that path whenever an address changes — which is precisely what a reconnect does.
+- It now asks whether the values are actually present. Empty means the caller has nothing to say, so the existing rows are kept. An explicit save from the UI always sends them, so switching UDP off by hand still works — there are tests for that half as well, since "always preserve" would pass the first test while being a different bug.
+
+**Brand mode: a captive advertisement page, like restaurant or hotel wifi.**
+
+Set a device to `brand` and it sees a full-screen advert before it gets any internet. Everything it needs is in the new Brand tab.
+
+- The page opens by itself. Phones probe a fixed URL the moment they join a network, and pop up a sign-in window when the answer is not what they expected. That is the whole mechanism, and it is why the brand port answers those probes the *opposite* way to the self-service portal on 18082, which deliberately satisfies them so the "!" warning stays away.
+- Image or video, one for computers and one for phones. Images are cropped to frame in the admin's own browser before upload — a box whose job is moving packets should not be resampling JPEGs, and the admin sees the crop before saving. Video loops and always starts muted, because browsers refuse to autoplay sound; there is an unmute button.
+- Media is stored as files on the persist partition, not in `router.db`. A one-minute video is 5–20MB, and in the database that weight would land on every backup, on SQLite, and on a resident copy in RAM for as long as the router is up. As files it streams from disk and gets HTTP Range for free, which a `<video>` element requires.
+- Seasonal effects are drawn on a canvas, never uploaded: Tet blossom, Mid-autumn lanterns, Christmas snow, rain, autumn leaves, summer heat. "Automatic by date" picks for itself so nobody has to remember. Particle counts scale with the screen, pause when the tab is hidden, and switch off entirely for anyone who has asked their device to reduce motion.
+- Optionally collect a date of birth (year, half-year or full date), a phone number, and a random confirmation code — each off, optional, or required. The code is not a security measure; it is printed on the screen for anyone to read. It is there to make the guest look at the page, which is where the advertisement is. It is re-checked on the server, because the page is a form anyone can post to directly.
+- `brand` is not a value of the mode column but a separate flag shown as a Mode option, the way `proxy_auto` already is. The mode column carries a CHECK of four values and SQLite cannot alter a CHECK, so a real mode would mean rebuilding the clients table — and while looking at that, the migrations turned out to run before the clients columns are added, so such a rebuild would have copied a table still missing its newest columns. The better reason is that "brand" answers a different question from direct/proxy/mixed: not *how* a machine gets out but *whether it is allowed out yet*, and spending the mode column on it would leave a brand guest permanently unable to use a proxy.
+- Access expires. With an hour limit set that is the only measure that counts. Without one, access lasts until the device has been disconnected for one continuous minute — that minute of grace is deliberate, because wifi drops for a few seconds constantly and without it a guest mid-meal is sent back to the advert by a blink they never noticed. Guests gone longer than the configured window are removed from the list entirely, while anything collected from them is kept.
+
+**Also in this release:** a Notes section on the Info tab (title, body, and saved notes listed below with copy, edit and delete); the DHCP pool now starts at 20.20.200.1 instead of 20.20.255.1, with a migration so existing routers actually get it, and the ARP sweep now skips ranges too wide to probe so the wider pool cannot revive the broadcast storm v0.4.93 put down; and two tests that fail the build if a UI string exists in one language but not the other, or if a placeholder appears on one side only.
+
+
+**A changed admin password now survives a reboot.**
+
+- Reported: changing the password does not keep the new one.
+- `chpasswd` writes `/etc/shadow`, and on this router that file is part of the RAM overlay — the whole OS is loaded into memory and runs from there. The new password worked immediately and was gone at the next boot, with the box back on the password baked into the ISO. Nothing failed and nothing was logged; it simply reverted, which is what made it hard to place.
+- The hash is now written to the persist partition, where `router.db` already lives, and put back into `/etc/shadow` on boot — first, before anything else, so a later step failing cannot leave the admin locked out on the old password.
+- The hash, never the password, so exposure is the same as `/etc/shadow` itself. One thing worth knowing: that hash now rides every `router.db` backup, so a backup file deserves the same care as a copy of `/etc/shadow`.
+- `root_password_hash` is deliberately kept out of the settings allowlist — that list is what `PUT /api/settings` may write, and setting the root password hash through the settings API would be a way in. A test asserts it stays out.
+
+Release gate: 45 tests, all passing. Built offline from the vendored apt cache, same package base and identical ISO size as v0.4.90–v0.4.97, from `daomai-router-minios` commit `776a26f5`.
+
+
 ## v0.4.97 - 2026-09-23
 
 **An admin can now hide any field on the self-service (mobile) page — and hiding one actually prevents editing it.**

@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.4.100 - 2026-09-27
+
+**The advert images now ship with the router, and the gate check that quietly undid the whole feature is fixed.**
+
+- Brand mode shipped in v0.4.98 with nothing to show: a shop that had just plugged the router in got a plain gradient until someone uploaded a picture. Two images now ship with the ISO and appear on the portal whenever nothing has been uploaded — one landscape, one portrait.
+- Converted from 1.7MB PNGs to JPEG at quality 86: 153KB and 177KB, roughly a ninth of the size, with no visible difference on an image this softly lit. That weight would otherwise sit in the ISO every router downloads. Both were already at the right aspect ratios so nothing was cropped, and the portrait one keeps its native resolution rather than being stretched up — upscaling adds bytes, not detail, and the page covers the frame anyway.
+- The brand port now serves `static/img`, which it did not before. Only that directory, as the self-service port does.
+
+**The bug behind it:** `handleBrandState` still asked whether a client's Mode was "brand". Brand had since become a separate flag, so Mode is never "brand" any more — the condition was always true, and every guest was told they were already authorized the moment the page opened. The firewall would have kept holding them off the network while the page insisted they were through: the advert never shown, and no error anywhere to explain it. It reads the flag now, with tests on both answers.
+
+**An editor for the advert image.** Choosing a picture opens an editor instead of silently centre-cropping it: drag to choose what shows, scroll or slide to zoom, add lines of text and drag them into place, set size and colour. Preview and export share one draw function called at different scales, so what is on screen is what gets saved — draw the preview in CSS and the export on a canvas and the two drift apart on fonts and shadows, which only shows up after saving. Zooming anchors on the pointer, because anchoring at the image origin walks whatever you were looking at out of the frame.
+
+**"Unauthorized" when uploading, and two silent siblings.** `requireAuth` accepts an `Authorization: Bearer` header and nothing else — no cookie, no query parameter. Three places in the Brand tab could not use the helper that attaches it: the upload posts a binary blob, and `<img src>` and `<a href>` cannot carry headers at all. Only the upload was reported, because it was the only one that said anything — the preview just stayed empty and the CSV link produced a JSON error page. All three now carry the header, with the latter two fetching their bytes and turning them into blob URLs.
+
+**Starter AI prompts** sit collapsed at the bottom of the Brand tab, each with a Copy button: frame and safe-area snippets, four by kind of business, three seasonal, one for video. Every one states that the centre of the frame must stay clear, because the content card sits there and a photo composed around its subject would hide exactly that subject. The seasonal three each say "NO falling petals/lanterns/snow" — the page already draws those on a canvas, and a model adding its own would stack two layers.
+
+Release gate: 45 tests, all passing. Built offline from the vendored apt cache, same package base as v0.4.90–v0.4.99, from `daomai-router-minios` commit `b2e7dcb2`. The ISO is padded to a round 278 MiB, so its size is unchanged even though the images were added — both were confirmed present inside the squashfs.
+
+
 ## v0.4.98 - 2026-09-27
 
 **A machine that reconnects no longer loses its UDP port forward.**

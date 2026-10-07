@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.168",
+  "latest": "0.4.169",
   "released_at": "2026-10-08",
-  "notes": "Faster with large proxy pools (bulk delete, in-use proxy loading, gzip), refreshed web UI with light/dark modes, separate mobile unlock password, and a stricter remote-access firewall with a dedicated public API port.",
+  "notes": "Remote access closed by default: SSH and the public API are off unless the admin turns them on; the Web UI opens to the Internet only when a WAN output is chosen.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

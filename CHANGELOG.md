@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.169 - 2026-10-08
+
+Remote access is closed by default.
+
+- SSH and the public API (port 18081) are now off unless the admin turns them on in "Web từ xa". Routers that already ran v0.4.168, which turned both on LAN-only automatically, get them switched back off once; an SSH or public API setting the admin opened to a WAN is kept.
+- The Web UI row no longer has a checkbox: the admin page is always reachable on the LAN, and choosing a WAN output is what opens it to the Internet.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `8f2417d3fbc2b41cf99fb44356ae0780bd618b00`.
+
 ## v0.4.168 - 2026-10-08
 
 Faster with large proxy pools, a refreshed web UI, and a stricter remote-access firewall.

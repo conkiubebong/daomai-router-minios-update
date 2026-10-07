@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.4.168 - 2026-10-08
+
+Faster with large proxy pools, a refreshed web UI, and a stricter remote-access firewall.
+
+- Large proxy pools (tested with ~34,000 proxies): the Clients and Internet tabs and the sing-box health/task views load only the proxies actually in use instead of the whole pool; JSON API responses are gzip-compressed; proxy health results are written in batches; tabs paint instantly from their last data and refresh in the background.
+- Proxy pool bulk delete: a new bulk-delete API removes thousands of proxies in a few requests (previously one request per proxy), behind a progress overlay. "Select all" now covers every proxy matching the filter across all pages; the default page size is 500.
+- Web UI refresh: soft red brand with light and dark modes, Lucide icons, popups for Group and the Internet-tab sections, icon-only row actions, cleaner Clients header, round online/offline dots, fixed notifications that could stay stuck on screen, and a smoother Dashboard (continuously scrolling charts, counting numbers, tab-switch sheen).
+- Mobile page: the unlock password for blocked/brand devices is now separate from the router password and can be changed by the admin; unlock sessions no longer grant admin API access. Fixed the mode dropdown showing "direct" for brand devices after unlocking.
+- Remote access ("Web từ xa"): SSH and the public API can now be fully closed (LAN included) by unticking them; ticked without a WAN means LAN only; with a WAN, only the chosen external port works and changing it closes the old one immediately. The public API runs on its own port (18081) and no longer exposes the admin page. Existing routers keep their current behaviour (SSH and public API stay LAN-only) after updating.
+- Vietnamese text fixes (the whole Info tab was missing diacritics) and English/Vietnamese consistency.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `da0406859b4e7201a19fa34655f02dcbc1e5b8ff`.
+
 ## v0.4.100 - 2026-09-27
 
 **The advert images now ship with the router, and the gate check that quietly undid the whole feature is fixed.**

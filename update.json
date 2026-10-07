@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.100",
-  "released_at": "2026-09-27",
-  "notes": "The advert images now ship with the router, and the gate check that quietly undid the whole brand feature is fixed. Brand mode shipped in v0.4.98 with nothing to show; two images now come with the ISO and appear whenever nothing has been uploaded. The bug behind it: handleBrandState still asked whether a client's Mode was \"brand\", but brand had since become a separate flag, so Mode is never \"brand\" any more -- the condition was always true and every guest was told they were already authorized the moment the page opened, while the firewall kept holding them off the network. The advert was never shown and nothing anywhere said why. Also in this release: an editor for the advert image (drag to choose what shows, zoom, add text and drag it into place, set size and colour -- preview and export share one draw function so what you see is what gets saved); a fix for \"unauthorized\" when uploading, plus two silent siblings with the same cause, since requireAuth accepts an Authorization header and nothing else while <img src> and <a href> cannot carry one; and starter AI prompts collapsed at the bottom of the Brand tab, each with a Copy button, every one stating that the centre of the frame must stay clear because the content card sits there.",
+  "latest": "0.4.168",
+  "released_at": "2026-10-08",
+  "notes": "Faster with large proxy pools (bulk delete, in-use proxy loading, gzip), refreshed web UI with light/dark modes, separate mobile unlock password, and a stricter remote-access firewall with a dedicated public API port.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

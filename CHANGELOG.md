@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.171 - 2026-10-11
+
+IPv6 proxy endpoints in the Proxy tab.
+
+- Proxy tab accepts `[IPv6]:port` and `[IPv6]:port:user:pass` for HTTP and SOCKS proxies.
+- IPv6 hosts are stored without brackets and rendered/dialed with correct host-port formatting.
+- HTTP proxy checks and mobile self-service parsing now preserve IPv6-only upstreams.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `03b2b9c1`.
+
 ## v0.4.170 - 2026-10-11
 
 IPv6-only proxy health checks.

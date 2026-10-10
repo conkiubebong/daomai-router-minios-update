@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.169",
-  "released_at": "2026-10-08",
-  "notes": "Remote access closed by default: SSH and the public API are off unless the admin turns them on; the Web UI opens to the Internet only when a WAN output is chosen.",
+  "latest": "0.4.170",
+  "released_at": "2026-10-11",
+  "notes": "IPv6-only proxy health checks for SOCKS5 and HTTP, with configurable CheckAlive and CheckNet targets.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

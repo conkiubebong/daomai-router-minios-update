@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.170 - 2026-10-11
+
+IPv6-only proxy health checks.
+
+- CheckAlive now probes IPv6 destinations and supports configurable IPv6 targets.
+- CheckNet now resolves configured echo endpoints through AAAA only and accepts IPv6 exit addresses for both SOCKS5 and HTTP proxies.
+- Added Web UI settings for CheckAlive targets and CheckNet echo URLs; IPv4 fallback is rejected.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `5f6a40af`.
+
 ## v0.4.169 - 2026-10-08
 
 Remote access is closed by default.

@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.172 - 2026-10-11
+
+IPv6 proxies now carry traffic.
+
+- Phones on the IPv4-only LAN always dial a site's IPv4 address, and the router passed that address to the proxy: an IPv6-exit proxy rejected every connection, or with an IPv4 fallback never used IPv6. The router now reads the domain from each connection (TLS SNI / HTTP Host / QUIC) and sends the domain to the proxy, which resolves it itself and leaves over IPv6. Connections with no domain (raw-IP apps) still use IPv4.
+- A proxy on a LAN machine entered by its IPv6 address (link-local `fe80::...`) failed with "invalid argument"; the router now dials it on the LAN bridge automatically, for traffic and health checks.
+- Security: each PPPoE session's virtual interface (`pppv<id>`, used for Viettel) is now firewalled like the WAN port. It has an IPv6 link-local address while SSH and the web UI listen on IPv6 too, so the ISP side could reach them through it.
+- Also includes the work since v0.4.169: bulk delete APIs that remove every rule tied to a client (nftables, tc, DHCP reservation and lease, sing-box, conntrack) and are used by the multi-select delete; bulk delete for NAT ports, bypass rules and PPPoE sessions; the change-password dialog can set the admin or the mobile web password; the brand welcome screen blurs its background so text no longer overlaps.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `65f9b96d525a3fac5423fc0613643d76b18e330b`.
+
 ## v0.4.171 - 2026-10-11
 
 IPv6 proxy endpoints in the Proxy tab.

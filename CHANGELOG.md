@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.176 - 2026-10-11
+
+Mobile page on port 5, brand page on port 6, and traffic rules tightened.
+
+- **Mobile self-service page moved `18082` → `5`, brand page `18083` → `6`.** Phones still just open `http://<router>` (port 80 on the router address goes to the mobile page); the brand page is still shown automatically. Nothing uses 18082 / 18083 any more.
+- **A device whose proxy cannot be used yet (or that is blocked) can always reach the mobile page** — through port 80 or port 5 — to fix its own settings. Before, only port 80 was allowed, so opening the page on its direct port right after setting a proxy could fail.
+- **Fixed: a device's SSH (and traffic on ports 3 / 4) to any internet server ignored its chosen WAN/PPPoE** and left on the router's default line. Only traffic to the router itself and ADB (5555) are exempt now, for both proxy and WAN routing.
+- Release now includes `README.md` (install and usage guide) as an asset.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `dd25aada5f82917a4609e99886648293f2de7acf`.
+
 ## v0.4.175 - 2026-10-11
 
 Ports 18080 and 18081 are no longer used.

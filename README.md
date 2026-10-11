@@ -43,7 +43,7 @@ ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
    RAM](#5-dữ-liệu-khi-chạy-ram)).
 3. Từ một máy khác trong cùng mạng LAN, mở trình duyệt vào:
    ```text
-   http://20.20.0.1:18080
+   http://20.20.0.1:3
    ```
    (`20.20.0.1` là gateway LAN mặc định; nếu đã đổi thì dùng IP LAN hiện tại
    của router). Đăng nhập bằng tài khoản mặc định:
@@ -51,15 +51,17 @@ ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
    Tài khoản: root
    Mật khẩu:  daomai
    ```
-   Đổi mật khẩu ngay trong Web UI sau lần đăng nhập đầu (mục System → đổi mật
-   khẩu root, dùng chung một mật khẩu Linux thật, SSH cũng dùng mật khẩu này).
+   Đổi mật khẩu ngay sau lần đăng nhập đầu: nút **Đổi mật khẩu** trên thanh
+   trên cùng, chọn **Mật khẩu admin** (dùng cho Web Admin và SSH, là mật khẩu
+   root Linux thật).
 4. Vào tab **Internet**, gán vai trò cho từng cổng mạng vật lý: cổng nào là
    WAN (DHCP/IP tĩnh/PPPoE), cổng nào là LAN (`br-phone`, để thiết bị lấy DHCP
    từ router). DaoMaiOS không tự đoán vai trò cổng — phải chọn tay lần đầu.
-5. SSH cũng bật sẵn trên LAN với cùng tài khoản `root`/`daomai` (không tự mở ra
-   WAN trừ khi bật NAT SSH trong Web UI):
+5. SSH chạy ở **cổng 2** và **mặc định tắt** (đóng cả trong LAN). Muốn dùng
+   thì vào tab **Internet → Web từ xa**, tick **Bật SSH** (không chọn WAN = chỉ
+   dùng trong LAN), rồi:
    ```bash
-   ssh root@20.20.0.1
+   ssh -p 2 root@20.20.0.1
    ```
 
 ## 2. Hai giao diện quản lý
@@ -68,13 +70,29 @@ DaoMaiOS có hai giao diện dùng cho hai đối tượng khác nhau:
 
 | Giao diện | Cổng | Dùng cho | Cần đăng nhập |
 |---|---|---|---|
-| **Web Admin** | `18080` | Người quản trị router | Có (tài khoản root) |
-| **Mobile Self-Service** | `18082` (và tự chuyển hướng port 80 trên mạng LAN về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
+| **Web Admin** | `3` | Người quản trị router | Có (tài khoản root) |
+| **Mobile Self-Service** | `18082` (gõ thẳng `http://20.20.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
 
-Với Mobile Self-Service, chỉ cần mở trình duyệt bất kỳ trên điện thoại/máy
-đang nối vào LAN router và gõ một địa chỉ http bất kỳ (hoặc gõ thẳng
-`http://20.20.0.1`), hệ thống sẽ tự chuyển vào cổng self-service — không cần
-gõ số cổng, không cần tài khoản.
+Các cổng khác của router:
+
+| Dịch vụ | Cổng | Mặc định |
+|---|---|---|
+| SSH | `2` | Tắt |
+| API công khai (link "API Xoay", API cho tool) | `4` | Tắt |
+| Trang quảng cáo (mode brand) | `18083` | — |
+
+Bật/tắt SSH và API công khai, hoặc mở chúng (và Web Admin) ra Internet, ở tab
+**Internet → Web từ xa**.
+
+> **Đổi cổng từ bản 0.4.174.** Trước đó: Web Admin `18080`, API công khai
+> `18081`, SSH `22`. Cập nhật lên 0.4.174 trở đi router tự chuyển cổng; địa chỉ
+> cũ `http://20.20.0.1:18080` tự chuyển sang `:3`. Tool hoặc link "API Xoay"
+> gọi trong LAN qua cổng `18081` phải đổi sang cổng `4`. Cổng mở ra WAN đã đặt
+> trước đó được giữ nguyên.
+
+Với Mobile Self-Service, chỉ cần mở trình duyệt trên điện thoại/máy đang nối
+vào LAN router và gõ thẳng `http://20.20.0.1` — không cần gõ số cổng, không cần
+tài khoản.
 
 ## 3. Tính năng Web Admin
 
@@ -90,8 +108,12 @@ gõ số cổng, không cần tài khoản.
   định, giới hạn băng thông mặc định cho thiết bị vừa kết nối.
 - **DHCP**: dải IP cấp phát, gateway/CIDR mạng LAN, DNS, thời gian thuê IP,
   timeout tự xoá IP tĩnh không hoạt động (kèm nút xoá ngay).
-- **Truy cập từ xa**: bật NAT ra WAN cho chính Web Admin, cho API rotate proxy
-  công khai, và cho SSH — chọn egress + cổng ngoài cho từng loại.
+- **Web từ xa** (Web Admin cổng 3, API công khai cổng 4, SSH cổng 2):
+  - Web Admin: trong LAN luôn mở; chọn đầu ra WAN để mở thêm ra Internet.
+  - SSH và API công khai: mặc định tắt. Bỏ tick = đóng hẳn (cả LAN). Tick +
+    không chọn WAN = chỉ trong LAN. Tick + chọn WAN = mở thêm ra Internet.
+  - Mở ra WAN thì chỉ đúng cổng ngoài đã đặt dùng được; đổi cổng thì cổng cũ
+    đóng ngay.
 - **Nhóm cân bằng tải (LB Group)**: gộp nhiều egress WAN thành một nhóm, gán
   cho client để tự chuyển đường khi một egress rớt.
 - **DNS Proxy**: định danh một "đích ra" (theo egress hoặc giữ nội bộ —
@@ -116,6 +138,11 @@ gõ số cổng, không cần tài khoản.
 - Chọn nhiều dòng (kéo chọn hoặc chuột phải) để sửa hàng loạt: nhóm, egress,
   proxy (đơn hoặc dùng chung một upstream), loại proxy, băng thông, NAT port,
   WebRTC/chặn scan, chế độ.
+- **Xoá nhiều thiết bị** một lần: xoá luôn mọi thứ gắn với thiết bị đó (luật
+  firewall, giới hạn băng thông, IP đặt trước và lease DHCP, NAT port, proxy
+  riêng, kết nối đang mở), không chỉ xoá dòng trong bảng.
+- Proxy IPv6: router gửi **tên miền** lên proxy (thay vì IP), nên proxy chỉ ra
+  IPv6 vẫn chạy được với các trang có IPv6.
 - Luật bypass domain/IP theo từng client hoặc áp dụng toàn hệ thống.
 - Cảnh báo khi nhiều client đang dùng trùng một proxy.
 - Tự làm mới danh sách mỗi vài giây, báo (toast) khi có thiết bị mới hoặc đổi
@@ -154,6 +181,10 @@ gõ số cổng, không cần tài khoản.
 Không cần đăng nhập — nhận diện theo IP/MAC của thiết bị đang truy cập.
 
 - Xem thông tin của chính thiết bị: IP công khai, MAC, tên, nhóm, vùng proxy.
+- Thiết bị đang bị chặn hoặc ở mode brand cần **mật khẩu web mobile** để mở
+  khoá. Admin đặt mật khẩu này ở nút **Đổi mật khẩu → Mật khẩu web mobile**
+  (khác mật khẩu admin, không vào được trang admin). Chưa đặt thì tạm dùng mật
+  khẩu admin.
 - Sửa **dòng proxy** của chính mình (host:port hoặc host:port:user:pass), chọn
   loại proxy (HTTP/SOCKS5/cả hai), chọn ký tự phân tách tuỳ ý.
 - Nếu ở chế độ **proxy auto**: ô proxy tự khoá (không sửa tay được), thay vào
@@ -175,10 +206,12 @@ Không cần đăng nhập — nhận diện theo IP/MAC của thiết bị đan
 Tab **Info** trong Web Admin có hai kiểu cập nhật, cả hai đều lấy từ cùng một
 GitHub Release trên repo này:
 
-- **Update zip** — vá nóng, không cần khởi động lại: tải file `.zip`, backup
-  rồi thay tại chỗ `daomai-agent`, thư mục `web/`, và file `VERSION`. Vì
-  DaoMaiOS chạy `toram` (mọi thứ nạp vào RAM), bản vá này **không sống sót qua
-  reboot** — dùng để vá lỗi ngay trong phiên đang chạy.
+- **Update zip** — cập nhật nóng, không cần khởi động lại: tải file `.zip`,
+  backup, thay `daomai-agent` + giao diện web, kiểm tra agent và web khớp
+  nhau, rồi **lưu luôn bản cài xuống USB/SSD**. Khi khởi động lại, router tự
+  lắp lại bản này (nếu nó mới hơn bản trong ISO), nên cập nhật zip **sống sót
+  qua reboot**. Lỗi ở bất kỳ bước nào thì tự quay về bản cũ. Cũng có thể tải
+  lên file `.zip` từ máy (nút cài từ file).
 - **Update ISO** — ghi đè cả ổ boot bằng `daomaios_<version>.iso` mới, kiểm
   tra checksum SHA256 trước khi ghi, backup rồi khôi phục lại database và
   phân vùng persist, sau đó tự khởi động lại. Cách này **sống sót qua reboot**
@@ -187,6 +220,9 @@ GitHub Release trên repo này:
 
 Cả hai kiểu cập nhật đều không đụng tới database người dùng
 (`/var/lib/daomai/router.db`).
+
+Từ 0.4.174, giao diện web (trang admin, trang mobile, trang brand, ảnh) nằm
+ngay trong file `daomai-agent`, nên chương trình và giao diện luôn khớp nhau.
 
 ## 5. Dữ liệu khi chạy RAM
 
@@ -206,10 +242,12 @@ một phiên bản:
 
 - **Agent/web zip** — asset `.zip` chứa:
   ```text
-  daomai-agent      # binary linux/amd64
+  daomai-agent      # binary linux/amd64 (đã kèm sẵn web UI bên trong)
   web/
-    index.html      # (và các file tĩnh khác của web UI)
+    index.html      # bản web trên đĩa: router chạy bản cũ (< 0.4.174) cần
+                    # thư mục này để cài; bản mới dùng để tự kiểm tra
   ```
+  Tên asset phải là `daomai-router-minios-update-v<version>.zip`.
   Không cần file `VERSION` trong zip — phiên bản lấy từ tag của Release (ví dụ
   `v0.2.0`), agent tự ghi vào `/etc/daomai/VERSION` sau khi áp dụng.
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.175 - 2026-10-11
+
+Ports 18080 and 18081 are no longer used.
+
+- The old admin port `18080` no longer redirects: nothing listens on `18080` or `18081` any more. Use `http://<router>:3` for the web admin and port `4` for the public API (links, tools).
+- A remote-access (WAN) external port still saved as `18080` (web) or `18081` (API) is changed to `3` / `4` once during the update. Other external ports you chose, SSH `22` included, are kept.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `3ded77076ae80c07ee3d2456061a09312e3744a5`.
+
 ## v0.4.174 - 2026-10-11
 
 New router ports, web built into the router program, and two proxy fixes.

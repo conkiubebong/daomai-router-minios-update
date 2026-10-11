@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.173",
+  "latest": "0.4.174",
   "released_at": "2026-10-11",
-  "notes": "Bigger save and delete buttons on each device row in the Clients tab.",
+  "notes": "New ports: SSH 2, web admin 3 (18080 redirects), public API 4. Fixes: proxies with large ids now run, and plain HTTP from proxied devices no longer bypasses the proxy.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

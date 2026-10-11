@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.4.174 - 2026-10-11
+
+New router ports, web built into the router program, and two proxy fixes.
+
+- **Router ports changed:** SSH `22` → `2`, web admin `18080` → `3`, public API `18081` → `4`. The mobile page (`80` / `18082`), brand page (`18083`) and ADB are unchanged.
+  - Updating by ZIP or ISO moves the ports automatically. The router checks the new SSH configuration before restarting SSH and keeps the old port if the check fails.
+  - The old admin port `18080` now only redirects to `http://<router>:3` (LAN), so bookmarks and a page left open during the update keep working.
+  - The old public API port `18081` is gone: tools and "API Xoay" links used inside the LAN must switch to port `4`.
+  - Remote access ports already chosen for the WAN are kept and forwarded to the new ports.
+- **The web interface is now built into the router program** (admin page, mobile page, brand page and images). The program and its web can no longer get out of step, and updating the program alone is enough to get the new interface. Update packages still include the web folder so routers on older versions can install them.
+- **Fixed: a newly assigned proxy carried no traffic once the proxy pool was large.** The sing-box port was 49000 + proxy id, which passed 65535 for ids above 16535 (e.g. 83042); sing-box refused to start and the device's traffic went out directly. Ports are now assigned per proxy and always valid; existing proxies keep their port.
+- **Fixed: plain HTTP (port 80) and SSH from a device on a proxy skipped the proxy** and left with the router's own IP. Only traffic to the router itself is exempt now.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `9ad1638df7298c4ed297ad4d78c2553967ccf2b8`.
+
 ## v0.4.173 - 2026-10-11
 
 Bigger row buttons in the Clients tab.

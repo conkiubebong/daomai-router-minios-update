@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.173 - 2026-10-11
+
+Bigger row buttons in the Clients tab.
+
+- The save and delete buttons on each device row are larger (34 px target, 21 px icon), easier to hit. Rows keep their height; the PPPoE rows in the Internet tab are unchanged.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `5aba31228b55e67ef8d960597b0b31011da1e8db`.
+
 ## v0.4.172 - 2026-10-11
 
 IPv6 proxies now carry traffic.

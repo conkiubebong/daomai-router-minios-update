@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.172",
+  "latest": "0.4.173",
   "released_at": "2026-10-11",
-  "notes": "IPv6 proxies carry traffic: the router sends the domain to the proxy instead of an IPv4 address, and dials link-local IPv6 LAN proxies on the LAN bridge. Plus bulk delete APIs, admin/mobile password choice and brand screen fix.",
+  "notes": "Bigger save and delete buttons on each device row in the Clients tab.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

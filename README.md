@@ -71,7 +71,7 @@ DaoMaiOS có hai giao diện dùng cho hai đối tượng khác nhau:
 | Giao diện | Cổng | Dùng cho | Cần đăng nhập |
 |---|---|---|---|
 | **Web Admin** | `3` | Người quản trị router | Có (tài khoản root) |
-| **Mobile Self-Service** | `18082` (gõ thẳng `http://20.20.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
+| **Mobile Self-Service** | `5` (gõ thẳng `http://20.20.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
 
 Các cổng khác của router:
 
@@ -79,7 +79,7 @@ Các cổng khác của router:
 |---|---|---|
 | SSH | `2` | Tắt |
 | API công khai (link "API Xoay", API cho tool) | `4` | Tắt |
-| Trang quảng cáo (mode brand) | `18083` | — |
+| Trang quảng cáo (mode brand) | `6` | — |
 
 Bật/tắt SSH và API công khai, hoặc mở chúng (và Web Admin) ra Internet, ở tab
 **Internet → Web từ xa**.
@@ -89,7 +89,8 @@ Bật/tắt SSH và API công khai, hoặc mở chúng (và Web Admin) ra Intern
 > cổng `18080` và `18081` **không còn được dùng**: bookmark, tool, link "API
 > Xoay" phải đổi sang cổng `3` (web) và `4` (API). Cổng ra WAN đã lưu là
 > `18080`/`18081` được tự đổi thành `3`/`4`; cổng ngoài khác (kể cả SSH `22`)
-> được giữ nguyên.
+> được giữ nguyên. Từ 0.4.176 trang mobile chuyển `18082` → `5` và trang brand
+> `18083` → `6`; điện thoại vẫn chỉ cần gõ `http://20.20.0.1`.
 
 Với Mobile Self-Service, chỉ cần mở trình duyệt trên điện thoại/máy đang nối
 vào LAN router và gõ thẳng `http://20.20.0.1` — không cần gõ số cổng, không cần

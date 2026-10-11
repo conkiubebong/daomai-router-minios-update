@@ -85,10 +85,11 @@ Bật/tắt SSH và API công khai, hoặc mở chúng (và Web Admin) ra Intern
 **Internet → Web từ xa**.
 
 > **Đổi cổng từ bản 0.4.174.** Trước đó: Web Admin `18080`, API công khai
-> `18081`, SSH `22`. Cập nhật lên 0.4.174 trở đi router tự chuyển cổng; địa chỉ
-> cũ `http://20.20.0.1:18080` tự chuyển sang `:3`. Tool hoặc link "API Xoay"
-> gọi trong LAN qua cổng `18081` phải đổi sang cổng `4`. Cổng mở ra WAN đã đặt
-> trước đó được giữ nguyên.
+> `18081`, SSH `22`. Cập nhật lên bản mới router tự chuyển cổng. Từ 0.4.175
+> cổng `18080` và `18081` **không còn được dùng**: bookmark, tool, link "API
+> Xoay" phải đổi sang cổng `3` (web) và `4` (API). Cổng ra WAN đã lưu là
+> `18080`/`18081` được tự đổi thành `3`/`4`; cổng ngoài khác (kể cả SSH `22`)
+> được giữ nguyên.
 
 Với Mobile Self-Service, chỉ cần mở trình duyệt trên điện thoại/máy đang nối
 vào LAN router và gõ thẳng `http://20.20.0.1` — không cần gõ số cổng, không cần

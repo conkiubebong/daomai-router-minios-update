@@ -150,6 +150,12 @@ tài khoản.
 - Tự làm mới danh sách mỗi vài giây, báo (toast) khi có thiết bị mới hoặc đổi
   trạng thái online/offline.
 
+- **Proxy type "auto"** (mặc định cho máy mới): không cần biết proxy là loại
+  gì, router tự dò **socks5 → http → socks4 → https**, mỗi proxy chỉ một kết
+  nối thử mỗi lúc, dừng ngay khi nhận ra. Đã dò xong thì ô loại hiện
+  "auto (socks5)". Khách chọn loại cụ thể thì router dùng đúng loại đó. Đổi
+  loại mặc định cho máy mới ở tab **Internet → IP mới**.
+
 ### Proxy Pool
 - Kho proxy dùng chung cho chế độ **proxy auto**: dán danh sách proxy (mọi
   định dạng phân tách phổ biến), hệ thống tự tách host/port/user/pass, bỏ
@@ -188,7 +194,8 @@ Không cần đăng nhập — nhận diện theo IP/MAC của thiết bị đan
   (khác mật khẩu admin, không vào được trang admin). Chưa đặt thì tạm dùng mật
   khẩu admin.
 - Sửa **dòng proxy** của chính mình (host:port hoặc host:port:user:pass), chọn
-  loại proxy (HTTP/SOCKS5/cả hai), chọn ký tự phân tách tuỳ ý.
+  loại proxy (**auto** = router tự dò, hoặc http/https/socks4/socks5), chọn ký
+  tự phân tách tuỳ ý.
 - Nếu ở chế độ **proxy auto**: ô proxy tự khoá (không sửa tay được), thay vào
   đó có **nút xoay proxy** — bấm để đổi sang proxy khác trong pool, tuân theo
   đúng luật giới hạn số thiết bị/proxy như trên Web Admin (dùng chung một cơ

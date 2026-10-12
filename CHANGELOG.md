@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.177 - 2026-10-12
+
+Proxy type "auto", and UDP through PPPoE SOCKS5 proxies.
+
+- **Proxy type "auto"** (default for new devices): the router works out whether a pasted proxy is SOCKS5, HTTP, SOCKS4 or HTTPS by itself — one test connection at a time, SOCKS5 first, stopping at the first answer, so attaching many proxies at once stays light. A detected proxy shows as "auto (socks5)". Choosing a specific type still uses exactly that type. Available in the Clients tab, the new-device policy (Internet tab), the proxy pool and the mobile page. Pool proxies pasted as "auto" are detected gradually by the health check, and an auto proxy that goes dead is re-detected in case the provider changed protocol.
+- **Fixed: UDP did not pass through the SOCKS5 proxies of PPPoE sessions** (direct port and NAT port). The proxy hands each UDP session a random port, which the WAN firewall blocked; UDP to the proxy's own sockets is now allowed on the PPPoE line. Games, calls and QUIC work through these proxies. HTTP proxies carry no UDP.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `8785dac97a4c442764152fd242a9bd869af3623e`.
+
 ## v0.4.176 - 2026-10-11
 
 Mobile page on port 5, brand page on port 6, and traffic rules tightened.

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.176",
+  "latest": "0.4.177",
   "released_at": "2026-10-11",
-  "notes": "Mobile page on port 5, brand page on port 6; devices without internet can always reach the mobile page; SSH and ports 3/4 from devices now follow their chosen WAN.",
+  "notes": "Proxy type auto: the router detects socks5 / http / socks4 / https itself (default for new devices). UDP now passes through the SOCKS5 proxies of PPPoE sessions.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

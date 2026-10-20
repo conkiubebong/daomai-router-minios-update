@@ -33,6 +33,12 @@ có thể tự kiểm tra và cài bản mới.
 
 ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
 
+> **Máy UEFI nên ghi bằng chế độ DD/ảnh đĩa** (Rufus chọn "DD image", hoặc
+> balenaEtcher, hoặc lệnh `dd`). Từ 0.4.181 router tự nhận diện kiểu boot
+> (UEFI/BIOS) và chế độ cài rồi hiện khuyến nghị ngay ở tab **Info**: máy UEFI
+> boot từ USB ghi kiểu Rufus "ISO mode" có thể gặp lỗi firmware (NVRAM trỏ sai)
+> sau khi dùng **Update ISO** ngay trên router — ghi DD từ đầu thì không gặp.
+
 ### Sau khi boot lần đầu
 
 1. Cắm dây mạng WAN (ra Internet) vào một cổng, cắm switch/AP cho thiết bị
@@ -210,6 +216,23 @@ Không cần đăng nhập — nhận diện theo IP/MAC của thiết bị đan
 - Nếu thiết bị chưa có trong hệ thống, hiển thị thông báo liên hệ admin thay
   vì form chỉnh sửa.
 
+### API tự phục vụ cho agent/APK (từ 0.4.181)
+
+Ngoài trang web, một thiết bị trong LAN có thể **tự cấu hình chính nó** qua HTTP
+mà không cần token: `GET /api/public/self/status` (đọc trạng thái + trường nào
+admin đang khoá), `POST /api/public/self/set-proxy` (đặt/đổi proxy, gỡ bằng
+`{"clear":true}`), `POST /api/public/self/bypass` và `GET
+/api/public/self/bypass-lists`. Router nhận diện thiết bị bằng **IP nguồn TCP**
+nên một máy chỉ sửa được cài đặt của chính nó; các endpoint này **chỉ nhận kết
+nối từ LAN**, tôn trọng khoá của admin (trường bị khoá trả `403`) và **không
+bao giờ đưa máy về `direct`** — gỡ proxy sẽ fail-closed (mất internet) chứ không
+ra thẳng mạng. Hợp đồng đầy đủ cho bên viết APK nằm ở `docs/API_SELF_SERVICE.md`
+trong repo mã nguồn.
+
+> **API cho tool (link "API Xoay" nhanh, `pppoe_rotate`) nay cần xác thực** từ
+> 0.4.181: phiên admin, hoặc token `tool_api_token`, hoặc gọi từ LAN — không
+> còn mở ẩn danh ra Internet qua cổng `4`.
+
 ## 4. Cập nhật hệ thống
 
 Tab **Info** trong Web Admin có hai kiểu cập nhật, cả hai đều lấy từ cùng một
@@ -225,7 +248,9 @@ GitHub Release trên repo này:
   tra checksum SHA256 trước khi ghi, backup rồi khôi phục lại database và
   phân vùng persist, sau đó tự khởi động lại. Cách này **sống sót qua reboot**
   nhưng rủi ro hơn nếu mất điện giữa lúc ghi đĩa — không rút điện router trong
-  lúc cập nhật ISO.
+  lúc cập nhật ISO. Từ 0.4.181, tab **Info** hiện kiểu boot (UEFI/BIOS) và
+  cảnh báo nếu máy UEFI đang boot từ USB ghi kiểu Rufus "ISO mode" (nên cài lại
+  bằng DD để tránh lỗi firmware sau Update ISO).
 
 Cả hai kiểu cập nhật đều không đụng tới database người dùng
 (`/var/lib/daomai/router.db`).

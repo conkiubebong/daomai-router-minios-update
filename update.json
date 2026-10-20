@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.177",
-  "released_at": "2026-10-11",
-  "notes": "Proxy type auto: the router detects socks5 / http / socks4 / https itself (default for new devices). UDP now passes through the SOCKS5 proxies of PPPoE sessions.",
+  "latest": "0.4.181",
+  "released_at": "2026-10-20",
+  "notes": "API tự phục vụ tối giản cho agent APK (status/set-proxy/bypass theo IP nguồn LAN, có {clear:true} để gỡ proxy fail-closed, tôn trọng khoá admin). API cho tool (quick-proxy, pppoe_rotate) phải xác thực. Tự nhận diện kiểu boot UEFI/BIOS và khuyến nghị cài DD. Log mỗi request tắt mặc định. Gộp các thay đổi từ 0.4.177: pipeline đường-ra-trước-internet + proxy fail-closed, tinh chỉnh CPU đa nhân, tc reconcile + flow offload, bảo vệ quá tải, 6 ngôn ngữ, Modules (python3, backup streaming, sống sót qua ISO update).",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

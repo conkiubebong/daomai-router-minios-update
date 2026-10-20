@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.181 - 2026-10-20
+
+API tự phục vụ cho agent APK, xác thực API cho tool, tự nhận diện kiểu boot.
+
+- **API tự phục vụ tối giản cho thiết bị/agent APK** (nhận diện theo **IP nguồn TCP**, chỉ trong LAN, không cần token, không đọc id/ip/mac hay `X-Forwarded-For`): một máy chỉ cấu hình được chính nó. Thêm `GET /api/public/self/status` (đọc toàn bộ trạng thái máy + trường nào đang bị admin khoá) bên cạnh `POST .../set-proxy`, `.../bypass`, `.../bypass-lists`. Gỡ proxy bằng `{"clear":true}`: máy vẫn ở chế độ proxy nhưng không có proxy → **fail-closed (mất internet)**, không ra thẳng mạng; **không có endpoint nào đưa máy về `direct`** (phải vào trang admin). Các endpoint **tôn trọng khoá admin** — trường bị admin khoá sẽ trả `403` — và tự thử dò lại thiết bị vừa vào mạng. Hợp đồng đầy đủ cho bên viết APK ở `docs/API_SELF_SERVICE.md` trong repo nguồn.
+- **API cho tool nay phải xác thực** (`requireToolAPI`): link "API Xoay" nhanh (quick-proxy) và `pppoe_rotate` cần phiên admin, hoặc `tool_api_token`, hoặc gọi từ LAN — không còn mở ẩn danh ra Internet qua cổng 4.
+- **Tự nhận diện kiểu boot (UEFI/BIOS) và chế độ cài** (live USB / DD / đã cài): tab Info và `GET /api/system` (khối `boot`) khuyến nghị cách cập nhật/cài an toàn. Máy UEFI boot từ USB ghi kiểu Rufus/Etcher nên **cài bằng DD** để tránh lỗi NVRAM sau "Update ISO".
+- **Log mỗi request mặc định TẮT** (đặt biến môi trường `DAOMAI_LOG_REQUESTS=1` để bật), giảm nhiễu log trên router đang chạy.
+- Bản này gộp mọi thay đổi từ 0.4.177 (lần phát hành kênh update gần nhất) tới nay: **pipeline "đường ra trước Internet"** (Máy → IP↔MAC → RTC → Scan → Bypass → Mode → Băng thông → Đường ra → NAT) với **proxy fail-closed** (proxy chết thì mất internet, không rò qua WAN); **tinh chỉnh CPU đa nhân** (IRQ/RPS/RFS/XPS, conntrack hashsize); **tc shaping reconcile** incremental + **flow offload** phần mềm; **bảo vệ quá tải** trên mọi listener (rate-limit theo IP, semaphore cho route nặng, gộp request trùng, job bất đồng bộ, cache phản hồi); **6 ngôn ngữ giao diện** (Việt, Anh, Thái, Bồ, Hàn, Nhật); và **Modules** (module python3, backup dạng streaming, sống sót qua ISO update, ảnh ext4 cho router chạy BootFS).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `7d3455940e78961e9c6a3e06596f9a32dcfabd34`.
+
 ## v0.4.177 - 2026-10-12
 
 Proxy type "auto", and UDP through PPPoE SOCKS5 proxies.

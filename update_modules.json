@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "updated": "2026-10-22",
+  "release_tag": "modules-v0.4.181",
+  "base_url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/",
+  "modules": [
+    {
+      "id": "cloudflared",
+      "name": { "vi": "Cloudflare Tunnel", "en": "Cloudflare Tunnel" },
+      "version": "1.0.2",
+      "kind": "service",
+      "min_router_version": "0.4.181",
+      "file": "cloudflared-1.0.2.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/cloudflared-1.0.2.zip",
+      "sha256": "9dc09168ede37bd02553c50a7d40518f583516f16fed7a7d17b436f8b491ae63",
+      "size": 20267190,
+      "description": {
+        "vi": "Đưa dịch vụ nội bộ ra Internet qua Cloudflare, không cần IP tĩnh/mở cổng. Chế độ token/quick/local + switch bỏ verify TLS origin.",
+        "en": "Expose a local service to the Internet via Cloudflare, no static IP / port-forward. token/quick/local modes + an origin TLS-verify switch."
+      }
+    },
+    {
+      "id": "tailscale",
+      "name": { "vi": "Tailscale", "en": "Tailscale" },
+      "version": "1.0.0",
+      "kind": "service",
+      "min_router_version": "0.4.183",
+      "file": "tailscale-1.0.0.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/tailscale-1.0.0.zip",
+      "sha256": "10384a220024aefa245b946ba2289882515b50ec415fa21291acbdc9a924a69a",
+      "size": 40774547,
+      "description": {
+        "vi": "Subnet router: truy cập router + máy LAN (và xem phone có hình) từ xa qua tailnet, không cần IP công khai. Cần quyền net_admin, router >= 0.4.183.",
+        "en": "Subnet router: reach the router + LAN machines (and view phones with video) remotely over the tailnet, no public IP. Needs the net_admin permission, router >= 0.4.183."
+      }
+    },
+    {
+      "id": "rustdesk-sample",
+      "name": { "vi": "RustDesk (mẫu)", "en": "RustDesk (sample)" },
+      "version": "1.0.1",
+      "kind": "service",
+      "min_router_version": "0.4.180",
+      "file": "rustdesk-sample-1.0.1.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/rustdesk-sample-1.0.1.zip",
+      "sha256": "189b0ac314f45cb76deaad67365d918ee0aeb3ffe5b20f52ed08af61eb17adc8",
+      "size": 5915006,
+      "description": {
+        "vi": "Máy chủ RustDesk tự host (hbbs/hbbr) với quản lý khoá: tạo/nhập/đổi key, hiện public key cho client.",
+        "en": "Self-hosted RustDesk server (hbbs/hbbr) with key management: create/import/change the key, surfaces the public key for clients."
+      }
+    },
+    {
+      "id": "python3",
+      "name": { "vi": "Python 3 (nền)", "en": "Python 3 (base)" },
+      "version": "3.12.15",
+      "kind": "runtime",
+      "min_router_version": "0.4.180",
+      "file": "python3-3.12.15.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/python3-3.12.15.zip",
+      "sha256": "5cf52f9bb7017a090c4f12bf566822dbef79cc618c33f7dfb2f51d68f3391db1",
+      "size": 17653797,
+      "description": {
+        "vi": "Trình thông dịch Python 3 dùng chung — nền cho các module Python (không tự chạy; cài một lần).",
+        "en": "The shared Python 3 interpreter — the base for Python modules (never runs on its own; install once)."
+      }
+    },
+    {
+      "id": "daomai-hello",
+      "name": { "vi": "DaoMai Hello (mẫu)", "en": "DaoMai Hello (sample)" },
+      "version": "1.1.1",
+      "kind": "service",
+      "min_router_version": "0.4.180",
+      "file": "daomai-hello-1.1.1.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/daomai-hello-1.1.1.zip",
+      "sha256": "79088b6125b6096cf1b43096f3d4e543e74f97f6f0ed0e35299d694241ce6fa2",
+      "size": 3394060,
+      "description": {
+        "vi": "Module mẫu tối giản: {sh} launcher, một service + một job, hook uninstall. Để học cách đóng gói module.",
+        "en": "A minimal sample module: {sh} launcher, one service + one job, an uninstall hook. For learning module packaging."
+      }
+    }
+  ]
+}

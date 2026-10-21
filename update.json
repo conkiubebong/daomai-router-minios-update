@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.181",
-  "released_at": "2026-10-20",
-  "notes": "API tự phục vụ tối giản cho agent APK (status/set-proxy/bypass theo IP nguồn LAN, có {clear:true} để gỡ proxy fail-closed, tôn trọng khoá admin). API cho tool (quick-proxy, pppoe_rotate) phải xác thực. Tự nhận diện kiểu boot UEFI/BIOS và khuyến nghị cài DD. Log mỗi request tắt mặc định. Gộp các thay đổi từ 0.4.177: pipeline đường-ra-trước-internet + proxy fail-closed, tinh chỉnh CPU đa nhân, tc reconcile + flow offload, bảo vệ quá tải, 6 ngôn ngữ, Modules (python3, backup streaming, sống sót qua ISO update).",
+  "latest": "0.4.189",
+  "released_at": "2026-10-22",
+  "notes": "Ô tìm kiếm trong popup Log module (lọc dòng theo chuỗi, 6 ngôn ngữ). Cập nhật module trực tuyến: nút 'Cập nhật .zip' chọn ZIP trên máy hoặc online (tải từ update_modules.json, chỉ HTTPS + kiểm sha256); sửa lỗi parse catalog khi schema ghi bằng số. Module tailscale 1.0.1 (bump phản ánh fix auth key khỏi backup). Gộp 0.4.184–0.4.188: module cloudflared (token/quick/local + công tắc NO_TLS_VERIFY/HTTP2_ORIGIN, hiện link public trên thẻ), trạng thái runtime theo module trên thẻ, cô lập module↔router (module kể cả venv/pip không đọc được router.db hay secret), sửa lỗi lưu field cấu hình có pattern khi để trống.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -133,6 +133,19 @@ tài khoản.
   HTTP/SOCKS5/API rotate để copy.
 - Nút dò lại toàn bộ cổng mạng, nút xuất danh sách proxy đang host trên PPPoE
   ra file .txt (HTTP/SOCKS5/rotate link).
+- **Tailscale (mạng riêng)** — từ **0.4.183 là MODULE đặc quyền**
+  (`docs/module-sample/tailscale`), không còn là tính năng lõi. `tailscaled` chạy
+  ngay trên router và quảng bá dải LAN vào tailnet, để thiết bị từ xa (cùng
+  tailnet) truy cập thẳng client LAN; router cũng vào được qua IP tailnet
+  (SSH/web). Cài qua tab **Modules** (file `.zip`), **xác nhận quyền `net_admin` +
+  `net-tun`**, rồi đặt **AUTHKEY** (tạo ở bảng quản trị Tailscale),
+  **ADVERTISE_ROUTES**, **HOSTNAME**, **ACCEPT_DNS**. Sau khi node lên, phải
+  **DUYỆT tuyến mạng** (Subnet routes) trong bảng quản trị Tailscale thì thiết bị
+  từ xa mới tới được LAN. Tường lửa chỉ mở `tailscale0` + **UDP 41641** ra WAN khi
+  **có module `net_admin` đang bật**; auth key là bí mật (không hiện lại); state
+  node lưu trong `data/` của module (được backup) nên sống qua reboot. `tailscaled`
+  chạy bằng user `dm-tailscale`, không phải root. (0.4.182: Tailscale là tính năng
+  lõi, binary trong ISO — nay đã gỡ.)
 
 ### Clients
 - Bảng quản lý toàn bộ thiết bị: MAC, tên, IP (tĩnh/động), nhóm, proxy, loại
@@ -257,6 +270,11 @@ Cả hai kiểu cập nhật đều không đụng tới database người dùng
 
 Từ 0.4.174, giao diện web (trang admin, trang mobile, trang brand, ảnh) nằm
 ngay trong file `daomai-agent`, nên chương trình và giao diện luôn khớp nhau.
+
+**Cập nhật module (từ 0.4.188):** trong tab **Modules**, nút "Cập nhật .zip"
+mở popup chọn **ZIP trên máy** hoặc **online** — tải thẳng từ catalog
+`update_modules.json` của repo này (chỉ HTTPS + kiểm `sha256`). Popup "Log
+module" có **ô tìm kiếm** lọc nhanh dòng log (từ 0.4.189).
 
 ## 5. Dữ liệu khi chạy RAM
 

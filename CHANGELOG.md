@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.4.189 - 2026-10-22
+
+Tìm kiếm trong log module, cập nhật module trực tuyến, tailscale 1.0.1.
+
+- **Ô tìm kiếm trong popup "Log module"**: lọc nhanh dòng log theo chuỗi (không phân biệt hoa/thường), hiện số dòng khớp/tổng; lọc ngay trên trình duyệt, đủ 6 ngôn ngữ.
+- **Cập nhật module trực tuyến**: nút "Cập nhật .zip" mở popup chọn **ZIP trên máy** hoặc **online** — tải từ catalog `update_modules.json` (chỉ HTTPS + kiểm `sha256`). **Sửa lỗi** parse catalog khi trường `schema` ghi bằng số (`1` thay vì `"1"`): parser nay nhận cả số lẫn chuỗi.
+- **Module tailscale 1.0.1**: bump phiên bản phản ánh fix "giữ auth key ra khỏi backup" (đã có trong mã từ trước nhưng chưa đổi số version, nên cơ chế cập nhật không nhận ra).
+- Gộp mọi thay đổi từ 0.4.184–0.4.188:
+  - **Module cloudflared (Cloudflare Tunnel)**: đưa dịch vụ nội bộ ra Internet không cần IP tĩnh/mở cổng — chế độ token/quick/local, công tắc bật/tắt `NO_TLS_VERIFY` + `HTTP2_ORIGIN` để tới origin HTTPS self-signed; **hiện link public ngay trên thẻ module**.
+  - **Trạng thái runtime theo từng module hiện trên thẻ** (ví dụ URL tunnel).
+  - **Cô lập module ↔ router**: module (kể cả trình chạy venv/pip của Python) **không đọc được** `router.db` hay secret proxy/PPPoE của router (`InaccessiblePaths`).
+  - Sửa lỗi lưu field cấu hình có `pattern` khi để trống (field đổi theo chế độ).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `9d029a3d6e051c07c8fa978892eaa02eaf96bc31`.
+- *ISO cho bản này sẽ bổ sung khi build server sẵn sàng; hiện phát hành ZIP cập nhật nóng (`POST /api/update/apply`).*
+
 ## v0.4.181 - 2026-10-20
 
 API tự phục vụ cho agent APK, xác thực API cho tool, tự nhận diện kiểu boot.

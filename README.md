@@ -183,6 +183,9 @@ tài khoản.
   sang proxy khác còn sống nếu proxy hiện tại chết quá N giây.
 - Danh sách proxy trong pool: trạng thái sống/chết, vùng, thiết bị nào đang
   dùng, lọc theo loại/trạng thái/vùng, xoá hàng loạt.
+- Cột "IP đang dùng" chỉ liệt kê máy ở chế độ **proxy auto** (từ 0.4.190): máy
+  ở `mode=proxy` thường có proxy riêng, dù trùng host:port với proxy pool cũng
+  KHÔNG bị tính là đang dùng proxy pool.
 - Tự kiểm tra sức khoẻ proxy định kỳ.
 
 ### Logs

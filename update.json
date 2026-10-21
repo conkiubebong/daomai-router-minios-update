@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.189",
+  "latest": "0.4.190",
   "released_at": "2026-10-22",
-  "notes": "Ô tìm kiếm trong popup Log module (lọc dòng theo chuỗi, 6 ngôn ngữ). Cập nhật module trực tuyến: nút 'Cập nhật .zip' chọn ZIP trên máy hoặc online (tải từ update_modules.json, chỉ HTTPS + kiểm sha256); sửa lỗi parse catalog khi schema ghi bằng số. Module tailscale 1.0.1 (bump phản ánh fix auth key khỏi backup). Gộp 0.4.184–0.4.188: module cloudflared (token/quick/local + công tắc NO_TLS_VERIFY/HTTP2_ORIGIN, hiện link public trên thẻ), trạng thái runtime theo module trên thẻ, cô lập module↔router (module kể cả venv/pip không đọc được router.db hay secret), sửa lỗi lưu field cấu hình có pattern khi để trống.",
+  "notes": "Sửa lỗi tab Proxy Pool: cột 'IP đang dùng' của một proxy pool trước đây tính cả máy ở mode=proxy thường (không phải auto-proxy) khi trùng host:port, khiến một phone mode proxy bị hiện nhầm là đang dùng proxy pool — nay chỉ tính máy auto-proxy (proxy_auto). Sửa lỗi bảng Clients không tự cập nhật khi phone đổi proxy nơi khác (trang tự phục vụ cổng 5 / API quick-proxy / tab admin khác): live-poll nay so cả mode/proxy_auto/proxy_id/proxy_type và vẽ lại hàng. Gồm cả 0.4.189: ô tìm kiếm trong popup Log module, cập nhật module trực tuyến (ZIP/online + sha256), tailscale 1.0.1; và 0.4.184-0.4.188: module cloudflared, trạng thái runtime theo module, cô lập module↔router.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

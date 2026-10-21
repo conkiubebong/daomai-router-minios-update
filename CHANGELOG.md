@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.190 - 2026-10-22
+
+Sửa lỗi hiển thị "IP đang dùng" của tab Proxy Pool.
+
+- **Sửa lỗi tab Proxy Pool hiển thị sai "IP đang dùng"**: cột "IP đang dùng" của một proxy trong pool trước đây tính CẢ máy ở `mode=proxy` thường (không phải auto-proxy) khi máy đó tình cờ dùng cùng `host:port` với proxy pool — nên một phone ở mode proxy bị hiện nhầm là đang dùng proxy pool. Nay chỉ tính máy **auto-proxy** (`proxy_auto`), đúng nghĩa pool là "kho cho mode proxy auto". Giới hạn tải `proxy_max_per_proxy` phía backend GIỮ NGUYÊN (đếm tải thực lên upstream host:port, là việc khác với hiển thị quyền sở hữu pool).
+- **Sửa lỗi bảng Clients không tự cập nhật khi phone đổi proxy nơi khác**: khi một phone tự đổi proxy qua trang tự phục vụ (cổng 5), API tool quick-proxy, hoặc tab admin khác, live-poll trước đây chỉ vẽ lại hàng khi đổi *trạng thái online/offline*, nên thay đổi proxy/mode không hiện lên tới khi bấm làm mới thủ công. Nay live-poll so cả `mode`/`proxy_auto`/`proxy_id`/`proxy_type` và vẽ lại hàng đó.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `29430278f962a0206b7cd7bbcad68a428e637943`.
+- *ISO cho bản này sẽ bổ sung khi build server sẵn sàng; hiện phát hành ZIP cập nhật nóng (`POST /api/update/apply`).*
+
 ## v0.4.189 - 2026-10-22
 
 Tìm kiếm trong log module, cập nhật module trực tuyến, tailscale 1.0.1.

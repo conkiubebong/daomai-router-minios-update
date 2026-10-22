@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.193 - 2026-10-22
+
+Giao diện web mới (Vite + React + TypeScript) nay là MẶC ĐỊNH; đã bỏ web tĩnh cũ. **Kèm ISO đầy đủ.**
+
+- **UI mới làm mặc định, bỏ hẳn web tĩnh cũ**: trang admin mới serve thẳng ở `http://IP_ROUTER:3/` và trang tự phục vụ mobile mới ở `http://IP_ROUTER:5/` (trước ở `/app/` và `/m/`). Toàn bộ JS admin viết tay cũ (`web/static/js/00-i18n…14-help.js`), `mobile.html`, `style.css` và các bài test UI cũ đã bị **xoá**. Giữ lại **trang brand công khai** (`brand.html` + `brand-fx.js`, cổng 6) và **Swagger** (API Docs). Binary agent nhỏ hơn ~2 MB.
+- Gộp **0.4.192** (hairpin NAT loopback cho cổng module ra WAN), **0.4.191** (UI mới chạy song song — nay thành mặc định), **0.4.190** (Proxy Pool 'IP đang dùng' + Clients tự cập nhật), **0.4.189** (ô tìm kiếm log module, cập nhật module online, tailscale 1.0.1).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `4ff201a1`. ISO built from `09a4b5d5` (cùng mã nguồn, chỉ khác commit README).
+- **Phát hành đầy đủ**: ZIP cập nhật nóng + **ISO `daomaios_0.4.193.iso`** (349.175.808 bytes, SHA256 `315641cd37fd39066e921e2c4bc34c4dbef974ca98561f513fefa41eb9b79ba8`) + `.iso.sha256`.
+
 ## v0.4.192 - 2026-10-22
 
 Hairpin NAT (NAT loopback) cho cổng module NAT ra WAN.

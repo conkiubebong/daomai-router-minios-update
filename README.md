@@ -79,10 +79,10 @@ DaoMaiOS có hai giao diện dùng cho hai đối tượng khác nhau:
 | **Web Admin** | `3` | Người quản trị router | Có (tài khoản root) |
 | **Mobile Self-Service** | `5` (gõ thẳng `http://20.20.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
 
-> **Giao diện mới (beta, từ 0.4.191):** đang thử nghiệm bản viết lại bằng React/TypeScript,
-> chạy **song song** với giao diện cũ (giao diện cũ vẫn là mặc định). Admin: `http://IP_ROUTER:3/app/`;
-> Mobile: `http://IP_ROUTER:5/m/`. Dùng chung đăng nhập/ngôn ngữ/theme. Có thể còn vài chi
-> tiết đơn giản hơn bản cũ; góp ý để hoàn thiện trước khi đặt làm mặc định.
+> **Giao diện mới (React/TypeScript) — MẶC ĐỊNH từ 0.4.193:** bản viết lại bằng
+> Vite + React + TypeScript nay là giao diện chính, serve thẳng ở
+> `http://IP_ROUTER:3/` (admin) và `http://IP_ROUTER:5/` (mobile tự phục vụ).
+> Web tĩnh cũ đã được gỡ bỏ. Trang brand công khai (cổng 6) và Swagger giữ nguyên.
 
 Các cổng khác của router:
 

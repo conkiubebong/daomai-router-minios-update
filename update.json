@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.191",
+  "latest": "0.4.192",
   "released_at": "2026-10-22",
-  "notes": "Giao diện web MỚI (beta) viết lại bằng Vite + React + TypeScript cho toàn bộ trang admin (10 tab) và trang tự phục vụ mobile. Chạy song song, KHÔNG thay UI cũ: UI cũ vẫn mặc định ở / (và mobile cũ), UI mới ở /app/ (admin) và /m/ (mobile) — dùng chung token/ngôn ngữ/theme, i18n 6 ngôn ngữ. Vẫn là beta (một số chi tiết đơn giản hơn UI cũ). Mobile: mô tả tuỳ chọn hiện khi rê chuột thay vì in dưới ô. Bao gồm cả 0.4.190 (sửa 'IP đang dùng' Proxy Pool chỉ tính máy auto-proxy; bảng Clients tự cập nhật khi phone đổi proxy nơi khác) và 0.4.189 (ô tìm kiếm log module, cập nhật module online, tailscale 1.0.1).",
+  "notes": "Hairpin NAT (NAT loopback) cho cổng module NAT ra WAN: trước đây máy trong LAN gõ chính IP public của router + cổng ngoài bị từ chối (ERR_CONNECTION_REFUSED), chỉ máy ngoài internet (vd 4G) vào được; nay cùng một IP:port public dùng được cả trong LAN lẫn ngoài. Gộp bản 0.4.191 (giao diện web MỚI beta Vite+React+TypeScript cho admin /app/ và mobile /m/, chạy song song UI cũ), 0.4.190 (Proxy Pool 'IP đang dùng' chỉ tính máy auto-proxy; bảng Clients tự cập nhật khi phone đổi proxy nơi khác) và 0.4.189.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.192 - 2026-10-22
+
+Hairpin NAT (NAT loopback) cho cổng module NAT ra WAN.
+
+- **Hairpin NAT cho cổng module NAT ra WAN**: một cổng module mở ra WAN (external ≠ local) trước đây chỉ nhận gói đến **từ interface WAN**, nên máy **trong LAN** gõ chính IP public của router + cổng ngoài bị **từ chối** (`ERR_CONNECTION_REFUSED`) — chỉ máy ngoài internet (vd 4G) mới vào được. Nay thêm luật hairpin (`iifname "br-phone" fib daddr type local <proto> dport <external> redirect to :<local>`), nên **cùng một IP:port public dùng được cả trong LAN lẫn ngoài internet**. Service chạy trên router nên không cần SNAT; luật scoped chặt (br-phone + đích router-local + đúng cổng ngoài) nên không đụng traffic LAN thường; module không NAT ra WAN thì không sinh luật thêm.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `6547265e153af9e5fbe70d4fd10a1e72242624ee`.
+- *ISO cho bản này sẽ bổ sung khi build server sẵn sàng; hiện phát hành ZIP cập nhật nóng (`POST /api/update/apply`).*
+
 ## v0.4.191 - 2026-10-22
 
 Giao diện web mới (beta) — Vite + React + TypeScript, chạy song song với UI cũ.

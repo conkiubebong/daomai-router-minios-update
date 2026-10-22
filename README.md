@@ -284,6 +284,11 @@ mở popup chọn **ZIP trên máy** hoặc **online** — tải thẳng từ ca
 `update_modules.json` của repo này (chỉ HTTPS + kiểm `sha256`). Popup "Log
 module" có **ô tìm kiếm** lọc nhanh dòng log (từ 0.4.189).
 
+**Cổng module NAT ra WAN (hairpin, từ 0.4.192):** khi một module mở cổng ra
+Internet (đặt NAT, cổng ngoài ≠ cổng trong), nay **máy trong LAN cũng gõ được
+chính IP public của router + cổng ngoài** (trước chỉ máy ngoài internet vào
+được; máy trong LAN bị `ERR_CONNECTION_REFUSED`).
+
 ## 5. Dữ liệu khi chạy RAM
 
 DaoMaiOS chạy live `toram`: hệ điều hành nạp hết vào RAM khi boot, không có

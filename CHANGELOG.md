@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.191 - 2026-10-22
+
+Giao diện web mới (beta) — Vite + React + TypeScript, chạy song song với UI cũ.
+
+- **Giao diện web MỚI (beta)**: toàn bộ trang admin (10 tab: Dashboard, Internet, Clients, Proxy Pool, Bypass Proxy, Brand, Modules, API Docs, Info, Logs) và trang tự phục vụ **mobile** được viết lại bằng **Vite + React + TypeScript**. Chạy **song song (dual-serve), KHÔNG thay UI cũ**: UI cũ vẫn mặc định ở `/` (và trang mobile cũ), UI mới ở **`http://IP_ROUTER:3/app/`** (admin) và **`http://IP_ROUTER:5/m/`** (mobile). Dùng chung token đăng nhập / ngôn ngữ / theme với UI cũ; i18n đủ 6 ngôn ngữ; toast/confirm/job-queue dùng chung. Nguồn ở `src/daomai-router/webui/`, build ra `web/static/app/` + `web/static/app-mobile/` (commit sẵn để `go:embed`, build server offline không cần npm).
+- **Vẫn là BETA**: một số chi tiết đơn giản hơn UI cũ (select gốc thay richSelect có panel mô tả, vài animation hàng, resize cột, vài validation bulk nhẹ hơn, PPPoE bulk ở tab Internet chưa dùng job-widget).
+- Mobile: mô tả tuỳ chọn hiện khi **rê chuột** (tooltip) thay vì in chữ ngay dưới ô; giữ nút "?" mở danh sách mô tả cho cảm ứng.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `d5e51f551fd153f61334b70c178ddb2773f19449`.
+- *ISO cho bản này sẽ bổ sung khi build server sẵn sàng; hiện phát hành ZIP cập nhật nóng (`POST /api/update/apply`).*
+
 ## v0.4.190 - 2026-10-22
 
 Sửa lỗi hiển thị "IP đang dùng" của tab Proxy Pool.

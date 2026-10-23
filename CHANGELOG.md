@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.194 - 2026-10-23
+
+Bản **ổn định**: quay lại giao diện web **cũ** (đã kiểm chứng kỹ). **Kèm ISO đầy đủ.**
+
+- **Quay lại UI cũ làm mặc định**: giao diện Vite/React/TypeScript (0.4.191–0.4.193) tạm **chuyển sang nhánh `new-ui`** để hoàn thiện (độ mượt, icon/logo, kích thước khung/nút, màn đăng nhập) rồi mới phát hành lại. Bản này build từ mã UI cũ đã chạy ổn định lâu nay (gốc 0.4.190).
+- **Giữ hairpin NAT cho cổng module NAT ra WAN** (từ 0.4.192): một cổng module mở ra WAN (external ≠ local) nay nhận gói **cả từ WAN lẫn từ LAN** khi gõ đúng IP public của router + cổng ngoài, nên **cùng một IP:port public dùng được cả trong LAN lẫn ngoài internet**. Luật scoped chặt (`iifname "br-phone" fib daddr type local`), không đụng traffic LAN thường.
+- **Tab Proxy Pool hiển thị MỌI máy đang dùng proxy**: hoàn lại hành vi cũ — **cả máy đặt `mode=proxy` thủ công** (không chỉ máy auto-proxy) đều hiện ở cột "IP đang dùng", để từ tab Proxy biết máy nào trong tab Clients đang dùng proxy nào.
+- Vẫn bao gồm các sửa lỗi của 0.4.190 (Proxy Pool + Clients tự cập nhật khi máy đổi proxy qua self-service) và 0.4.189 (ô tìm kiếm log module, cập nhật module online, tooltip mô tả tuỳ chọn module).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `d8df5b98`.
+- **Phát hành đầy đủ**: ZIP cập nhật nóng + **ISO `daomaios_0.4.194.iso`** (349.175.808 bytes, SHA256 `917b04f985b13936435e25b6611bb2ed281bfe07cb6eb81b28c82c72b49a4a43`) + `.iso.sha256`.
+
 ## v0.4.193 - 2026-10-22
 
 Giao diện web mới (Vite + React + TypeScript) nay là MẶC ĐỊNH; đã bỏ web tĩnh cũ. **Kèm ISO đầy đủ.**

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.193",
-  "released_at": "2026-10-22",
-  "notes": "Giao diện web MỚI (Vite + React + TypeScript) nay là MẶC ĐỊNH; ĐÃ BỎ web tĩnh cũ. Admin mới ở http://IP_ROUTER:3/ và mobile mới ở http://IP_ROUTER:5/ (trước là /app/ và /m/). Toàn bộ JS admin viết tay cũ + mobile.html + style.css + test UI cũ đã xoá; giữ trang brand công khai (cổng 6) và Swagger. Gộp 0.4.192 (hairpin NAT cho cổng module), 0.4.191 (UI mới chạy song song), 0.4.190, 0.4.189. Bản này có kèm ISO đầy đủ.",
+  "latest": "0.4.194",
+  "released_at": "2026-10-23",
+  "notes": "Bản ỔN ĐỊNH: quay lại giao diện web CŨ (đã kiểm chứng kỹ). Giao diện mới Vite/React/TypeScript (0.4.191–0.4.193) tạm chuyển sang nhánh new-ui để hoàn thiện rồi phát hành lại. Vẫn GIỮ: hairpin NAT cho cổng module NAT ra WAN (cùng một IP:port public của router dùng được cả trong LAN lẫn ngoài internet) và tab Proxy Pool hiển thị MỌI máy đang dùng proxy — cả máy đặt mode=proxy thủ công, không chỉ auto-proxy — để từ tab Proxy biết máy nào trong tab Clients đang dùng proxy nào. Kèm ISO đầy đủ.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

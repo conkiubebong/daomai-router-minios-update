@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.198 - 2026-10-24
+
+Cải thiện giao diện web admin (tốc độ + trải nghiệm). Vẫn web cũ. **Kèm ISO đầy đủ.**
+
+- **Trang Clients load nhanh hơn:** các combobox mỗi hàng nay **lazy-enhance** — chỉ dựng wrapper/popup khi bạn thực sự bấm vào, còn lại dùng `<select>` gốc nhẹ. Render ban đầu từ O(số hàng × combobox) xuống O(số hàng), bỏ việc dựng ~hàng trăm combobox đồng bộ lúc mở tab (router nhiều client/proxy đỡ giật).
+- **Mô tả combobox/select chỉ hiện khi di chuột:** bỏ hẳn **panel mô tả hiện sẵn bên cạnh dropdown** — mô tả giờ chỉ xuất hiện dưới dạng tooltip ngay ở con trỏ khi hover (cả inline cũ đã bỏ từ trước).
+- **Tự động reload khi có bản mới:** web admin kiểm phiên bản server định kỳ + poll `/health` sau khi cập nhật, tự `reload` khi phiên bản đổi → **không cần Ctrl+Shift+R** để thấy bản mới (có chống loop/transient).
+- **Hiệu ứng chuyển tab đồng nhất** desktop ↔ mobile (sheen chạy ngay khi chuyển tab thay vì sau render). Nhỏ: bấm lại tab đang mở không rebuild lại.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `b15b6d56`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.198.iso`** (349.175.808 bytes, SHA256 `7004352943d53ae06ecde5b81e806421ffb728748036b49d59b7c51812481158`) + `.iso.sha256`.
+
 ## v0.4.197 - 2026-10-24
 
 Setup mật khẩu bắt buộc + chuẩn hóa config module + tiện ích. Giao diện vẫn web cũ. **Kèm ISO đầy đủ.**

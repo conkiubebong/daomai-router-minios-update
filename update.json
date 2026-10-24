@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.197",
+  "latest": "0.4.198",
   "released_at": "2026-10-24",
-  "notes": "Setup mật khẩu bắt buộc lần đầu + chuẩn hóa config module + tiện ích. (1) Vào trang admin khi mật khẩu web (root/Debian) HOẶC mật khẩu mobile (mode brand) còn mặc định 'daomai' thì bắt buộc đổi cả hai, hai mật khẩu phải khác nhau; đổi mobile không cần nhập mật khẩu cũ. (2) Hệ config module thêm loại field khai báo: button (nút chạy action sandbox bằng user module) và list (nhiều dòng); module phức tạp vẫn tự serve web setting riêng; MODULE_PROMPT + template + module-mẫu NAT+UDP. (3) Thêm API đọc IP public của egress/PPPoE cho module (GET /api/public/v1/egresses, gated tool-API, read-only). (4) Mô tả ở combobox/select nay chỉ hiện khi di chuột (bỏ phần lặp inline). Kèm ISO đầy đủ.",
+  "notes": "Cải thiện giao diện web admin. (1) Trang Clients load nhanh hơn: combobox mỗi hàng chỉ 'nặng hoá' khi bấm vào (lazy-enhance), render ban đầu O(số hàng) thay vì dựng hàng trăm combobox đồng bộ. (2) Mô tả ở combobox/select CHỈ hiện khi di chuột (bỏ panel mô tả hiện sẵn bên cạnh dropdown). (3) Tự động reload khi có bản mới: sau khi cập nhật agent, trang tự nạp lại JS/CSS mới (không cần Ctrl+Shift+R). (4) Hiệu ứng chuyển tab đồng nhất desktop và mobile. Kèm ISO đầy đủ.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

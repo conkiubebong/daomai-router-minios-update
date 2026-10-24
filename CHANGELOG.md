@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.197 - 2026-10-24
+
+Setup mật khẩu bắt buộc + chuẩn hóa config module + tiện ích. Giao diện vẫn web cũ. **Kèm ISO đầy đủ.**
+
+- **Setup mật khẩu bắt buộc lần đầu:** vào trang admin khi mật khẩu **web (root/Debian)** HOẶC mật khẩu **mobile (mode brand)** còn mặc định `daomai` → modal **bắt buộc đổi cả hai**, hai mật khẩu **phải khác nhau**. Đổi web = đổi mật khẩu Debian; đổi mobile chỉ lưu hash, **không cần nhập mật khẩu cũ**. (WAN-block khi root còn mặc định từ 0.4.195 vẫn còn.)
+- **Chuẩn hóa config module (nền tảng):** thêm loại field khai báo **`button`** (nút chạy action — `hooks/action-<slug>.sh`, sandbox bằng user module `dm-<id>`, không root) và **`list`** (nhiều dòng, lưu JSON). Hybrid: module phức tạp vẫn tự serve web setting riêng. MODULE_PROMPT 6 ngôn ngữ + template từng phần (dòng tuỳ chọn ghi "xóa nếu không dùng") + module-mẫu `daomai-natudp` (cổng NAT tcp+udp).
+- **API đọc IP public egress cho module:** `GET /api/public/v1/egresses` (gated tool-API, read-only, không secret) — cho module DDNS đọc IP public của từng PPPoE/egress.
+- **UI:** mô tả ở combobox/select nay **chỉ hiện khi di chuột** (bỏ phần lặp inline).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `54925f3b`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.197.iso`** (349.175.808 bytes, SHA256 `e5b0e2d3bea5d0092f5cb5cc43f199c1fa500e9cf3d62af03ce9abe409c35345`) + `.iso.sha256`.
+
 ## v0.4.196 - 2026-10-24
 
 Ổn định hoá vận hành + độ tin cậy. Giao diện vẫn web cũ ổn định. **Kèm ISO đầy đủ.**

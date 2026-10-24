@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.196",
+  "latest": "0.4.197",
   "released_at": "2026-10-24",
-  "notes": "Ổn định hoá vận hành + tin cậy. Xóa một client/IP qua API nay dọn ĐỦ như xóa hàng loạt: flush conntrack (-s/-r), áp lại tc, xóa ARP (sau khi áp nftables), re-verify + thử lại 1 lần, và khóa theo client-id (cùng id xếp hàng, khác id song song). Các API apply/set quan trọng (gán proxy/mode/egress cho client, quick-proxy, apply nftables/tc/proxy) nay VERIFY lại sau khi set, thử lại nếu chưa đạt, 2 lần fail thì báo lỗi lên tab Log — tránh 'set nhiều máy mà thiếu proxy'. Tab Log thêm ô tìm/lọc (theo command + category + output, có số khớp/tổng). Giao diện vẫn web cũ ổn định. Kèm ISO đầy đủ.",
+  "notes": "Setup mật khẩu bắt buộc lần đầu + chuẩn hóa config module + tiện ích. (1) Vào trang admin khi mật khẩu web (root/Debian) HOẶC mật khẩu mobile (mode brand) còn mặc định 'daomai' thì bắt buộc đổi cả hai, hai mật khẩu phải khác nhau; đổi mobile không cần nhập mật khẩu cũ. (2) Hệ config module thêm loại field khai báo: button (nút chạy action sandbox bằng user module) và list (nhiều dòng); module phức tạp vẫn tự serve web setting riêng; MODULE_PROMPT + template + module-mẫu NAT+UDP. (3) Thêm API đọc IP public của egress/PPPoE cho module (GET /api/public/v1/egresses, gated tool-API, read-only). (4) Mô tả ở combobox/select nay chỉ hiện khi di chuột (bỏ phần lặp inline). Kèm ISO đầy đủ.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

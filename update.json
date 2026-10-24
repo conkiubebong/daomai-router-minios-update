@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.194",
-  "released_at": "2026-10-23",
-  "notes": "Bản ỔN ĐỊNH: quay lại giao diện web CŨ (đã kiểm chứng kỹ). Giao diện mới Vite/React/TypeScript (0.4.191–0.4.193) tạm chuyển sang nhánh new-ui để hoàn thiện rồi phát hành lại. Vẫn GIỮ: hairpin NAT cho cổng module NAT ra WAN (cùng một IP:port public của router dùng được cả trong LAN lẫn ngoài internet) và tab Proxy Pool hiển thị MỌI máy đang dùng proxy — cả máy đặt mode=proxy thủ công, không chỉ auto-proxy — để từ tab Proxy biết máy nào trong tab Clients đang dùng proxy nào. Kèm ISO đầy đủ.",
+  "latest": "0.4.195",
+  "released_at": "2026-10-24",
+  "notes": "Bản vá BẢO MẬT 2026-10 + DNS qua proxy. Vá: RCE/chèn lệnh qua tên interface PPPoE, chèn luật nft qua tên proxy/egress, chèn cấu hình dnsmasq qua tên client; scope lại cổng ADB 5555 theo LAN; chặn SSRF tool-API (gồm 0.0.0.0/::); redact token trong log; chặn zip-bomb khi restore; khoá chống brute-force mở khoá mobile toàn cục; chống trùng tài khoản Unix giữa các module; CHẶN mở WAN khi mật khẩu root còn mặc định; KÝ SỐ Ed25519 cho gói cập nhật + che hàm verify/pubkey. Thêm: máy proxy nay phân giải DNS QUA CHÍNH PROXY (DoH 443) để không lộ domain cho ISP router và khớp nước proxy, mặc định bật. Giao diện vẫn là bản web cũ ổn định. Kèm ISO đầy đủ.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

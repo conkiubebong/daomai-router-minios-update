@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.4.195 - 2026-10-24
+
+Bản vá **bảo mật** (audit 2026-10) + **DNS qua proxy**. Giao diện vẫn là web cũ ổn định. **Kèm ISO đầy đủ.**
+
+- **Vá chèn lệnh/injection (quyền root):** tên interface PPPoE (`physical_ifname`/`virtual_ifname`) nay bị kiểm charset+độ dài (trước đây chèn `\n`/`;` vào lệnh `/bin/sh -c` của unit systemd root → **RCE root**); tên proxy/egress không còn chèn được luật nftables qua comment; tên client không còn chèn được cấu hình dnsmasq.
+- **Firewall:** cổng ADB **5555** nay scoped theo LAN (trước đây client proxy/egress ra internet cổng 5555 là thoát thẳng, bỏ qua proxy/egress); máy SCAN-isolated không khởi tạo được sang máy khác qua 5555.
+- **Tool API:** chặn **SSRF** (target proxy là loopback/link-local/metadata `169.254.169.254`/`0.0.0.0`/`::`/IP router đều bị từ chối); token không còn lộ trong log.
+- **Khác:** chặn **zip-bomb** khi restore full-backup; **khoá chống brute-force toàn cục** cho mở khoá mobile (xoay IP không né được); chống **trùng tài khoản Unix** giữa hai module (đọc trộm secret/data của nhau).
+- **Mật khẩu root mặc định:** khi root vẫn là mật khẩu mặc định, agent **từ chối mở SSH/Web/Public-API ra WAN** và cảnh báo đỏ trên web (LAN vẫn chạy bình thường).
+- **Ký số gói cập nhật:** gói ZIP cập nhật nóng nay được **ký Ed25519**; agent mới **verify trước khi cài** (gói không ký/bị sửa bị từ chối). Hàm verify + public key được obfuscate để chống scan/unpack. Agent cũ bỏ qua chữ ký nên vẫn cài được bản này.
+- **DNS qua proxy (mới, mặc định bật):** máy ở mode proxy/mixed nay phân giải DNS **qua chính upstream proxy** bằng **DoH 443** (module `dns` của sing-box, detour theo outbound/egress của máy) — không còn lộ domain cho ISP của router và khớp nước ra của proxy; fail-closed khi proxy chết; máy direct giữ nguyên. Tắt bằng `coherence_dns_via_proxy=0`.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `ce3cf1e5`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (đã ký) + **ISO `daomaios_0.4.195.iso`** (349.175.808 bytes, SHA256 `ce9a1bc2f9c4542f1b05ad049e93c28a95ee35992867e1d5efa20fcba5358f3a`) + `.iso.sha256`.
+
 ## v0.4.194 - 2026-10-23
 
 Bản **ổn định**: quay lại giao diện web **cũ** (đã kiểm chứng kỹ). **Kèm ISO đầy đủ.**

@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.196 - 2026-10-24
+
+Ổn định hoá vận hành + độ tin cậy. Giao diện vẫn web cũ ổn định. **Kèm ISO đầy đủ.**
+
+- **Xóa một client/IP qua API nay dọn ĐỦ như xóa hàng loạt:** flush conntrack (`-s`/`-r`) của IP vừa xóa, áp lại tc, xóa ARP (`ip neigh del`) — đều SAU khi áp nftables; **re-verify + thử lại 1 lần**; và **khóa theo client-id** (cùng id xếp hàng tuần tự, khác id song song). Trước đây đường xóa đơn thiếu các bước này nên flow cũ của máy đã xóa vẫn chạy tiếp.
+- **Verify-after-set cho các API quan trọng:** gán proxy/mode/egress cho client, quick-proxy, và apply nftables/tc/proxy nay **kiểm tra lại sau khi set**, thử lại nếu chưa đạt, **2 lần fail thì báo lỗi lên tab Log** — tránh "set nhiều máy mà thiếu proxy" (proxy auto-pending được coi là hợp lệ, không báo nhầm).
+- **Tab Log thêm ô tìm/lọc:** lọc theo command + category + output (không phân biệt hoa/thường), hiện số khớp/tổng; đủ 6 ngôn ngữ.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `ac499712`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (đã ký Ed25519) + **ISO `daomaios_0.4.196.iso`** (349.175.808 bytes, SHA256 `1a6d2a094490644fae4709684a68794890919e201602a83b7e04ce54d246aba6`) + `.iso.sha256`.
+
 ## v0.4.195 - 2026-10-24
 
 Bản vá **bảo mật** (audit 2026-10) + **DNS qua proxy**. Giao diện vẫn là web cũ ổn định. **Kèm ISO đầy đủ.**

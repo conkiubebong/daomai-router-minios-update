@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.195",
+  "latest": "0.4.196",
   "released_at": "2026-10-24",
-  "notes": "Bản vá BẢO MẬT 2026-10 + DNS qua proxy. Vá: RCE/chèn lệnh qua tên interface PPPoE, chèn luật nft qua tên proxy/egress, chèn cấu hình dnsmasq qua tên client; scope lại cổng ADB 5555 theo LAN; chặn SSRF tool-API (gồm 0.0.0.0/::); redact token trong log; chặn zip-bomb khi restore; khoá chống brute-force mở khoá mobile toàn cục; chống trùng tài khoản Unix giữa các module; CHẶN mở WAN khi mật khẩu root còn mặc định; KÝ SỐ Ed25519 cho gói cập nhật + che hàm verify/pubkey. Thêm: máy proxy nay phân giải DNS QUA CHÍNH PROXY (DoH 443) để không lộ domain cho ISP router và khớp nước proxy, mặc định bật. Giao diện vẫn là bản web cũ ổn định. Kèm ISO đầy đủ.",
+  "notes": "Ổn định hoá vận hành + tin cậy. Xóa một client/IP qua API nay dọn ĐỦ như xóa hàng loạt: flush conntrack (-s/-r), áp lại tc, xóa ARP (sau khi áp nftables), re-verify + thử lại 1 lần, và khóa theo client-id (cùng id xếp hàng, khác id song song). Các API apply/set quan trọng (gán proxy/mode/egress cho client, quick-proxy, apply nftables/tc/proxy) nay VERIFY lại sau khi set, thử lại nếu chưa đạt, 2 lần fail thì báo lỗi lên tab Log — tránh 'set nhiều máy mà thiếu proxy'. Tab Log thêm ô tìm/lọc (theo command + category + output, có số khớp/tổng). Giao diện vẫn web cũ ổn định. Kèm ISO đầy đủ.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.4.209 - 2026-10-27
+
+Cập nhật ISO cùng ổ nay **tự nhận dạng và GIỮ NGUYÊN kiểu phân vùng của từng máy** (không còn ghi đè mù). Gộp luôn mọi thay đổi từ 0.4.199→0.4.209 (bản phát hành trước là 0.4.198). **Kèm ISO đầy đủ.**
+
+- **ISO update "detect + replicate" (điểm chính, chống brick máy UEFI/GPT):** khi cập nhật ISO cùng ổ, router tự đọc layout ổ (bằng `fdisk`/`lsblk`, KHÔNG dùng `parted` vì `parted` báo "unknown" với ổ iso-hybrid) rồi **nạp lại y hệt**:
+  - Ổ kiểu **iso-hybrid/dd** → ghi lại bằng **DD** như cũ + tự làm mới mục khởi động UEFI (entry `HD/File` theo signature mới).
+  - Ổ kiểu **"Cài đặt" phân vùng GPT** → **CÀI LẠI theo GPT** (giữ bảng phân vùng, có phân vùng dữ liệu ext4 riêng) — KHÔNG dd ảnh MBR đè lên GPT sạch (nguyên nhân từng làm máy UEFI/GPT không boot). Ổ MBR install-origin → cài lại MBR.
+  - Chỉ đổi-cách-ghi khi **nhận dạng chắc chắn** bảng phân vùng; nếu không chắc → mặc định DD an toàn (không bao giờ đoán MBR cho ổ có thể là GPT). Có kiểm tra đủ chỗ trống **trước khi** xoá layout cũ. Trang Thông tin hiện khuyến nghị đúng cách ghi theo từng máy (`recommend_write`).
+- **Đăng nhập dùng tài khoản `daomai` thay cho `root` (0.4.208):** user web admin + user Linux/SSH nay là **`daomai`** (có sudo), `root` bị khoá đăng nhập tương tác. Mật khẩu cũ được giữ nguyên (tự chuyển từ hash root sang daomai). Mặc định live: `daomai`/`daomai`.
+- **Module-web gateway dùng chung một cổng (0.4.204-0.4.206):** các module có web (mode `proxy`) truy cập qua cổng gateway LAN chung `http://<router>:<module_web_port>/<id>/` thay vì mỗi module một cổng firewall; sửa vòng lặp redirect ở `/<id>/`.
+- **DuckDNS cập nhật theo chu kỳ RIÊNG từng domain + nút "Cập nhật ngay" (0.4.207)** (module duckdns 1.0.2, xem bên dưới).
+- **Giao diện web admin gọn hơn (0.4.199-0.4.203):** zoom mật độ cao, combobox/popup căn chỉnh lại, marquee chọn-hàng phủ cả bảng, log module hiện trong tab Log, sửa setup mật khẩu lần đầu + autofill, module cho sửa cổng local.
+- **Sửa an toàn sau review:** `findESPPartitionNumber` nhận cả GUID ESP của GPT (không chỉ `0xef` MBR) để refresh UEFI chạy trên máy GPT; kiểm dung lượng ổ trước khi phân vùng lại.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `12b6bae2`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.209.iso`** (350.224.384 bytes, SHA256 `bea061bb95851811ac1165fc695fdb8957c86c82485b82a5ea78fde5e54e39cc`) + `.iso.sha256`. Module cập nhật: **duckdns 1.0.2**, **rustdesk 1.0.2** (release `modules-v0.4.209`).
+- **LƯU Ý khi CÀI MỚI máy UEFI/GPT:** vẫn nên ghi ISO **ngoài** bằng Rufus "DD Image mode" hoặc balenaEtcher (không đụng NVRAM). Cập nhật-trong-máy cùng ổ giờ đã an toàn hơn nhưng cài mới lần đầu nên dùng công cụ ngoài.
+
 ## v0.4.198 - 2026-10-24
 
 Cải thiện giao diện web admin (tốc độ + trải nghiệm). Vẫn web cũ. **Kèm ISO đầy đủ.**

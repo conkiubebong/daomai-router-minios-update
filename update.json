@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.198",
-  "released_at": "2026-10-24",
-  "notes": "Cải thiện giao diện web admin. (1) Trang Clients load nhanh hơn: combobox mỗi hàng chỉ 'nặng hoá' khi bấm vào (lazy-enhance), render ban đầu O(số hàng) thay vì dựng hàng trăm combobox đồng bộ. (2) Mô tả ở combobox/select CHỈ hiện khi di chuột (bỏ panel mô tả hiện sẵn bên cạnh dropdown). (3) Tự động reload khi có bản mới: sau khi cập nhật agent, trang tự nạp lại JS/CSS mới (không cần Ctrl+Shift+R). (4) Hiệu ứng chuyển tab đồng nhất desktop và mobile. Kèm ISO đầy đủ.",
+  "latest": "0.4.209",
+  "released_at": "2026-10-27",
+  "notes": "Cập nhật ISO cùng ổ giờ TỰ nhận dạng và GIỮ NGUYÊN kiểu phân vùng của ổ (không còn ghi đè mù). (1) Ổ cài kiểu iso-hybrid/dd sẽ được ghi lại bằng DD như cũ; ổ cài kiểu 'Cài đặt' phân vùng GPT sẽ được CÀI LẠI theo GPT (không dd ảnh MBR đè lên GPT sạch — nguyên nhân từng làm máy UEFI/GPT không khởi động được). (2) Nhận dạng ổ dùng fdisk/lsblk thay vì parted (parted báo 'unknown' với ổ iso-hybrid). (3) Trang Thông tin khuyến nghị đúng cách ghi theo từng máy (recommend_write). (4) Sau khi ghi đè cùng ổ, router tự làm mới mục khởi động UEFI (HD/File, không phải VenHw). Kèm ISO đầy đủ. LƯU Ý khi CÀI MỚI máy UEFI/GPT: nên ghi ISO bằng Rufus 'DD Image mode' hoặc balenaEtcher (ghi ngoài không đụng NVRAM).",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

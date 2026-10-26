@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.210 - 2026-10-27
+
+Sửa lỗi NGHIÊM TRỌNG làm router mất mạng hoàn toàn khi cài mới từ ISO. **Kèm ISO đầy đủ.** Thay thế 0.4.209 (bản đó dính lỗi này).
+
+- **Fix crash-loop khi khởi động ISO mới (router core):** cổng gateway-web-module (mặc định 1550) trước đây bind vào **IP LAN cụ thể** (20.20.0.1:1550) tính một lần lúc agent khởi động, bằng `log.Fatalf` nếu lỗi. Trên boot ISO mới, IP LAN chưa được gán vào `br-phone` → bind lỗi "cannot assign requested address" → **cả agent crash-loop (restart hàng trăm lần), không bao giờ cấu hình mạng → mọi card LAN tắt, router không truy cập được** (xác nhận live trên boot 0.4.209; ẩn trước đó vì hot-update ZIP restart trên hệ đang chạy đã có sẵn IP LAN). Và trên cài mới chưa gán role LAN, gateway chỉ nằm ở 127.0.0.1 → "gateway không lên" trên LAN.
+- **Cách sửa:** gateway nay bind **`0.0.0.0:1550`** — ĐỒNG NHẤT với cổng mobile (5) và brand (6), cũng không-auth + firewall-scope. Firewall (`input_guard` trust br-phone + drop WAN, port gateway `Bind="lan"`) là lớp kiểm soát, nên 0.0.0.0 vẫn chỉ LAN. Gateway LÊN NGAY, không phụ thuộc IP LAN có sẵn lúc nào. Kèm vòng retry không-fatal (phòng xa). Đã qua codex review (CONDITIONAL — kết luận an toàn, đồng nhất mô hình port 5/6) + audit toàn bộ đường fresh-boot: không còn lỗi cùng loại trên cấu hình mặc định.
+- Bao gồm toàn bộ thay đổi của 0.4.209 (ISO update detect+replicate kiểu phân vùng, login `daomai`, module-web gateway chung cổng, DuckDNS chu kỳ riêng/domain). Module: duckdns 1.0.2, rustdesk 1.0.2.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `b1c1f4ff`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.210.iso`** (310.378.496 bytes, SHA256 `f4d772fa1cd027facfbe57aeada397744401f816e745c55cf960b6c1eaaa9eeb`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode" (iso-hybrid, boot được trên UEFI qua phân vùng EFI; persist ext4 đầy đủ).
+
 ## v0.4.209 - 2026-10-27
 
 Cập nhật ISO cùng ổ nay **tự nhận dạng và GIỮ NGUYÊN kiểu phân vùng của từng máy** (không còn ghi đè mù). Gộp luôn mọi thay đổi từ 0.4.199→0.4.209 (bản phát hành trước là 0.4.198). **Kèm ISO đầy đủ.**

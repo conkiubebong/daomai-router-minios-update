@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.209",
+  "latest": "0.4.210",
   "released_at": "2026-10-27",
-  "notes": "Cập nhật ISO cùng ổ giờ TỰ nhận dạng và GIỮ NGUYÊN kiểu phân vùng của ổ (không còn ghi đè mù). (1) Ổ cài kiểu iso-hybrid/dd sẽ được ghi lại bằng DD như cũ; ổ cài kiểu 'Cài đặt' phân vùng GPT sẽ được CÀI LẠI theo GPT (không dd ảnh MBR đè lên GPT sạch — nguyên nhân từng làm máy UEFI/GPT không khởi động được). (2) Nhận dạng ổ dùng fdisk/lsblk thay vì parted (parted báo 'unknown' với ổ iso-hybrid). (3) Trang Thông tin khuyến nghị đúng cách ghi theo từng máy (recommend_write). (4) Sau khi ghi đè cùng ổ, router tự làm mới mục khởi động UEFI (HD/File, không phải VenHw). Kèm ISO đầy đủ. LƯU Ý khi CÀI MỚI máy UEFI/GPT: nên ghi ISO bằng Rufus 'DD Image mode' hoặc balenaEtcher (ghi ngoài không đụng NVRAM).",
+  "notes": "Sửa lỗi NGHIÊM TRỌNG: khi khởi động từ ISO mới (cài mới), agent bị crash-loop do cổng gateway-web-module cố bind vào IP LAN (20.20.0.1:1550) trước khi LAN lên → cả router không có mạng, card LAN tắt. Bản 0.4.209 dính lỗi này; 0.4.210 sửa trong router core: gateway nay bind 0.0.0.0 (giống cổng 5/6, firewall vẫn giới hạn LAN) + retry không-fatal, nên gateway LUÔN lên bất kể LAN-IP có sẵn lúc nào. Đã gọi codex review + audit, không còn lỗi fresh-boot cùng loại. Bao gồm toàn bộ thay đổi 0.4.209 (ISO update detect+replicate layout, login daomai, module-web gateway, DuckDNS chu kỳ riêng). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode (boot được trên UEFI).",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

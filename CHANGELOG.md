@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.211 - 2026-10-27
+
+Hai tính năng router-core mới. **Kèm ISO đầy đủ.**
+
+- **CHẾ ĐỘ LÕI (safe mode) — chống brick kiểu Magisk.** OS chạy toram nên một agent lỗi sẽ bị systemd restart mãi; nếu lỗi xảy ra trước khi lên mạng thì mọi card LAN tắt và router không vào được (chính là kịch bản brick 0.4.209). Nay agent TỰ CỨU: một bộ đếm boot trên phân vùng persist (không phải router.db, nên sống cả khi DB hỏng) tăng ngay lúc mount persist; sau **3 lần boot lỗi liên tiếp**, lần boot sau vào **chế độ lõi** — BỎ QUA việc chạy module + gateway-module (thủ phạm thường gặp) để network + web admin lên được. **Không xoá gì**; reboot hoặc bấm "Thoát chế độ lõi" là chạy lại đầy đủ. Lý do lỗi gần nhất được ghi ra persist (journald mất khi reboot) và hiện ở banner tab Thông tin. `StartLimitIntervalSec=0` để systemd không bỏ cuộc restart trước khi chế độ lõi kịp kích hoạt; panic ở bước khôi phục mạng/khởi động module không còn giết cả agent (giữ web admin vào được). GET /api/system thêm khối `safe_mode`; POST /api/system/safe-mode/exit. Đã gọi codex review — không có regression gây brick.
+- **NHẬT KÝ BẢO MẬT (Nhật ký tab Logs) — thấy ai đang dò/tấn công.** Gom theo IP (bền qua reboot): đăng nhập admin sai, mở-khoá self-service sai (kèm IP nguồn); và khi bật tùy chọn "Ghi log scan WAN" (`security_fw_log_enabled`, mặc định tắt → ruleset byte-identical) thì nft log các kết nối WAN bị tường lửa chặn (scan cổng như 22) có rate-limit, agent parse từ kernel log vào danh sách sự kiện. GET /api/security/events + toggle ngay trong tab Logs.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `fbe343a1`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.211.iso`** (350.224.384 bytes, SHA256 `27a2e2cc142f7eee47d609ec76b4c1a514672e845784d8bc4b3c544e54834e44`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.210 - 2026-10-27
 
 Sửa lỗi NGHIÊM TRỌNG làm router mất mạng hoàn toàn khi cài mới từ ISO. **Kèm ISO đầy đủ.** Thay thế 0.4.209 (bản đó dính lỗi này).

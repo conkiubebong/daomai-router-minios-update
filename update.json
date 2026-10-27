@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.210",
+  "latest": "0.4.211",
   "released_at": "2026-10-27",
-  "notes": "Sửa lỗi NGHIÊM TRỌNG: khi khởi động từ ISO mới (cài mới), agent bị crash-loop do cổng gateway-web-module cố bind vào IP LAN (20.20.0.1:1550) trước khi LAN lên → cả router không có mạng, card LAN tắt. Bản 0.4.209 dính lỗi này; 0.4.210 sửa trong router core: gateway nay bind 0.0.0.0 (giống cổng 5/6, firewall vẫn giới hạn LAN) + retry không-fatal, nên gateway LUÔN lên bất kể LAN-IP có sẵn lúc nào. Đã gọi codex review + audit, không còn lỗi fresh-boot cùng loại. Bao gồm toàn bộ thay đổi 0.4.209 (ISO update detect+replicate layout, login daomai, module-web gateway, DuckDNS chu kỳ riêng). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode (boot được trên UEFI).",
+  "notes": "0.4.211 thêm 2 tính năng router-core: (1) CHẾ ĐỘ LÕI (safe mode) chống brick kiểu Magisk — nếu agent khởi động lỗi 3 lần liên tiếp, lần boot sau tự BỎ QUA việc chạy module + gateway-module để router vẫn vào được (network + web admin), KHÔNG xoá gì; ghi lại lý do lỗi (bền qua reboot) và hiện banner ở tab Thông tin có nút 'Thoát chế độ lõi'. systemd không còn bỏ cuộc restart (StartLimitIntervalSec=0) và panic ở bước khôi phục không còn giết cả agent. (2) NHẬT KÝ BẢO MẬT trong tab Logs — thấy ai đang dò/tấn công: đăng nhập admin/mở-khoá sai (kèm IP), và khi bật tùy chọn còn ghi cả các kết nối WAN bị tường lửa chặn (scan cổng như 22) — gom theo IP, bền qua reboot. Đã gọi codex review safe-mode (không có regression brick). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

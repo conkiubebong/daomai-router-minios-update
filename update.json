@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.211",
+  "latest": "0.4.212",
   "released_at": "2026-10-27",
-  "notes": "0.4.211 thêm 2 tính năng router-core: (1) CHẾ ĐỘ LÕI (safe mode) chống brick kiểu Magisk — nếu agent khởi động lỗi 3 lần liên tiếp, lần boot sau tự BỎ QUA việc chạy module + gateway-module để router vẫn vào được (network + web admin), KHÔNG xoá gì; ghi lại lý do lỗi (bền qua reboot) và hiện banner ở tab Thông tin có nút 'Thoát chế độ lõi'. systemd không còn bỏ cuộc restart (StartLimitIntervalSec=0) và panic ở bước khôi phục không còn giết cả agent. (2) NHẬT KÝ BẢO MẬT trong tab Logs — thấy ai đang dò/tấn công: đăng nhập admin/mở-khoá sai (kèm IP), và khi bật tùy chọn còn ghi cả các kết nối WAN bị tường lửa chặn (scan cổng như 22) — gom theo IP, bền qua reboot. Đã gọi codex review safe-mode (không có regression brick). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "notes": "0.4.212: ID/Relay Server của module RustDesk tự dùng TÊN MIỀN (DNS/DDNS) của đường ra thay cho IP khi router có gắn. Router thêm field 'dns_name' vào API đường ra công khai (/api/public/v1/egresses), tra từ mục DNS/DDNS của router (dns_proxies) theo egress. Module RustDesk 1.0.3 đọc field này: ID/Relay hiện 'ten-mien:cong' (ổn định, không đứt khi IP công khai của PPPoE đổi), có ô 'Tên miền đè' tùy chọn. Bao gồm toàn bộ 0.4.211 (chế độ lõi/safe-mode chống brick + Nhật ký bảo mật). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

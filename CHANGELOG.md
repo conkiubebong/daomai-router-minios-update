@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.212 - 2026-10-27
+
+RustDesk hiện ID/Relay Server theo TÊN MIỀN (DNS) của đường ra thay cho IP. **Kèm ISO đầy đủ.**
+
+- **Router:** `/api/public/v1/egresses` thêm field `dns_name` — tra từ mục DNS/DDNS của router (bảng `dns_proxies`) theo `egress_id` (best-effort: lỗi đọc dns_proxies không làm hỏng danh sách đường ra). Để công cụ quảng bá tên miền ổn định thay cho IP công khai của đường ra.
+- **Module RustDesk 1.0.3:** khi đường ra đang chọn có `dns_name`, console hiện **ID Server / Relay Server = `ten-mien:cong`** thay vì `ip:cong` — client kết nối qua tên miền, không đứt khi IP công khai của PPPoE đổi. Thêm ô "Tên miền đè" (tùy chọn). Ưu tiên: tên miền đè → DNS name của egress → WAN IP → IP công khai. Dropdown đường ra hiện tên miền khi có. Cần router >= 0.4.212. (catalog: rustdesk 1.0.3.)
+- Bao gồm toàn bộ 0.4.211 (chế độ lõi/safe-mode chống brick + Nhật ký bảo mật).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `617573f5`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.212.iso`** (350.224.384 bytes, SHA256 `70fc7a24016688de38c42702997d5367910a2fbed20d5de77ffd81ea2226fdea`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.211 - 2026-10-27
 
 Hai tính năng router-core mới. **Kèm ISO đầy đủ.**

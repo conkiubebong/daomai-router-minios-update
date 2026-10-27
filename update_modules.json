@@ -97,16 +97,16 @@
     {
       "id": "rustdesk",
       "name": { "vi": "RustDesk Server", "en": "RustDesk Server" },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "kind": "service",
-      "min_router_version": "0.4.197",
-      "file": "rustdesk-1.0.2.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/rustdesk-1.0.2.zip",
-      "sha256": "c673af83fc1f9ee532714f020407e344bbc0a55d7729bab9dc8d38d03af21006",
-      "size": 8673658,
+      "min_router_version": "0.4.212",
+      "file": "rustdesk-1.0.3.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/rustdesk-1.0.3.zip",
+      "sha256": "12e84ce66684debfd0fbe1a8f0a7c04342e3c38a5b4d49f813b728eb8a040faf",
+      "size": 8674312,
       "description": {
-        "vi": "Máy chủ RustDesk tự host (hbbs + hbbr 1.1.16): điều khiển máy từ xa không cần dịch vụ công cộng. Lưu/tạo key, NAT cổng ra PPPoE/egress chọn sẵn. Web setting riêng. Cần router >= 0.4.197.",
-        "en": "Self-hosted RustDesk server (hbbs + hbbr 1.1.16): remote control without the public service. Save/generate the server key, NAT ports out a chosen PPPoE/egress. Own web settings UI. Needs router >= 0.4.197."
+        "vi": "Máy chủ RustDesk tự host (hbbs + hbbr 1.1.16): điều khiển máy từ xa không cần dịch vụ công cộng. Lưu/tạo key, NAT cổng ra PPPoE/egress chọn sẵn. 1.0.3: ID/Relay tự dùng DNS name của đường ra (nếu router có gắn DDNS) thay cho IP. Web setting riêng. Cần router >= 0.4.212.",
+        "en": "Self-hosted RustDesk server (hbbs + hbbr 1.1.16): remote control without the public service. Save/generate the server key, NAT ports out a chosen PPPoE/egress. 1.0.3: ID/Relay auto-use the egress DNS name (when the router has a DDNS bound) instead of the IP. Own web settings UI. Needs router >= 0.4.212."
       }
     }
   ]

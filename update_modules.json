@@ -82,16 +82,16 @@
     {
       "id": "duckdns",
       "name": { "vi": "DuckDNS / DDNS", "en": "DuckDNS / DDNS" },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "kind": "service",
       "min_router_version": "0.4.197",
-      "file": "duckdns-1.0.2.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/duckdns-1.0.2.zip",
-      "sha256": "874ff73783f807cd67aa703e95653de2c7a35ab958114ed4c899d86f43c926bf",
-      "size": 2735616,
+      "file": "duckdns-1.0.3.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/duckdns-1.0.3.zip",
+      "sha256": "c880183e7b9989c8c311f1a5b4909e35fd427ceef2a3a7ae7cbab3e8192deb8e",
+      "size": 2735890,
       "description": {
-        "vi": "Cập nhật DNS động cho nhiều domain: dán link DuckDNS/generic, chọn PPPoE/egress để lấy IP public, chu kỳ + bật/tắt từng domain. Web setting riêng. Cần router >= 0.4.197.",
-        "en": "Dynamic DNS for many domains: paste a DuckDNS/generic update link, pick the PPPoE/egress whose public IP to publish, interval + per-domain on/off. Own web settings UI. Needs router >= 0.4.197."
+        "vi": "Cập nhật DNS động cho nhiều domain: dán link DuckDNS/generic, chọn PPPoE/egress để lấy IP public, chu kỳ + bật/tắt từng domain. 1.0.3: thêm nút 👁 hiện/ẩn token để kiểm tra khi nhập. Web setting riêng. Cần router >= 0.4.197.",
+        "en": "Dynamic DNS for many domains: paste a DuckDNS/generic update link, pick the PPPoE/egress whose public IP to publish, interval + per-domain on/off. 1.0.3: a show/hide (eye) toggle on the token input to verify what you type. Own web settings UI. Needs router >= 0.4.197."
       }
     },
     {

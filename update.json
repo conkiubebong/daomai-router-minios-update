@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.212",
+  "latest": "0.4.213",
   "released_at": "2026-10-27",
-  "notes": "0.4.212: ID/Relay Server của module RustDesk tự dùng TÊN MIỀN (DNS/DDNS) của đường ra thay cho IP khi router có gắn. Router thêm field 'dns_name' vào API đường ra công khai (/api/public/v1/egresses), tra từ mục DNS/DDNS của router (dns_proxies) theo egress. Module RustDesk 1.0.3 đọc field này: ID/Relay hiện 'ten-mien:cong' (ổn định, không đứt khi IP công khai của PPPoE đổi), có ô 'Tên miền đè' tùy chọn. Bao gồm toàn bộ 0.4.211 (chế độ lõi/safe-mode chống brick + Nhật ký bảo mật). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "notes": "0.4.213 sửa lỗi QUAN TRỌNG: cổng NAT của module (vd active-rom api→20011, admin→20012) KHÔNG được mở ra Internet sau khi khởi động, vì bước kiểm tra cổng của module dùng khoá không-chờ (TryLock) → lúc boot nhiều module start cùng lúc, module nào không giành được khoá bị 'port check busy; retry start' và BỎ QUA việc áp rule NAT → cổng NAT kẹt không vào được từ ngoài cho tới khi 'Áp dụng lại tường lửa' thủ công (xác nhận live: node ngoài timeout trước, connected sau khi re-apply). Nay bước này CHỜ khoá như mọi chỗ khác, nên NAT module tự áp đúng ngay lúc boot. Kèm: module duckdns 1.0.3 thêm nút 👁 hiện/ẩn token để kiểm tra khi nhập; RustDesk 1.0.3 dùng DNS name của đường ra cho ID/Relay (0.4.212). Bao gồm 0.4.211 (safe-mode + Nhật ký bảo mật). Kèm ISO đầy đủ. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

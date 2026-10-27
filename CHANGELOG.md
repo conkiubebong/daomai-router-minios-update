@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.213 - 2026-10-27
+
+Sửa lỗi cổng NAT của module không mở ra Internet sau khi boot. **Kèm ISO đầy đủ.**
+
+- **Fix (router core):** `checkStartPortConflicts` dùng `portMu.TryLock()` — lúc boot nhiều module start cùng lúc, module nào không giành được khoá bị lỗi `module port check is busy; retry start` và **bỏ qua áp rule tường lửa/NAT** → cổng NAT của module (vd active-rom api `8101→20011`, admin `8102→20012`) **kẹt không vào được từ Internet** cho tới khi bấm "Áp dụng lại tường lửa" thủ công. Xác nhận live 2026-10-27: node ngoài timeout trước, connected sau khi re-apply. Nay bước này **CHỜ khoá** như mọi nơi dùng `portMu` khác (`ports.go`/`portreconcile.go`); khoá giữ rất ngắn cho kiểm tra snapshot có giới hạn và không ôm module lock nên không deadlock → NAT module tự áp đúng ngay lúc boot (validate: không cần re-apply, node ngoài connected).
+- **Module duckdns 1.0.3:** thêm nút 👁 hiện/ẩn ô token để kiểm tra khi nhập (token đã lưu vẫn không gửi về trình duyệt — chỉ hiện giá trị đang gõ). (catalog: duckdns 1.0.3.)
+- Bao gồm RustDesk DNS đường ra (0.4.212) + safe-mode/Nhật ký bảo mật (0.4.211).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `794dddb0`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.213.iso`** (350.224.384 bytes, SHA256 `f1c6d0806a1ea307638b68d3e4c2a3b16f7d9e3e5e50987cb12131db5162a30f`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.212 - 2026-10-27
 
 RustDesk hiện ID/Relay Server theo TÊN MIỀN (DNS) của đường ra thay cho IP. **Kèm ISO đầy đủ.**

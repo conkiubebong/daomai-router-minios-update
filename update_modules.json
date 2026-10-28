@@ -82,16 +82,16 @@
     {
       "id": "duckdns",
       "name": { "vi": "DuckDNS / DDNS", "en": "DuckDNS / DDNS" },
-      "version": "1.0.4",
+      "version": "1.0.5",
       "kind": "service",
       "min_router_version": "0.4.197",
-      "file": "duckdns-1.0.4.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/duckdns-1.0.4.zip",
-      "sha256": "c1d0f4e5350b3cad733df55b1c91147d0960907481879aa0d83e8fb95c374111",
-      "size": 2735788,
+      "file": "duckdns-1.0.5.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/duckdns-1.0.5.zip",
+      "sha256": "2a583007ccf3fffa64148dd93ac20d04da869fe29281e650002c4222c4f78ca0",
+      "size": 2735904,
       "description": {
-        "vi": "Cập nhật DNS động cho nhiều domain: dán link DuckDNS/generic, chọn PPPoE/egress để lấy IP public, chu kỳ + bật/tắt từng domain. 1.0.3: nút 👁 hiện/ẩn token khi nhập. 1.0.4: ô token hiện rõ 'đã lưu' khi đã có token (trước đây trông như chưa lưu). Web setting riêng. Cần router >= 0.4.197.",
-        "en": "Dynamic DNS for many domains: paste a DuckDNS/generic update link, pick the PPPoE/egress whose public IP to publish, interval + per-domain on/off. 1.0.3: eye toggle on the token input. 1.0.4: the token field now clearly shows 'saved' when a token is set (used to look unsaved). Own web settings UI. Needs router >= 0.4.197."
+        "vi": "Cập nhật DNS động cho nhiều domain: dán link DuckDNS/generic, chọn PPPoE/egress để lấy IP public, chu kỳ + bật/tắt từng domain. 1.0.3: nút 👁 hiện/ẩn token khi nhập. 1.0.4: ô token hiện rõ 'đã lưu' khi đã có token. 1.0.5: nút 'Cập nhật ngay' tự Lưu form trước nên token vừa gõ không bị mất. Web setting riêng. Cần router >= 0.4.197.",
+        "en": "Dynamic DNS for many domains: paste a DuckDNS/generic update link, pick the PPPoE/egress whose public IP to publish, interval + per-domain on/off. 1.0.3: eye toggle on the token input. 1.0.4: the token field clearly shows 'saved' when a token is set. 1.0.5: the 'Update now' button saves the form first so a just-typed token isn't lost. Own web settings UI. Needs router >= 0.4.197."
       }
     },
     {

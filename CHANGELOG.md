@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.215 - 2026-10-29
+
+Theo dõi tài nguyên từng module (RAM + ổ đĩa): mức dùng trực tiếp, giới hạn, min/max
+khai báo trong manifest, cảnh báo khi cài nếu vượt (0.4.214); thẻ module thu gọn hiện
+luôn mức dùng RAM/ổ đĩa trên tiêu đề thẻ (0.4.215). **Kèm ISO đầy đủ + gói cập nhật nóng.**
+
 ## v0.4.213 - 2026-10-27
 
 Sửa lỗi cổng NAT của module không mở ra Internet sau khi boot. **Kèm ISO đầy đủ.**

@@ -1,8 +1,8 @@
 {
   "schema": "1",
-  "updated": "2026-10-27",
-  "release_tag": "modules-v0.4.209",
-  "base_url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/",
+  "updated": "2026-10-29",
+  "release_tag": "modules",
+  "base_url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/",
   "modules": [
     {
       "id": "cloudflared",
@@ -11,7 +11,7 @@
       "kind": "service",
       "min_router_version": "0.4.181",
       "file": "cloudflared-1.0.3.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/cloudflared-1.0.3.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/cloudflared-1.0.3.zip",
       "sha256": "a18d3c59a79be8a7dfde60ba9e5fafd682a026f5ebff518a6eaea474f07e46cc",
       "size": 20268810,
       "description": {
@@ -26,7 +26,7 @@
       "kind": "service",
       "min_router_version": "0.4.183",
       "file": "tailscale-1.0.1.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/tailscale-1.0.1.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/tailscale-1.0.1.zip",
       "sha256": "afc12195724b86b30cbe1d685969ef53af57a7cd9cd866285a6d7ecd30bf939c",
       "size": 40774549,
       "description": {
@@ -41,7 +41,7 @@
       "kind": "service",
       "min_router_version": "0.4.180",
       "file": "rustdesk-sample-1.0.1.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/rustdesk-sample-1.0.1.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/rustdesk-sample-1.0.1.zip",
       "sha256": "189b0ac314f45cb76deaad67365d918ee0aeb3ffe5b20f52ed08af61eb17adc8",
       "size": 5915006,
       "description": {
@@ -56,7 +56,7 @@
       "kind": "runtime",
       "min_router_version": "0.4.180",
       "file": "python3-3.12.15.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/python3-3.12.15.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/python3-3.12.15.zip",
       "sha256": "5cf52f9bb7017a090c4f12bf566822dbef79cc618c33f7dfb2f51d68f3391db1",
       "size": 17653797,
       "description": {
@@ -71,7 +71,7 @@
       "kind": "service",
       "min_router_version": "0.4.180",
       "file": "daomai-hello-1.1.1.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.181/daomai-hello-1.1.1.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/daomai-hello-1.1.1.zip",
       "sha256": "79088b6125b6096cf1b43096f3d4e543e74f97f6f0ed0e35299d694241ce6fa2",
       "size": 3394060,
       "description": {
@@ -86,7 +86,7 @@
       "kind": "service",
       "min_router_version": "0.4.197",
       "file": "duckdns-1.0.5.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/duckdns-1.0.5.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/duckdns-1.0.5.zip",
       "sha256": "2a583007ccf3fffa64148dd93ac20d04da869fe29281e650002c4222c4f78ca0",
       "size": 2735904,
       "description": {
@@ -101,7 +101,7 @@
       "kind": "service",
       "min_router_version": "0.4.212",
       "file": "rustdesk-1.0.3.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules-v0.4.209/rustdesk-1.0.3.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/rustdesk-1.0.3.zip",
       "sha256": "12e84ce66684debfd0fbe1a8f0a7c04342e3c38a5b4d49f813b728eb8a040faf",
       "size": 8674312,
       "description": {

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.215",
-  "released_at": "2026-10-29",
-  "notes": "0.4.215: thẻ module khi thu gọn hiện luôn mức dùng RAM/ổ đĩa ngay trên tiêu đề thẻ. 0.4.214: theo dõi tài nguyên từng module (RAM + ổ đĩa): mức dùng trực tiếp, giới hạn, min/max khai báo trong manifest, và cảnh báo khi cài nếu vượt. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "latest": "0.4.216",
+  "released_at": "2026-10-31",
+  "notes": "0.4.216: 'Prompt viết module' thêm mục 15 — hướng dẫn tự triển khai module lên router chỉ cần địa chỉ LAN + user/mật khẩu admin (đăng nhập lấy token → POST /api/modules/install, router tự rollback khi lỗi), lặp đến khi xong, không cần SSH/khởi động lại; thêm cho cả 6 ngôn ngữ và đồng bộ bản nhúng trong agent. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

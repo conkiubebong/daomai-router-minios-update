@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.216 - 2026-10-31
+
+Thêm mục 15 "Triển khai lên router thật — chỉ cần user và mật khẩu" vào MODULE_PROMPT
+(cả 6 ngôn ngữ vi/en/th/pt/ko/ja) — tài liệu dành cho người/AI viết module. **Kèm ISO
+đầy đủ + gói cập nhật nóng.**
+
+- **Docs (MODULE_PROMPT §15):** mô tả vòng lặp tự triển khai module mà chỉ cần địa chỉ LAN + user/mật khẩu admin của router: đăng nhập lấy Bearer token → (tuỳ chọn bật dev mode) → build+pack → `POST /api/modules/install` (reinstall/enable/confirm_permissions/confirm_resources) cài hoặc nâng cấp một cách idempotent → kiểm tra `GET /api/modules` + log → lặp đến khi xong. Dựa vào cơ chế tự rollback của router nên build hỏng không làm chết module; không cần SSH, mật khẩu root hay truy cập vật lý. Bản nhúng trong agent (`internal/moduledocs`) được đồng bộ, test giữ cấu trúc tiêu đề/checklist khớp giữa 6 ngôn ngữ.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `688ca8fd`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.216.iso`** (350.224.384 bytes, SHA256 `838444eff19e20b378f2160e75e8645a269d18147519fdfb23c08ec6ee783ba3`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.215 - 2026-10-29
 
 Theo dõi tài nguyên từng module (RAM + ổ đĩa): mức dùng trực tiếp, giới hạn, min/max

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.216",
-  "released_at": "2026-10-31",
-  "notes": "0.4.216: 'Prompt viết module' thêm mục 15 — hướng dẫn tự triển khai module lên router chỉ cần địa chỉ LAN + user/mật khẩu admin (đăng nhập lấy token → POST /api/modules/install, router tự rollback khi lỗi), lặp đến khi xong, không cần SSH/khởi động lại; thêm cho cả 6 ngôn ngữ và đồng bộ bản nhúng trong agent. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "latest": "0.4.217",
+  "released_at": "2026-11-01",
+  "notes": "0.4.217: theo dõi CPU từng module, cùng thang với dashboard hệ thống — mức dùng và hạn mức cpu_quota đều quy đổi về % TOÀN MÁY (chia cho số core online), có cửa sổ đo tối thiểu ~2 giây để không bị nhiễu bởi burst ngắn; hiện trên tiêu đề thẻ khi thu gọn và trong mục Tài nguyên khi mở rộng; GET /api/modules trả thêm resources.cpu_percent/cpu_quota và services[].cpu_percent. Kèm MODULE_PROMPT mục 16 hướng dẫn module đa lõi (6 ngôn ngữ). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

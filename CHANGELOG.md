@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.4.217 - 2026-11-01
+
+Theo dõi CPU từng module, cùng thang với dashboard hệ thống (bên cạnh RAM + ổ
+đĩa đã có từ 0.4.214/0.4.215). **Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **CPU từng module, quy đổi về % toàn máy:** mỗi module hiện mức dùng CPU trực tiếp — **% của toàn máy** (chia cho số core online), đúng thang với mức CPU trên dashboard hệ thống, tính từ chênh lệch `cpu.stat` (`usage_usec`) của cgroup giữa hai lần đọc với **cửa sổ đo tối thiểu ~2 giây** (đọc API quá gần nhau sẽ nhận lại giá trị gần nhất đã lưu thay vì tính lại trên khoảng thời gian quá ngắn/nhiễu). Hạn mức `cpu_quota` khai trong manifest cũng quy đổi cùng thang để so sánh "đang dùng / giới hạn" đúng đơn vị (vd `CPU 23% / 100%`). Hiện trên tiêu đề thẻ module khi thu gọn và trong mục Tài nguyên khi mở rộng.
+- **API:** `GET /api/modules` trả thêm `resources.cpu_percent`, `resources.cpu_quota` / `resources.cpu_quota_percent` và `services[].cpu_percent` (lần đọc đầu sau khi khởi động là 0 vì chưa có mốc để tính chênh lệch).
+- **MODULE_PROMPT mục 16 (CPU đa lõi):** hướng dẫn người/AI viết module — module không bị ghim core, `cpu_quota` chỉ là ngân sách thời gian CPU chứ không phải pin; muốn tận dụng nhiều lõi phải tự viết song song thật trong code; cách đọc đúng thang % CPU trực tiếp. Cả 6 ngôn ngữ, đồng bộ bản nhúng trong agent.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `d98ab0fa`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.217.iso`** (350.224.384 bytes, SHA256 `7c80b941f8788ae101a521a7728bd82a3df98b708bfeac533f1e6a146d47a329`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.216 - 2026-10-31
 
 Thêm mục 15 "Triển khai lên router thật — chỉ cần user và mật khẩu" vào MODULE_PROMPT

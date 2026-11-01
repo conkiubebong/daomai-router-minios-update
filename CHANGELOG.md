@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.218 - 2026-11-01
+
+Gọn giao diện mobile tự phục vụ. **Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Mobile:** bỏ hẳn phần giải thích lựa chọn hiện trực tiếp dưới các ô chọn Proxy type / Mode / Bypass trên trang tự phục vụ — text mô tả, nút "?" và bảng chọn chi tiết đều bị gỡ (người dùng phản ánh rối mắt trên màn hình điện thoại). Thuần xoá code, không đổi hành vi nào khác của trang mobile.
+- **Web admin:** không đổi gì — hệ thống "Giải thích" riêng của web admin (nút trợ giúp khác hẳn, `14-help.js`) vẫn còn nguyên.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `6ec386db`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.218.iso`** (350.224.384 bytes, SHA256 `e66ec3fa9b4cd9f4c100248b17128f7cfe6d6d4d02da54cd5eccbcaf5d9567d4`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.217 - 2026-11-01
 
 Theo dõi CPU từng module, cùng thang với dashboard hệ thống (bên cạnh RAM + ổ

@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.217",
+  "latest": "0.4.218",
   "released_at": "2026-11-01",
-  "notes": "0.4.217: theo dõi CPU từng module, cùng thang với dashboard hệ thống — mức dùng và hạn mức cpu_quota đều quy đổi về % TOÀN MÁY (chia cho số core online), có cửa sổ đo tối thiểu ~2 giây để không bị nhiễu bởi burst ngắn; hiện trên tiêu đề thẻ khi thu gọn và trong mục Tài nguyên khi mở rộng; GET /api/modules trả thêm resources.cpu_percent/cpu_quota và services[].cpu_percent. Kèm MODULE_PROMPT mục 16 hướng dẫn module đa lõi (6 ngôn ngữ). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "notes": "0.4.218: gọn giao diện mobile tự phục vụ — bỏ phần giải thích lựa chọn (text + nút ? + bảng chọn) hiện trực tiếp dưới Proxy type / Mode / Bypass trên trang mobile; web admin không đổi gì (hệ thống Giải thích riêng vẫn còn). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

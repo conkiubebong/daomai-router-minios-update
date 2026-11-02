@@ -1,5 +1,42 @@
 # Changelog
 
+## v0.4.220 - 2026-11-02
+
+Vá lỗ hổng HIGH `/etc/shadow`/`/etc/gshadow` lộ cho module, thêm 2 API docs
+cho AI đọc và tự viết module, thêm module mẫu "Web Terminal" (shell Linux
+thật ngay trên web). **Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Vá lỗ hổng HIGH:** `/etc/shadow` và `/etc/gshadow` trước đây đọc được từ
+  bên trong mọi module (user `dm-<id>` không có quyền root nhưng 2 file này
+  vẫn world-readable trên ISO) — một module độc hại có thể đọc thẳng hash
+  mật khẩu admin. Đã thêm vào `InaccessiblePaths` của mọi unit/hook/python
+  module (3 vị trí trong `internal/modulemgr`), kiểm tra lại bằng shell thật
+  trên router test: `cat /etc/shadow` từ trong module → "Permission denied".
+- **2 API mới cho AI đọc để tự viết module:** `GET /api/docs/router` (toàn bộ
+  API router dạng Markdown) và `GET /api/docs/module` (API + prompt + API
+  deploy cho module, cần user/pass router) — luôn trả tiếng Anh. Thêm mục
+  "AI coding module" vào README với 2 link này; tự dùng chính prompt đó để
+  viết module mới (xem mục dưới) và sửa các chỗ thiếu trong
+  `MODULE_PROMPT.*.md` tìm ra trong lúc làm (dependency bên thứ ba qua
+  `go get`/`cargo add`, link tải module mẫu trực tiếp).
+- **Module mẫu mới "Web Terminal":** shell Linux thật ngay trên trình duyệt,
+  không cần SSH. Chạy bằng user hạn chế riêng của module
+  (`dm-web-terminal`), không phải root, không capability, filesystem chỉ ghi
+  được trong `data/` riêng của module. Có mật khẩu riêng (không dùng chung
+  mật khẩu admin router), khoá dần khi đoán sai (exponential backoff), giới
+  hạn số session đồng thời + tự đóng khi rảnh. Đã pentest trực tiếp trên
+  router thật: không token → từ chối; `whoami`/`id` → user không sudo;
+  `cat /etc/shadow` → chặn; đọc dữ liệu module khác → chặn; ghi ngoài
+  `/etc`, `router.db` → chặn (read-only); capability kernel = 0 (xác nhận
+  qua `/proc/self/status`).
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit
+  `d6ff447d`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO
+  `daomaios_0.4.220.iso`** (349.175.808 bytes, SHA256
+  `bbdcccd0e5fe202477a30189cddfacbf2bafd1a94dd721bf7bce2a92180ec09e`) +
+  `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.219 - 2026-11-02
 
 Trang API Docs làm lại (bỏ Swagger UI), vá PPPoE PMTU cho UDP/QUIC, sửa lỗi

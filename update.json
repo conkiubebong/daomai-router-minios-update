@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.219",
+  "latest": "0.4.220",
   "released_at": "2026-11-02",
-  "notes": "0.4.219: trang API Docs tự xây (bỏ Swagger UI, đủ 6 ngôn ngữ, có Try it out + API Prompt) — vá PPPoE PMTU cho UDP/QUIC (TikTok hay báo không có internet) — sửa lỗi đăng nhập fail-open khi lỗi đọc file mật khẩu. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "notes": "0.4.220: vá lỗ hổng HIGH /etc/shadow+/etc/gshadow lộ cho module — thêm API /api/docs/router + /api/docs/module cho AI đọc để tự viết module — thêm module mẫu Web Terminal (shell Linux thật qua web, user hạn chế riêng, mật khẩu riêng, đã pentest). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.4.219 - 2026-11-02
+
+Trang API Docs làm lại (bỏ Swagger UI), vá PPPoE PMTU cho UDP/QUIC, sửa lỗi
+đăng nhập fail-open. **Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Trang API Docs tự xây, bỏ Swagger UI vendor:** đủ 6 ngôn ngữ (vi/en/th/pt/ko/ja) thay vì chỉ tiếng Việt, nút "Try it out" gọi thẳng API bằng token đang đăng nhập, mỗi endpoint có ví dụ response thật lấy từ handler. Thêm "API Prompt" (`GET /api/docs/prompt`): tài liệu API dạng Markdown đầy đủ để dán cho AI/agent khác đọc.
+- **Vá PPPoE PMTU cho UDP/QUIC** (TikTok và các app dùng QUIC hay báo "không có internet"): WAN PPPoE giảm MTU xuống 1492; đã có vá MSS cho TCP từ trước, nay thêm cho UDP — router tự sinh ICMP "cần phân mảnh" cho gói UDP quá khổ có cờ DF, không còn phụ thuộc ICMP từ nhà mạng (có thể bị chặn trên đường truyền).
+- **Sửa lỗi đăng nhập fail-open khi lỗi đọc file mật khẩu:** một lỗi đọc `/etc/shadow` hiếm gặp trước có thể trả mã 500 lộ chi tiết nội bộ; nay luôn trả 401 "sai thông tin đăng nhập" như mật khẩu sai bình thường.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit `3d1f5dc9`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO `daomaios_0.4.219.iso`** (349.175.808 bytes, SHA256 `9e9cb66e5303120f40c1c6a662e8ad7c47e29d1efd24ee3704cf9b3082918a4b`) + `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.218 - 2026-11-01
 
 Gọn giao diện mobile tự phục vụ. **Kèm ISO đầy đủ + gói cập nhật nóng.**

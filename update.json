@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.218",
-  "released_at": "2026-11-01",
-  "notes": "0.4.218: gọn giao diện mobile tự phục vụ — bỏ phần giải thích lựa chọn (text + nút ? + bảng chọn) hiện trực tiếp dưới Proxy type / Mode / Bypass trên trang mobile; web admin không đổi gì (hệ thống Giải thích riêng vẫn còn). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "latest": "0.4.219",
+  "released_at": "2026-11-02",
+  "notes": "0.4.219: trang API Docs tự xây (bỏ Swagger UI, đủ 6 ngôn ngữ, có Try it out + API Prompt) — vá PPPoE PMTU cho UDP/QUIC (TikTok hay báo không có internet) — sửa lỗi đăng nhập fail-open khi lỗi đọc file mật khẩu. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

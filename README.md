@@ -54,12 +54,26 @@ ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
    (`20.20.0.1` là gateway LAN mặc định; nếu đã đổi thì dùng IP LAN hiện tại
    của router). Đăng nhập bằng tài khoản mặc định:
    ```text
-   Tài khoản: root
+   Tài khoản: daomai
    Mật khẩu:  daomai
    ```
-   Đổi mật khẩu ngay sau lần đăng nhập đầu: nút **Đổi mật khẩu** trên thanh
-   trên cùng, chọn **Mật khẩu admin** (dùng cho Web Admin và SSH, là mật khẩu
-   root Linux thật).
+   `daomai` là tài khoản Linux thật (có quyền sudo) dùng cho cả Web Admin và
+   SSH — không phải `root` (từ bản 0.4.208, `root` bị khoá đăng nhập tương tác
+   hẳn, chỉ còn `daomai` đăng nhập được).
+
+   **Bắt buộc đổi mật khẩu ngay lần đăng nhập đầu tiên.** Vừa đăng nhập xong
+   bằng mật khẩu mặc định, màn hình sẽ tự hiện form "Thiết lập mật khẩu" chặn
+   hết các tab khác — phải đặt **hai mật khẩu mới, khác nhau và khác
+   `daomai`**:
+   - **Mật khẩu Web Admin** — đổi luôn mật khẩu Linux thật của tài khoản
+     `daomai` (áp dụng ngay cho cả SSH, không cần khởi động lại).
+   - **Mật khẩu Mobile** — mật khẩu riêng để mở khoá trang tự phục vụ khi
+     thiết bị bị chặn/brand (mục 2 bên dưới), không liên quan mật khẩu Web
+     Admin.
+
+   Không có cách bỏ qua màn hình này — mọi tab (Dashboard, Clients, Internet…)
+   chỉ hiện ra sau khi đổi xong cả hai mật khẩu. Vào lại sau vẫn đổi được qua
+   nút **Đổi mật khẩu** trên thanh trên cùng.
 4. Vào tab **Internet**, gán vai trò cho từng cổng mạng vật lý: cổng nào là
    WAN (DHCP/IP tĩnh/PPPoE), cổng nào là LAN (`br-phone`, để thiết bị lấy DHCP
    từ router). DaoMaiOS không tự đoán vai trò cổng — phải chọn tay lần đầu.
@@ -67,7 +81,7 @@ ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
    thì vào tab **Internet → Web từ xa**, tick **Bật SSH** (không chọn WAN = chỉ
    dùng trong LAN), rồi:
    ```bash
-   ssh -p 2 root@20.20.0.1
+   ssh -p 2 daomai@20.20.0.1
    ```
 
 ## 2. Hai giao diện quản lý
@@ -76,14 +90,15 @@ DaoMaiOS có hai giao diện dùng cho hai đối tượng khác nhau:
 
 | Giao diện | Cổng | Dùng cho | Cần đăng nhập |
 |---|---|---|---|
-| **Web Admin** | `3` | Người quản trị router | Có (tài khoản root) |
+| **Web Admin** | `3` | Người quản trị router | Có (tài khoản `daomai`) |
 | **Mobile Self-Service** | `5` (gõ thẳng `http://20.20.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
 
-> **Giao diện web — bản ổn định (từ 0.4.194, giữ ở 0.4.217):** dùng giao diện web **cũ** đã
+> **Giao diện web — bản ổn định (từ 0.4.194, giữ ở 0.4.219):** dùng giao diện web **cũ** đã
 > kiểm chứng kỹ, serve ở `http://IP_ROUTER:3/` (admin) và `http://IP_ROUTER:5/`
 > (mobile tự phục vụ). Bản viết lại bằng Vite + React + TypeScript (thử nghiệm ở
 > 0.4.191–0.4.193) tạm **chuyển sang nhánh `new-ui`** để hoàn thiện rồi mới phát
-> hành lại. Trang brand công khai (cổng 6) và Swagger giữ nguyên.
+> hành lại. Trang brand công khai (cổng 6) giữ nguyên; trang API Docs đã bỏ
+> Swagger UI vendor, tự xây lại từ bản 0.4.219 (xem mục API Docs ở dưới).
 
 Các cổng khác của router:
 
@@ -209,12 +224,35 @@ tài khoản.
 - Xem [mục Cập nhật](#4-cập-nhật-hệ-thống) bên dưới.
 
 ### API Docs
-- Trang Swagger UI tự sinh từ API thật của agent, có nút "Try it out" dùng
-  luôn token đã đăng nhập — tiện để dò/test API mà không cần công cụ ngoài.
+- Trang tài liệu API **tự xây** (không còn Swagger UI vendor từ bản 0.4.219),
+  đủ **6 ngôn ngữ** (vi/en/th/pt/ko/ja): liệt kê toàn bộ endpoint theo nhóm,
+  mỗi endpoint có mô tả, tham số, **ví dụ response thật** lấy trực tiếp từ xử
+  lý của agent (không phải mẫu viết tay).
+- Nút **"Try it out"** ngay trong trang: gọi thẳng API bằng token đang đăng
+  nhập, không cần công cụ ngoài (Postman, curl...).
+- Nút **"API Prompt"**: xuất toàn bộ tài liệu API dạng Markdown — dùng để dán
+  cho ChatGPT/Claude hoặc agent AI khác đọc hiểu API của router mà không cần
+  tự dò code.
 
 ## Tính năng Mobile Self-Service
 
-Không cần đăng nhập — nhận diện theo IP/MAC của thiết bị đang truy cập.
+**Trang dành cho người dùng cuối** (khách thuê proxy, nhân viên dùng
+điện thoại/máy qua router này) — khác hẳn Web Admin: **không cần tài khoản,
+không cần mật khẩu** để xem/sửa thiết bị của chính mình. Mở trình duyệt trên
+điện thoại/máy đang nối LAN của router, gõ thẳng:
+
+```text
+http://20.20.0.1
+```
+
+(không cần số cổng). Router nhận diện "đây là máy nào" bằng **IP/MAC của
+chính kết nối đang mở** — mỗi người chỉ thấy và sửa được thiết bị của mình,
+không thấy được thiết bị người khác. Giao diện tối giản, một trang dọc, chữ
+to, bấm được bằng ngón tay, tự chuyển Việt/Anh theo lựa chọn lưu trên máy đó.
+
+Nếu router có cấu hình "mode brand" (trang quảng cáo) hoặc thiết bị đang bị
+admin chặn, trang này sẽ hiện ảnh/nội dung quảng cáo + ô nhập **mật khẩu
+mobile** (mục 1 ở trên — khác mật khẩu Web Admin) để tự mở khoá.
 
 - Xem thông tin của chính thiết bị: IP công khai, MAC, tên, nhóm, vùng proxy.
 - Thiết bị đang bị chặn hoặc ở mode brand cần **mật khẩu web mobile** để mở

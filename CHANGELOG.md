@@ -1,5 +1,49 @@
 # Changelog
 
+## v0.4.221 - 2026-11-03
+
+Sửa lỗi lưu cấu hình module có thể xoá mất mật khẩu vừa gõ, thêm module mẫu
+"Web Terminal" (shell Linux thật qua web, 0 quyền khai báo) — chính module
+này được dùng để pentest router và phát hiện/vá một lỗ hổng Tool API, sau đó
+chủ dự án quyết định nới lại có chủ đích. **Kèm ISO đầy đủ + gói cập nhật
+nóng.**
+
+- **Sửa lỗi lưu cấu hình module xoá mất mật khẩu vừa gõ.** Bấm "Đặt lại"
+  cạnh ô mật khẩu trong dialog Cấu hình module rồi gõ mật khẩu MỚI và Lưu —
+  yêu cầu gửi lên gồm cả giá trị mới và lệnh xoá cho cùng khoá, backend xử lý
+  lệnh xoá SAU và xoá mất giá trị mới, báo lỗi "trường bắt buộc" dù đã nhập
+  hợp lệ. Ảnh hưởng mọi module có trường cấu hình kiểu mật khẩu (secret). Đã
+  sửa: bỏ qua lệnh xoá nếu khoá đó vừa được gán giá trị mới trong cùng yêu
+  cầu.
+- **Module mẫu mới "Web Terminal":** shell Linux thật ngay trên trình
+  duyệt, 0 quyền khai báo trong manifest, chạy dưới user riêng không đặc
+  quyền (`dm-web-terminal`) với đúng hardening systemd mọi module đều có.
+  Mật khẩu riêng của module (không dùng chung mật khẩu admin router) —
+  giao diện đăng nhập giải thích rõ điều này. Bản 1.0.2 sửa lỗi terminal
+  "mất chữ" (chữ trắng trên nền trắng) ở giao diện sáng.
+- **Phát hiện và vá (rồi nới lại có chủ đích) một đường bỏ qua xác thực
+  Tool API qua loopback/self-dial.** Pentest có chủ đích từ bên trong shell
+  của module Web Terminal (0 quyền) nhằm vào chính router phát hiện:
+  `requireToolAPI` (chặn các API dùng cho quick-proxy, reset PPPoE qua
+  cổng) khi chưa đặt `tool_api_token` tin bất kỳ kết nối "từ LAN" — module
+  chia sẻ network namespace với router nên tự gọi `127.0.0.1` hay thẳng vào
+  IP LAN của router đều được coi là công cụ LAN tin cậy. Đã vá 2 lần
+  (chặn loopback, rồi chặn cả self-dial vào IP LAN của router qua kiểm tra
+  địa chỉ nguồn). **Chủ dự án sau đó quyết định nới lại (revert) cả 2 lần
+  vá**, trả về đúng hành vi gốc: các module tự động hoá chính chủ
+  (`web_control_phone`, `automation_workflow`) đang chạy thật trên router
+  cần gọi các API này qua loopback mà không cần cấu hình thêm, và module đã
+  không có cô lập mạng với router từ trước (không phải ranh giới bảo mật
+  thật). Ai muốn khoá lại cho triển khai riêng vẫn đặt được `tool_api_token`
+  — luôn được ưu tiên và chặn chặt hơn.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit
+  `b58a3899`.
+- **Phát hành đầy đủ:** ZIP cập nhật nóng (ký Ed25519) + **ISO
+  `daomaios_0.4.221.iso`** (349.175.808 bytes, SHA256
+  `36b289ff160f384cdc2e31f084c12c73439aaf66803884b5920f32c2c8b9f4e1`) +
+  `.iso.sha256`.
+- **Cài mới:** ghi ISO bằng Rufus "DD Image mode".
+
 ## v0.4.220 - 2026-11-02
 
 Vá lỗ hổng HIGH `/etc/shadow`/`/etc/gshadow` lộ cho module, thêm 2 API docs

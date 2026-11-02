@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.220",
-  "released_at": "2026-11-02",
-  "notes": "0.4.220: vá lỗ hổng HIGH /etc/shadow+/etc/gshadow lộ cho module — thêm API /api/docs/router + /api/docs/module cho AI đọc để tự viết module — thêm module mẫu Web Terminal (shell Linux thật qua web, user hạn chế riêng, mật khẩu riêng, đã pentest). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "latest": "0.4.221",
+  "released_at": "2026-11-03",
+  "notes": "0.4.221: sửa lỗi lưu cấu hình module xoá mất mật khẩu vừa gõ — thêm module mẫu Web Terminal (shell Linux thật qua web, 0 quyền khai báo) — module này được dùng để pentest router, phát hiện + vá rồi nới lại có chủ đích một đường bỏ qua xác thực Tool API qua loopback/self-dial (giữ zero-config cho module tự động hoá chính chủ; tool_api_token vẫn dùng được để khoá riêng nếu cần). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

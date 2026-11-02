@@ -337,6 +337,28 @@ USB đã boot, không cần thao tác gì thêm). Khi khởi động lại, agen
 phục database từ phân vùng này vào RAM trước khi chạy — vì vậy cấu hình, danh
 sách client, proxy... không mất khi tắt/mở lại máy, miễn là USB vẫn còn cắm.
 
+## 6. Phần cứng khuyến nghị (card mạng)
+
+Tab **Info** trên router cũng hiện mục này trực tiếp (đa ngôn ngữ). Cơ chế tự
+tối ưu đa lõi của agent chỉ đạt hiệu suất tốt nhất khi NIC hỗ trợ **nhiều hàng
+đợi (multi-queue)** — mỗi hàng đợi gán ngắt IRQ riêng cho một core bằng phần
+cứng, thay vì phải rải tải bằng phần mềm (RPS/RFS). Đã gặp thật: card Realtek
+onboard một hàng đợi dồn hết ngắt WAN vào một core dù máy có nhiều core.
+
+- **Nhiều cổng đồng (1GbE)**: Intel **I350-T4** (4 cổng) / **I350-T2** (2 cổng)
+  — driver `igb`, multi-queue, có sẵn trong kernel, không cần cài thêm
+  firmware. Cần khe PCIe x4 trở lên.
+- **SFP+ (10GbE)**, theo thứ tự ưu tiên:
+  1. **Intel X520-DA1** (1 cổng) / **X520-DA2** (2 cổng) — driver `ixgbe`,
+     lựa chọn phổ biến và an toàn nhất.
+  2. **Mellanox ConnectX-3** `MCX311A-XCAT` (1 cổng) / `MCX312A-XCAT` (2 cổng)
+     — driver `mlx4_en`, giá tốt trên thị trường hàng thanh lý.
+  3. **Tránh** Intel X710/XL710 (`i40e`) cho loại máy này — hàng trôi nổi hay
+     gặp vấn đề firmware/NVM, không cần thiết ở quy mô router gia đình/doanh
+     nghiệp nhỏ.
+
+Cả hai dòng NIC trên đều có driver nằm sẵn trong kernel, không cần cài gói rời.
+
 ---
 
 ## Phụ lục — kỹ thuật cho ai quản lý bản phát hành

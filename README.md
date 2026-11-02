@@ -359,6 +359,26 @@ onboard một hàng đợi dồn hết ngắt WAN vào một core dù máy có n
 
 Cả hai dòng NIC trên đều có driver nằm sẵn trong kernel, không cần cài gói rời.
 
+## 7. Dùng AI để viết module riêng
+
+Router có hai link tài liệu (ở tab **API Docs**, hoặc gọi trực tiếp) viết sẵn
+cho AI đọc — chỉ cần dán link (hoặc nội dung link đó) cho ChatGPT/Claude/AI
+khác cùng với mô tả bạn muốn module làm gì, AI sẽ tự viết được module hoàn
+chỉnh:
+
+- **`http://IP_ROUTER:3/api/docs/router`** — toàn bộ API của router (dạng
+  Markdown, luôn bằng tiếng Anh), kèm ví dụ phản hồi thật từ chính agent đang
+  chạy. Dùng khi muốn AI viết thứ gì đó GỌI vào API của router (ví dụ một app
+  riêng tự đổi proxy, tự xoay IP...).
+- **`http://IP_ROUTER:3/api/docs/module`** — hướng dẫn đầy đủ để viết một
+  **module** cài được vào router (quy tắc đóng gói, mẫu `daomai.main`, cách
+  build binary tĩnh, cách cài/nâng cấp chỉ bằng tài khoản + mật khẩu admin —
+  không cần SSH), kèm link tải sẵn 2 module mẫu để AI tham khảo code thật.
+
+Cả hai cần đăng nhập (dùng token từ `POST /api/login`, giống mọi API khác).
+Nội dung luôn khớp với phiên bản router đang chạy thật, vì lấy trực tiếp từ
+code agent, không phải tài liệu viết tay có thể lỗi thời.
+
 ---
 
 ## Phụ lục — kỹ thuật cho ai quản lý bản phát hành

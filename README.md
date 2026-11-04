@@ -49,10 +49,12 @@ ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
    RAM](#5-dữ-liệu-khi-chạy-ram)).
 3. Từ một máy khác trong cùng mạng LAN, mở trình duyệt vào:
    ```text
-   http://20.20.0.1:3
+   http://192.168.0.1:3
    ```
-   (`20.20.0.1` là gateway LAN mặc định; nếu đã đổi thì dùng IP LAN hiện tại
-   của router). Đăng nhập bằng tài khoản mặc định:
+   (`192.168.0.1` là gateway LAN mặc định cho router cài mới từ bản 0.4.224
+   trở lên — bản cũ hơn hoặc router đã nâng cấp từ bản cũ vẫn dùng
+   `20.20.0.1`; nếu đã đổi thì dùng IP LAN hiện tại của router). Đăng nhập
+   bằng tài khoản mặc định:
    ```text
    Tài khoản: daomai
    Mật khẩu:  daomai
@@ -81,7 +83,7 @@ ISO tự boot thẳng vào router, không có menu chọn (direct auto-boot).
    thì vào tab **Internet → Web từ xa**, tick **Bật SSH** (không chọn WAN = chỉ
    dùng trong LAN), rồi:
    ```bash
-   ssh -p 2 daomai@20.20.0.1
+   ssh -p 2 daomai@192.168.0.1
    ```
 
 ## 2. Hai giao diện quản lý
@@ -91,7 +93,7 @@ DaoMaiOS có hai giao diện dùng cho hai đối tượng khác nhau:
 | Giao diện | Cổng | Dùng cho | Cần đăng nhập |
 |---|---|---|---|
 | **Web Admin** | `3` | Người quản trị router | Có (tài khoản `daomai`) |
-| **Mobile Self-Service** | `5` (gõ thẳng `http://20.20.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
+| **Mobile Self-Service** | `5` (gõ thẳng `http://192.168.0.1` là vào, cổng 80 trên IP router tự chuyển về đây) | Người dùng thiết bị tự chỉnh proxy/thông tin của chính mình | Không — nhận diện theo IP/MAC thiết bị |
 
 > **Giao diện web — bản ổn định (từ 0.4.194, giữ ở 0.4.219):** dùng giao diện web **cũ** đã
 > kiểm chứng kỹ, serve ở `http://IP_ROUTER:3/` (admin) và `http://IP_ROUTER:5/`
@@ -117,11 +119,13 @@ Bật/tắt SSH và API công khai, hoặc mở chúng (và Web Admin) ra Intern
 > Xoay" phải đổi sang cổng `3` (web) và `4` (API). Cổng ra WAN đã lưu là
 > `18080`/`18081` được tự đổi thành `3`/`4`; cổng ngoài khác (kể cả SSH `22`)
 > được giữ nguyên. Từ 0.4.176 trang mobile chuyển `18082` → `5` và trang brand
-> `18083` → `6`; điện thoại vẫn chỉ cần gõ `http://20.20.0.1`.
+> `18083` → `6`; điện thoại vẫn chỉ cần gõ IP LAN của router (`192.168.0.1`
+> mặc định từ bản 0.4.224, `20.20.0.1` trên router cài trước đó).
 
 Với Mobile Self-Service, chỉ cần mở trình duyệt trên điện thoại/máy đang nối
-vào LAN router và gõ thẳng `http://20.20.0.1` — không cần gõ số cổng, không cần
-tài khoản.
+vào LAN router và gõ thẳng IP LAN của router (`http://192.168.0.1` mặc định
+từ bản 0.4.224, `http://20.20.0.1` trên router cài trước đó) — không cần gõ
+số cổng, không cần tài khoản.
 
 ## 3. Tính năng Web Admin
 
@@ -246,10 +250,11 @@ không cần mật khẩu** để xem/sửa thiết bị của chính mình. M�
 điện thoại/máy đang nối LAN của router, gõ thẳng:
 
 ```text
-http://20.20.0.1
+http://192.168.0.1
 ```
 
-(không cần số cổng). Router nhận diện "đây là máy nào" bằng **IP/MAC của
+(IP LAN mặc định từ bản 0.4.224; `20.20.0.1` trên router cài trước đó —
+không cần số cổng). Router nhận diện "đây là máy nào" bằng **IP/MAC của
 chính kết nối đang mở** — mỗi người chỉ thấy và sửa được thiết bị của mình,
 không thấy được thiết bị người khác. Giao diện tối giản, một trang dọc, chữ
 to, bấm được bằng ngón tay, tự chuyển Việt/Anh theo lựa chọn lưu trên máy đó.

@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.4.224 - 2026-11-05
+
+Đổi dải mạng LAN mặc định sang `192.168.0.0/16` — **chỉ áp dụng cho cài
+mới**, router đã triển khai không bị đổi. **Kèm ISO đầy đủ + gói cập nhật
+nóng.**
+
+- **Đổi dải mạng LAN mặc định sang `192.168.0.0/16`.** Dải mặc định cũ
+  `20.20.0.0/16` thực ra nằm trong khối `20.0.0.0/8` được IANA cấp công
+  khai thật sự, không phải dải private RFC1918 như `192.168.0.0/16`. Hệ
+  quả: WebRTC ICE candidate chứa IP LAN thật của máy khách bị các trang
+  kiểm tra rò rỉ (như browserleaks.com) hiểu nhầm là một IP công khai thứ
+  hai thay vì IP nội bộ — lộ thông tin mạng LAN ra ngoài dù không qua
+  proxy/VPN nào. Xác nhận trực tiếp bằng ảnh chụp WebRTC Leak Test trên
+  máy thật, đối chiếu với một router MikroTik dùng đúng dải private thì
+  phân loại đúng. Vì cơ chế gán mặc định dùng "chỉ điền nếu còn trống",
+  thay đổi này CHỈ có tác dụng với router cài mới/boot lần đầu — router
+  hot-update hay ISO-update lên bản này vẫn giữ nguyên cấu hình mạng LAN
+  hiện có, không bị đổi. Muốn đổi dải mạng trên một router cụ thể, admin
+  tự đổi trong Cài đặt như bình thường.
+
 ## v0.4.223 - 2026-11-04
 
 Sửa nguyên nhân thật của "chấm than" mạng trên Android dù proxy vẫn vào

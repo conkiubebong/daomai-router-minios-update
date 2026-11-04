@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.223",
-  "released_at": "2026-11-04",
-  "notes": "0.4.223: sửa lỗi UDP bị đẩy vào proxy không hỗ trợ UDP — nguyên nhân thật của 'mạng bị hạn chế' trên Android dù TCP vẫn chạy bình thường (firewall giờ tra kết quả kiểm tra UDP thật của router, không chỉ xét loại proxy). Thêm API bảo vệ link xoay IP PPPoE bằng user/pass ngay trong URL, thay cho token. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "latest": "0.4.224",
+  "released_at": "2026-11-05",
+  "notes": "0.4.224: đổi dải mạng LAN mặc định sang 192.168.0.0/16 cho CÀI MỚI (router đã triển khai không bị đổi) — dải cũ 20.20.0.0/16 là IP public thật theo IANA, khiến WebRTC lộ IP LAN của máy khách ra ngoài như một IP công khai thứ hai trên các trang kiểm tra rò rỉ. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

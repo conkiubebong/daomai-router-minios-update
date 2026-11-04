@@ -1,22 +1,22 @@
 {
   "schema": "1",
-  "updated": "2026-10-29",
+  "updated": "2026-11-05",
   "release_tag": "modules",
   "base_url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/",
   "modules": [
     {
       "id": "cloudflared",
       "name": { "vi": "Cloudflare Tunnel", "en": "Cloudflare Tunnel" },
-      "version": "1.0.3",
+      "version": "1.1.0",
       "kind": "service",
       "min_router_version": "0.4.181",
-      "file": "cloudflared-1.0.3.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/cloudflared-1.0.3.zip",
-      "sha256": "a18d3c59a79be8a7dfde60ba9e5fafd682a026f5ebff518a6eaea474f07e46cc",
-      "size": 20268810,
+      "file": "cloudflared-1.1.0.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/cloudflared-1.1.0.zip",
+      "sha256": "4666d77645b35fd063525d2f768b39430ff23b67c31560ec6073c9924329c6ce",
+      "size": 22919009,
       "description": {
-        "vi": "Đưa dịch vụ nội bộ ra Internet qua Cloudflare, không cần IP tĩnh/mở cổng. Chế độ token/quick/local + switch bỏ verify TLS origin.",
-        "en": "Expose a local service to the Internet via Cloudflare, no static IP / port-forward. token/quick/local modes + an origin TLS-verify switch."
+        "vi": "Đưa dịch vụ nội bộ ra Internet qua Cloudflare, không cần IP tĩnh/mở cổng. 1.1.0: nhiều tunnel/profile, giao diện web riêng (cổng 15082), cả 3 chế độ token/quick/local mỗi profile.",
+        "en": "Expose a local service to the Internet via Cloudflare, no static IP / port-forward. 1.1.0: multiple tunnels/profiles, own embedded web UI (port 15082), all 3 modes (token/quick/local) per profile."
       }
     },
     {

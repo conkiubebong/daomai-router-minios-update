@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.4.223 - 2026-11-04
+
+Sửa nguyên nhân thật của "chấm than" mạng trên Android dù proxy vẫn vào
+mạng bình thường (phát hiện và xác nhận trực tiếp trên router sống), và
+thêm cách bảo vệ link xoay IP PPPoE bằng user/pass trong URL. **Kèm ISO
+đầy đủ + gói cập nhật nóng.**
+
+- **Sửa lỗi UDP bị đẩy vào proxy không hỗ trợ UDP, gây "mạng bị hạn chế"
+  trên Android dù TCP vẫn chạy bình thường.** Firewall trước đây chỉ xét
+  LOẠI proxy (có phải socks5 không) để quyết định đẩy UDP của máy vào
+  proxy, không tra kết quả kiểm tra UDP thật của chính router. Xác nhận
+  trực tiếp trên router thật: một proxy từ chối UDP ASSOCIATE (log sing-box
+  báo liên tục `socks5: request rejected, code=7`, hơn 250 lần/5 phút cho
+  một máy) vẫn bị đẩy UDP vào — app/trình duyệt âm thầm chuyển về TCP nên
+  không ai thấy gì bất thường, nhưng Android tự kiểm tra mạng bằng cả
+  đường UDP/QUIC tới Google nên vẫn báo mạng hạn chế. Đã thêm cơ chế 3
+  trạng thái (chưa kiểm tra → vẫn cho qua như cũ, đã xác nhận có UDP →
+  cho qua, đã xác nhận KHÔNG có UDP → chặn), áp dụng ngay khi có kết quả
+  mới, không cần đợi thao tác khác.
+- **API mới: bảo vệ link xoay IP PPPoE bằng user/pass trong URL, thay cho
+  token.** `GET /api/public/pppoe_rotate/{port}/{user}/{pass}` bên cạnh
+  link cũ (không đổi hành vi khi chưa cấu hình). Đặt/xoá cặp user/pass
+  qua `PUT/DELETE /api/pppoe-rotate-credentials` (chỉ admin).
+
 ## v0.4.222 - 2026-11-04
 
 Sửa 2 lỗi thật phát hiện qua kiểm tra trực tiếp trên router sống (test tay

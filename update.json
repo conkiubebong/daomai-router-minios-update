@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.222",
+  "latest": "0.4.223",
   "released_at": "2026-11-04",
-  "notes": "0.4.222: sửa lỗi báo nhầm proxy IPv4-only là 'mất mạng' (chấm cam) — health-check cũ chỉ thử IPv6, giờ tách riêng tín hiệu IPv4 (quyết định trạng thái thật) và IPv6 (chất lượng phụ, hiện rõ khi hover). Sửa lỗi WebRTC/QUIC không qua được proxy (bỏ cờ udp_over_tcp riêng của sing-box, dùng UDP ASSOCIATE chuẩn). Thêm API gán/xoá bypass theo máy (ip/mac/tên) cho tool ngoài, cùng kiểu với API gắn proxy. Dọn + làm đẹp trang tài liệu API, chỉ còn API dành cho tool ngoài. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "notes": "0.4.223: sửa lỗi UDP bị đẩy vào proxy không hỗ trợ UDP — nguyên nhân thật của 'mạng bị hạn chế' trên Android dù TCP vẫn chạy bình thường (firewall giờ tra kết quả kiểm tra UDP thật của router, không chỉ xét loại proxy). Thêm API bảo vệ link xoay IP PPPoE bằng user/pass ngay trong URL, thay cho token. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

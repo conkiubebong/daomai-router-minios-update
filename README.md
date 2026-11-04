@@ -297,6 +297,13 @@ trong repo mã nguồn.
 > 0.4.181: phiên admin, hoặc token `tool_api_token`, hoặc gọi từ LAN — không
 > còn mở ẩn danh ra Internet qua cổng `4`.
 
+**Link `pppoe_rotate` có thể bảo vệ bằng user/pass ngay trong URL (từ
+0.4.223), thay cho `tool_api_token`:** `GET
+/api/public/pppoe_rotate/{port}/{user}/{pass}`, đặt/xoá cặp user/pass qua
+`PUT/DELETE /api/pppoe-rotate-credentials` (chỉ admin). Chưa đặt thì link
+cũ (không kèm user/pass) vẫn hoạt động như trước; đặt rồi thì bắt buộc
+đúng user/pass mới dùng được link này.
+
 **API cho tool — gán/xoá bypass theo máy (từ 0.4.222):** cùng kiểu địa chỉ
 chọn máy (ip/mac/tên) với API "gắn proxy cho phone" đã có, dùng chung xác
 thực `requireToolAPI` nói trên: `GET/POST

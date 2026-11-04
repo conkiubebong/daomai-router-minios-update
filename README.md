@@ -225,9 +225,13 @@ tài khoản.
 
 ### API Docs
 - Trang tài liệu API **tự xây** (không còn Swagger UI vendor từ bản 0.4.219),
-  đủ **6 ngôn ngữ** (vi/en/th/pt/ko/ja): liệt kê toàn bộ endpoint theo nhóm,
-  mỗi endpoint có mô tả, tham số, **ví dụ response thật** lấy trực tiếp từ xử
-  lý của agent (không phải mẫu viết tay).
+  đủ **6 ngôn ngữ** (vi/en/th/pt/ko/ja), mỗi endpoint có mô tả, tham số,
+  **ví dụ response thật** lấy trực tiếp từ xử lý của agent (không phải mẫu
+  viết tay). **Từ bản 0.4.222**, trang và các link markdown dán cho AI
+  (`/api/docs/prompt`, `/api/docs/router`, `/api/openapi.json`) chỉ còn liệt
+  kê các API dành cho **tool bên ngoài gọi** (gắn/xoá proxy, gán/xoá bypass,
+  self-service theo IP máy) — không còn lộ toàn bộ CRUD nội bộ (client,
+  proxy, cài đặt, module...) như trước.
 - Nút **"Try it out"** ngay trong trang: gọi thẳng API bằng token đang đăng
   nhập, không cần công cụ ngoài (Postman, curl...).
 - Nút **"API Prompt"**: xuất toàn bộ tài liệu API dạng Markdown — dùng để dán
@@ -292,6 +296,14 @@ trong repo mã nguồn.
 > **API cho tool (link "API Xoay" nhanh, `pppoe_rotate`) nay cần xác thực** từ
 > 0.4.181: phiên admin, hoặc token `tool_api_token`, hoặc gọi từ LAN — không
 > còn mở ẩn danh ra Internet qua cổng `4`.
+
+**API cho tool — gán/xoá bypass theo máy (từ 0.4.222):** cùng kiểu địa chỉ
+chọn máy (ip/mac/tên) với API "gắn proxy cho phone" đã có, dùng chung xác
+thực `requireToolAPI` nói trên: `GET/POST
+/api/public/v1/phones/{ip|mac|tên}/bypass/{off|direct_list|proxy_list}[?list_id=N]`
+(và bản rút gọn `/api/public/bypass/{máy}/{mode}`). Khác máy tự cấu hình ở
+trên (theo IP nguồn), API này cho tool/kịch bản bên ngoài CHỌN máy để gán
+bypass thay vì chỉ sửa được chính mình.
 
 ## 4. Cập nhật hệ thống
 

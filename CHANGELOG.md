@@ -1,5 +1,44 @@
 # Changelog
 
+## v0.4.222 - 2026-11-04
+
+Sửa 2 lỗi thật phát hiện qua kiểm tra trực tiếp trên router sống (test tay
+bằng giao thức SOCKS5 thô + HTTP qua proxy), và thêm API chọn máy để gán/xoá
+bypass cho tool bên ngoài. **Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Sửa lỗi báo nhầm proxy "mất mạng" (chấm cam) dù proxy vẫn chạy tốt.**
+  Việc kiểm tra tình trạng proxy nền trước đây CHỈ thử kết nối tới đích
+  IPv6 (tính năng kiểm tra chất lượng IPv6 có chủ đích, admin tự cấu hình),
+  không có phương án dự phòng IPv4. Một proxy SOCKS5 thật, hoạt động bình
+  thường cho traffic thật (100% IPv4 trên router này) nhưng không hỗ trợ
+  IPv6 — xác nhận trực tiếp bằng bắt tay SOCKS5 thủ công: CONNECT tới
+  1.1.1.1:443 (IPv4) THÀNH CÔNG, CONNECT tới đích IPv6 bị từ chối "host
+  unreachable" — thì bị báo nhầm "mất internet" (cam) vĩnh viễn. Đã tách
+  thành 2 tín hiệu độc lập: kiểm tra IPv4 cố định (quyết định màu chấm/trạng
+  thái thật) và kiểm tra IPv6 admin cấu hình (chỉ còn là tín hiệu chất
+  lượng phụ). Khi hover vào chấm trạng thái (mọi màu, không chỉ màu cam)
+  giờ hiện rõ "IPv4: Có mạng/Không, IPv6: Có mạng/Không".
+- **Sửa lỗi WebRTC/QUIC không đi qua được proxy dù proxy hỗ trợ UDP.**
+  Router trước đây luôn bật cờ `udp_over_tcp` cho mọi proxy socks4/socks5 —
+  đây là giao thức RIÊNG của hãng làm sing-box, không phải chuẩn SOCKS5 UDP
+  ASSOCIATE, hầu như không proxy thương mại nào hiểu được, nên UDP
+  (WebRTC/QUIC) âm thầm không hoạt động dù chính router đã tự kiểm tra và
+  xác nhận proxy đó hỗ trợ UDP ASSOCIATE chuẩn. Đã bỏ cờ này — dùng đúng cơ
+  chế chuẩn mà router đã kiểm chứng.
+- **API mới: gán/xoá bypass cho MỘT máy bất kỳ bằng 1 URL**, cùng kiểu địa
+  chỉ (chọn máy qua ip/mac/tên) với API "gắn proxy" đã có từ trước —
+  `/api/public/v1/phones/{máy}/bypass/{off|direct_list|proxy_list}` (và bản
+  rút gọn `/api/public/proxy/...`-style `/api/public/bypass/{máy}/{mode}`).
+  Dùng chung cơ chế bảo vệ với API gắn proxy/xoay IP PPPoE (khoá theo công
+  tắc "Bật API công khai", `tool_api_token` nếu cần khoá chặt hơn).
+- **Dọn trang tài liệu API** (tab trong giao diện quản trị + các link
+  markdown dán cho AI/tool ngoài): trước đây liệt kê toàn bộ API nội bộ
+  (CRUD client/proxy/cài đặt/module...), giờ chỉ còn các API dành cho tool
+  ngoài gọi (proxy + bypass), tránh lộ bề mặt API nội bộ không cần thiết.
+  Giao diện trang cũng được làm lại gọn/rõ hơn.
+- Bundled DaoMai router agent/web UI from `daomai-router-minios` commit
+  `956fd834`.
+
 ## v0.4.221 - 2026-11-03
 
 Sửa lỗi lưu cấu hình module có thể xoá mất mật khẩu vừa gõ, thêm module mẫu

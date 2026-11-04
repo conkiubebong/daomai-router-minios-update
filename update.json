@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.221",
-  "released_at": "2026-11-03",
-  "notes": "0.4.221: sửa lỗi lưu cấu hình module xoá mất mật khẩu vừa gõ — thêm module mẫu Web Terminal (shell Linux thật qua web, 0 quyền khai báo) — module này được dùng để pentest router, phát hiện + vá rồi nới lại có chủ đích một đường bỏ qua xác thực Tool API qua loopback/self-dial (giữ zero-config cho module tự động hoá chính chủ; tool_api_token vẫn dùng được để khoá riêng nếu cần). Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
+  "latest": "0.4.222",
+  "released_at": "2026-11-04",
+  "notes": "0.4.222: sửa lỗi báo nhầm proxy IPv4-only là 'mất mạng' (chấm cam) — health-check cũ chỉ thử IPv6, giờ tách riêng tín hiệu IPv4 (quyết định trạng thái thật) và IPv6 (chất lượng phụ, hiện rõ khi hover). Sửa lỗi WebRTC/QUIC không qua được proxy (bỏ cờ udp_over_tcp riêng của sing-box, dùng UDP ASSOCIATE chuẩn). Thêm API gán/xoá bypass theo máy (ip/mac/tên) cho tool ngoài, cùng kiểu với API gắn proxy. Dọn + làm đẹp trang tài liệu API, chỉ còn API dành cho tool ngoài. Kèm ISO đầy đủ + gói cập nhật nóng. Cài mới: ghi ISO bằng Rufus DD mode.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

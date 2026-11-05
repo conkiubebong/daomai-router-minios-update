@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.4.225 - 2026-11-05
+
+Ghim thanh header + nút bong bóng cuộn nhanh trên giao diện quản trị web.
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Ghim thanh header khi lướt trang.** Thanh brand đỏ trên cùng và dải tab
+  (Dashboard/Internet/Clients/...) giờ luôn dính trên cùng khi cuộn trang dài
+  xuống dưới (CSS `position: sticky`), không cần cuộn lên lại mới thấy menu.
+  Chiều cao thanh header được đo động để dải tab luôn dính đúng ngay dưới nó,
+  kể cả khi header xuống 2 dòng trên màn hẹp.
+- **Nút bong bóng nổi góc phải dưới màn hình.** Gần đầu trang hiện mũi tên
+  xuống (bấm nhảy thẳng xuống cuối trang); đã cuộn xuống một đoạn thì tự đổi
+  thành mũi tên lên (bấm cuộn mượt về đầu trang); tự ẩn nếu trang không đủ dài
+  để cuộn.
+
 ## v0.4.224 - 2026-11-05
 
 Đổi dải mạng LAN mặc định sang `192.168.0.0/16` — **chỉ áp dụng cho cài

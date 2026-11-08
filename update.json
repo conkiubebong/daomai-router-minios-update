@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.225",
-  "released_at": "2026-11-05",
-  "notes": "0.4.225: ghim thanh header (brand bar + dải tab) khi lướt trang quản trị, thêm nút bong bóng nổi góc phải dưới để nhảy lên đầu/xuống cuối trang. Kèm ISO đầy đủ + gói cập nhật nóng.",
+  "latest": "0.4.226",
+  "released_at": "2026-11-08",
+  "notes": "0.4.226: logo thương hiệu mới (hổ con + hoa đào) cho giao diện quản trị và trang điện thoại; thêm Chống nghẽn (SQM) theo cổng WAN ở tab Internet để upload không làm giật livestream. Kèm ISO đầy đủ + gói cập nhật nóng.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

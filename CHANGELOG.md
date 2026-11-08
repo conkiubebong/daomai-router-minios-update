@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.226 - 2026-11-08
+
+Logo thương hiệu mới + chống nghẽn upload (SQM) cho cổng WAN.
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Logo mới (hổ con + hoa đào trên nền đỏ).** Thay toàn bộ icon trong giao
+  diện quản trị và trang tự phục vụ trên điện thoại (favicon, icon trên thanh
+  tiêu đề, icon "Thêm vào màn hình chính"). Module DaoMai điều khiển điện thoại
+  (web-control-phone 1.0.523) cũng đã đổi sang logo mới.
+- **Chống nghẽn (SQM) theo từng cổng WAN vật lý.** Tab Internet có thêm mục
+  "Chống nghẽn (SQM)": đặt tốc độ upload/download (Mbit/s), khoảng 90–100% kết
+  quả speedtest thật. Phát hiện trên router thật: đang upload file thì
+  livestream liên tục báo mất kết nối. Đường PPPoE chỉ chạy ~100 Mbit/s nhưng
+  router đẩy ở tốc độ cổng 1 Gbit/s, nên hàng đợi dồn sang thiết bị nhà mạng và
+  độ trễ khi upload lên 500–930 ms. Với SQM 100/100, độ trễ khi upload còn
+  ~24 ms (upload ~83 Mbit/s). Mặc định tắt (0/0). API: `GET /api/wan-sqm`,
+  `PUT /api/wan-sqm/{interface_id}`.
+
 ## v0.4.225 - 2026-11-05
 
 Ghim thanh header + nút bong bóng cuộn nhanh trên giao diện quản trị web.

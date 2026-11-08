@@ -158,6 +158,14 @@ số cổng, không cần tài khoản.
   HTTP/SOCKS5/API rotate để copy.
 - Nút dò lại toàn bộ cổng mạng, nút xuất danh sách proxy đang host trên PPPoE
   ra file .txt (HTTP/SOCKS5/rotate link).
+- **Chống nghẽn (SQM)** (từ 0.4.226): nếu đang upload file thì livestream/game/
+  gọi video bị giật hoặc "mất kết nối", đặt tốc độ upload/download (Mbit/s) cho
+  cổng WAN vật lý, khoảng 90–100% kết quả speedtest thật (không phải tốc độ gói
+  cước). Router dùng `cake` để giữ hàng đợi ở phía mình thay vì để dồn sang
+  thiết bị nhà mạng. Ví dụ đường PPPoE thực tế ~100 Mbit/s: đặt 100/100 thì độ
+  trễ khi đang upload giữ ~24 ms thay vì 500–900 ms. Để 0/0 là tắt (mặc định).
+  Khi nhà mạng nâng tốc độ, nhớ chạy speedtest lại và nâng mức này, nếu không sẽ
+  bị giới hạn ở mức cũ.
 - **Tailscale (mạng riêng)** — từ **0.4.183 là MODULE đặc quyền**
   (`docs/module-sample/tailscale`), không còn là tính năng lõi. `tailscaled` chạy
   ngay trên router và quảng bá dải LAN vào tailnet, để thiết bị từ xa (cùng

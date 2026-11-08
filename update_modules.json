@@ -1,19 +1,19 @@
 {
   "schema": "1",
-  "updated": "2026-11-05",
+  "updated": "2026-11-09",
   "release_tag": "modules",
   "base_url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/",
   "modules": [
     {
       "id": "cloudflared",
       "name": { "vi": "Cloudflare Tunnel", "en": "Cloudflare Tunnel" },
-      "version": "1.1.0",
+      "version": "1.1.1",
       "kind": "service",
       "min_router_version": "0.4.181",
-      "file": "cloudflared-1.1.0.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/cloudflared-1.1.0.zip",
-      "sha256": "4666d77645b35fd063525d2f768b39430ff23b67c31560ec6073c9924329c6ce",
-      "size": 22919009,
+      "file": "cloudflared-1.1.1.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/cloudflared-1.1.1.zip",
+      "sha256": "2858ffcdbce127af7239a097f993701b34b7fb99970f3dbc58ebf910c6fb0911",
+      "size": 22946444,
       "description": {
         "vi": "Đưa dịch vụ nội bộ ra Internet qua Cloudflare, không cần IP tĩnh/mở cổng. 1.1.0: nhiều tunnel/profile, giao diện web riêng (cổng 15082), cả 3 chế độ token/quick/local mỗi profile.",
         "en": "Expose a local service to the Internet via Cloudflare, no static IP / port-forward. 1.1.0: multiple tunnels/profiles, own embedded web UI (port 15082), all 3 modes (token/quick/local) per profile."
@@ -22,13 +22,13 @@
     {
       "id": "tailscale",
       "name": { "vi": "Tailscale", "en": "Tailscale" },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "kind": "service",
       "min_router_version": "0.4.183",
-      "file": "tailscale-1.0.1.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/tailscale-1.0.1.zip",
-      "sha256": "afc12195724b86b30cbe1d685969ef53af57a7cd9cd866285a6d7ecd30bf939c",
-      "size": 40774549,
+      "file": "tailscale-1.0.2.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/tailscale-1.0.2.zip",
+      "sha256": "bae925dd1f970ce723f0f926e07659e9c1696696b2fa82852d549de3040a91cc",
+      "size": 40797150,
       "description": {
         "vi": "Subnet router: truy cập router + máy LAN (và xem phone có hình) từ xa qua tailnet, không cần IP công khai. Cần quyền net_admin, router >= 0.4.183.",
         "en": "Subnet router: reach the router + LAN machines (and view phones with video) remotely over the tailnet, no public IP. Needs the net_admin permission, router >= 0.4.183."
@@ -57,8 +57,8 @@
       "min_router_version": "0.4.180",
       "file": "python3-3.12.15.zip",
       "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/python3-3.12.15.zip",
-      "sha256": "5cf52f9bb7017a090c4f12bf566822dbef79cc618c33f7dfb2f51d68f3391db1",
-      "size": 17653797,
+      "sha256": "68c50ec96d19d4d06e26a35c7b0972aebd6de137fb89de9816f987d12da4a00e",
+      "size": 17676376,
       "description": {
         "vi": "Trình thông dịch Python 3 dùng chung — nền cho các module Python (không tự chạy; cài một lần).",
         "en": "The shared Python 3 interpreter — the base for Python modules (never runs on its own; install once)."
@@ -82,13 +82,13 @@
     {
       "id": "duckdns",
       "name": { "vi": "DuckDNS / DDNS", "en": "DuckDNS / DDNS" },
-      "version": "1.0.5",
+      "version": "1.0.6",
       "kind": "service",
       "min_router_version": "0.4.197",
-      "file": "duckdns-1.0.5.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/duckdns-1.0.5.zip",
-      "sha256": "2a583007ccf3fffa64148dd93ac20d04da869fe29281e650002c4222c4f78ca0",
-      "size": 2735904,
+      "file": "duckdns-1.0.6.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/duckdns-1.0.6.zip",
+      "sha256": "eea737182bac97ca9941f67a97d39ffb7489dd77286877851e95fc4a81aaa41c",
+      "size": 2761591,
       "description": {
         "vi": "Cập nhật DNS động cho nhiều domain: dán link DuckDNS/generic, chọn PPPoE/egress để lấy IP public, chu kỳ + bật/tắt từng domain. 1.0.3: nút 👁 hiện/ẩn token khi nhập. 1.0.4: ô token hiện rõ 'đã lưu' khi đã có token. 1.0.5: nút 'Cập nhật ngay' tự Lưu form trước nên token vừa gõ không bị mất. Web setting riêng. Cần router >= 0.4.197.",
         "en": "Dynamic DNS for many domains: paste a DuckDNS/generic update link, pick the PPPoE/egress whose public IP to publish, interval + per-domain on/off. 1.0.3: eye toggle on the token input. 1.0.4: the token field clearly shows 'saved' when a token is set. 1.0.5: the 'Update now' button saves the form first so a just-typed token isn't lost. Own web settings UI. Needs router >= 0.4.197."
@@ -97,13 +97,13 @@
     {
       "id": "rustdesk",
       "name": { "vi": "RustDesk Server", "en": "RustDesk Server" },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "kind": "service",
       "min_router_version": "0.4.212",
-      "file": "rustdesk-1.0.3.zip",
-      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/rustdesk-1.0.3.zip",
-      "sha256": "12e84ce66684debfd0fbe1a8f0a7c04342e3c38a5b4d49f813b728eb8a040faf",
-      "size": 8674312,
+      "file": "rustdesk-1.0.4.zip",
+      "url": "https://github.com/conkiubebong/daomai-router-minios-update/releases/download/modules/rustdesk-1.0.4.zip",
+      "sha256": "88ea355f0f76ee0f6aba6bb20568b94d09ea85c98d587648f346ad933d50405b",
+      "size": 8700599,
       "description": {
         "vi": "Máy chủ RustDesk tự host (hbbs + hbbr 1.1.16): điều khiển máy từ xa không cần dịch vụ công cộng. Lưu/tạo key, NAT cổng ra PPPoE/egress chọn sẵn. 1.0.3: ID/Relay tự dùng DNS name của đường ra (nếu router có gắn DDNS) thay cho IP. Web setting riêng. Cần router >= 0.4.212.",
         "en": "Self-hosted RustDesk server (hbbs + hbbr 1.1.16): remote control without the public service. Save/generate the server key, NAT ports out a chosen PPPoE/egress. 1.0.3: ID/Relay auto-use the egress DNS name (when the router has a DDNS bound) instead of the IP. Own web settings UI. Needs router >= 0.4.212."

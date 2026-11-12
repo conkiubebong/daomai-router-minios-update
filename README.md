@@ -228,6 +228,12 @@ số cổng, không cần tài khoản.
   bấm **Xem log**, xem lỗi ở đâu (socket, tiến trình, proxy, máy bị ảnh hưởng,
   router đã làm gì) rồi tắt cảnh báo.
 
+### Popup cảnh báo hệ thống (từ 0.4.228)
+- Khi vào Web Admin, router hiện popup nếu có việc cần xử lý: DHCP sắp hết
+  địa chỉ, router đã tự sửa lỗi mạng mà chưa xem log, mật khẩu admin mặc định,
+  không có ổ lưu bền, tự cập nhật bị lỗi. "Đã hiểu" ẩn 24 giờ hoặc tới khi mức
+  độ thay đổi.
+
 ### Logs
 - Lịch sử 200 lệnh gần nhất agent đã thực thi (thời gian, loại lệnh, mã trả
   về, có phải dry-run hay không).
@@ -238,6 +244,8 @@ số cổng, không cần tài khoản.
 - Tải lên bản sao lưu cũ để khôi phục, tải xuống bản sao lưu đã lưu.
 
 ### Info
+- Từ 0.4.228 chia nhóm: Tổng quan, Cập nhật, Sao lưu, Lưu trữ & khởi động,
+  Vùng nguy hiểm.
 - Phiên bản hiện tại, hostname, uptime, repo cập nhật đang dùng.
 - Ô "Tự động cập nhật bản vá" (từ 0.4.227, mặc định bật, chỉ ZIP).
 - Nút khởi động lại (agent tự đồng bộ DB trước khi tắt).

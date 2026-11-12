@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.227",
-  "released_at": "2026-11-11",
-  "notes": "0.4.227: sửa lỗi Wi-Fi chấm than / Zalo mất mạng / PC không vào web do proxy nuốt DNS (router tự phát hiện + tự sửa, có cảnh báo trên Web Admin); sửa xoá hàng loạt vài nghìn IP bị sót/quay lại (dọn sạch + kiểm tra lại từng IP); tự động cập nhật bản vá mặc định bật (chỉ ZIP, không tự ghi ISO); combobox mở đúng chỗ, tự mở lên khi sát mép dưới. Kèm ISO đầy đủ + gói cập nhật nóng.",
+  "latest": "0.4.228",
+  "released_at": "2026-11-12",
+  "notes": "0.4.228: sửa tận gốc DNS của máy đi proxy (DNS qua TCP xuyên proxy, upstream không cần UDP) - hết máy farm mất mạng/thiếu máy; proxy không còn kẹt cổng lặp khởi động lại; sửa firewall dùng nhầm dải 192.168 trên router 20.20.x; sửa hàng loạt hàng nghìn máy nhanh + chọn tất cả máy đang lọc; popup cảnh báo (DHCP sắp hết...); tab Thông tin sắp xếp lại. Kèm ISO đầy đủ + gói cập nhật nóng.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

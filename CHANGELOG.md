@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.4.228 - 2026-11-12
+
+Sửa tận gốc DNS của máy đi proxy (máy farm mất mạng), proxy kẹt cổng, firewall dùng nhầm dải 192.168,
+sửa hàng loạt hàng nghìn máy, popup cảnh báo, tab Thông tin mới.
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Sửa tận gốc DNS của máy đi proxy (máy farm "mất mạng"/"thiếu máy", Wi-Fi chấm than).** Phát hiện trên router thật: sing-box 1.11 không nhận ra gói DNS UDP trên cổng tproxy, nên DNS của máy đi proxy bị gửi thẳng dạng UDP tới proxy upstream. Proxy SOCKS5 không hỗ trợ UDP thì mọi truy vấn DNS mất trắng (Clash API: 22/22 kết nối UDP :53 nhận 0 byte). Giờ DNS (UDP + TCP cổng 53) của máy đi proxy được chuyển (DNAT) tới một cổng DNS riêng của từng proxy trên chính router. sing-box nhận ở đó và hỏi DNS **qua TCP xuyên qua proxy**, nên upstream không cần hỗ trợ UDP. DNS cũng không còn đi qua socket "transparent", nên lỗi socket kẹt nuốt DNS của bản 0.4.227 không còn chỗ để xảy ra. Proxy chết thì DNS vẫn chặn (fail-closed) như trước.
+- **Proxy không còn bị "kẹt cổng" lặp khởi động lại.** Dải cổng ra ngẫu nhiên của kernel (32768–60999) trùng dải cổng proxy (49001–65535). Một kết nối ra ngoài (ví dụ phiên ADB của module farm) chiếm đúng cổng của một proxy, làm sing-box khởi động lại hơn 100 lần và máy dùng proxy đó mất mạng nhiều giờ. Giờ router giữ riêng dải này khỏi kernel (`ip_local_reserved_ports = 32768-33535,49000-65535`). Nếu cổng vẫn bị chiếm, router tự cấp cổng mới cho đúng proxy đó trong vòng 90 giây. Proxy đang chạy tốt không bị đụng tới.
+- **Sửa firewall dùng nhầm dải `192.168.x` trên router dùng `20.20.x`.** Từ 0.4.224 các rule theo IP router (chuyển cổng 80 tới trang tự phục vụ, ngoại lệ portal cho máy không có mạng, ngoại lệ LAN/ADB) được sinh với `192.168.0.1` thay vì IP gateway thật. Giờ firewall luôn lấy `dhcp_gateway` đang cấu hình. Gõ IP router trên điện thoại lại vào được trang tự phục vụ.
+- **Sửa hàng loạt hàng nghìn máy nhanh và không lỗi.** Thêm endpoint phía server `POST /api/clients/bulk-update` (tối đa 500 máy/lần, trả kết quả từng máy, chống ghi đè khi 2 người sửa cùng lúc). Giao diện gửi theo lô 200, chạy tối đa 4 việc cùng lúc, áp dụng runtime (nftables/tc/sing-box) một lần cho cả đợt thay vì từng máy. Đo offline: sửa 3.000 máy khoảng 5 giây (áp dụng runtime khoảng 65 giây). Thêm nút **"Chọn tất cả N máy đang lọc"**, chọn cả những máy chưa hiện trên trang.
+- **Popup cảnh báo khi vào Web Admin:** DHCP sắp hết địa chỉ (từ 85%, nghiêm trọng từ 98%), router đã tự sửa lỗi mạng mà chưa xem log, mật khẩu admin còn mặc định, không có ổ lưu bền (cấu hình chỉ nằm trong RAM), tự cập nhật bị lỗi. "Đã hiểu" ẩn cảnh báo 24 giờ, hoặc tới khi mức độ thay đổi. API: `GET /api/system/alerts`, `POST /api/system/alerts/ack`.
+- **Tab Thông tin sắp xếp lại:** chia nhóm Tổng quan, Cập nhật, Sao lưu, Lưu trữ & khởi động, Vùng nguy hiểm (khởi động lại…), bỏ phần trùng lặp, viết lại mô tả cho đúng chức năng. Mục gợi ý card mạng chuyển sang tab Trợ giúp. Log tự sửa lỗi mạng giờ gom theo từng sự cố.
+- **Bộ stress test 10.000+ máy** (thêm/sửa/xoá liên tục và ngẫu nhiên, sửa hàng loạt chạy song song với xoá) được thêm vào bộ test cố định.
+
 ## v0.4.227 - 2026-11-11
 
 Sửa lỗi Wi-Fi "chấm than"/Zalo mất mạng do proxy nuốt DNS, sửa xoá hàng loạt

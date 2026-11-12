@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.229 - 2026-11-12
+
+Bản vá khẩn: firewall không áp dụng được khi không còn máy proxy (lỗi của 0.4.228); máy khởi động lại
+không lấy được IP vì dnsmasq bị khởi động lại liên tục.
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Sửa lỗi nghiêm trọng của 0.4.228: firewall không áp dụng được khi không còn máy nào đi proxy.** Bản sửa DNS ở 0.4.228 thêm 2 rule luôn tham chiếu set `tpx_dns_via_proxy`, trong khi set này chỉ được khai báo khi có máy đi proxy. Không còn máy proxy nào (ví dụ sau khi xoá hàng loạt) thì nft từ chối cả bộ luật ("No such file or directory; did you mean set 'cli_dns_proxy'"): mọi thay đổi sau đó không được áp dụng, và router khởi động lại có thể không nạp được firewall/NAT. Giờ 2 rule đó chỉ sinh ra khi có máy proxy. Thêm test kiểm tra mọi set/map/flowtable được tham chiếu đều đã khai báo, với nhiều tổ hợp máy, kể cả khi không có máy nào. **Router đang chạy 0.4.228 nên cập nhật ngay.**
+- **Máy khởi động lại không kết nối được Wi-Fi (không lấy được IP).** Phát hiện trên router thật: dnsmasq (DHCP/DNS cho LAN) bị khởi động lại khoảng 6 giây một lần (581 lần/giờ), vì mỗi lần đổi tên hay xoá một máy router đều dừng rồi bật lại dnsmasq, kể cả khi cấu hình không đổi. Máy nào xin IP đúng lúc đó bị cắt giữa chừng (có máy mất 17 giây và 3 lần thử mới có IP). Giờ dnsmasq chỉ khởi động lại khi cấu hình thật sự đổi. Lease của máy đã xoá được router ghi nhớ để không tạo lại máy đó; file lease được dọn gộp, tối đa 10 phút một lần. Thiết bị thật sự quay lại (gia hạn lease) vẫn được nhận như máy mới.
+
 ## v0.4.228 - 2026-11-12
 
 Sửa tận gốc DNS của máy đi proxy (máy farm mất mạng), proxy kẹt cổng, firewall dùng nhầm dải 192.168,

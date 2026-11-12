@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.229",
+  "latest": "0.4.230",
   "released_at": "2026-11-12",
-  "notes": "0.4.229 (bản vá khẩn): sửa lỗi 0.4.228 làm firewall không áp dụng được khi không còn máy nào đi proxy (vd sau khi xoá hàng loạt); sửa máy khởi động lại không lấy được IP/không vào được Wi-Fi do dnsmasq bị khởi động lại liên tục. Router đang chạy 0.4.228 nên cập nhật ngay.",
+  "notes": "0.4.230: hoàn tất sửa lỗi dnsmasq khởi động lại liên tục (máy khởi động lại không lấy được IP / không vào được Wi-Fi), gồm cả bản vá khẩn 0.4.229 (firewall không áp dụng được khi không còn máy nào đi proxy). Router đang chạy 0.4.228 hoặc 0.4.229 nên cập nhật.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

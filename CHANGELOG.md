@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.230 - 2026-11-12
+
+Hoàn tất sửa lỗi dnsmasq khởi động lại liên tục (máy khởi động lại không lấy được IP).
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Hoàn tất sửa lỗi dnsmasq khởi động lại liên tục.** 0.4.229 vẫn khởi động lại dnsmasq khi có máy IP tĩnh đang kết nối, vì coi lease bình thường của máy tĩnh (đúng IP đã đặt chỗ) là "cần dọn". Giờ chỉ lease của máy tĩnh **lệch** IP đặt chỗ (ví dụ lease động cũ còn sót) mới cần dọn và khởi động lại.
+- Gồm toàn bộ bản vá khẩn của 0.4.229: firewall áp dụng được khi không còn máy nào đi proxy, và máy khởi động lại lấy được IP ngay.
+
 ## v0.4.229 - 2026-11-12
 
 Bản vá khẩn: firewall không áp dụng được khi không còn máy proxy (lỗi của 0.4.228); máy khởi động lại

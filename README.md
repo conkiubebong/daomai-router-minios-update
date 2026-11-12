@@ -221,6 +221,13 @@ số cổng, không cần tài khoản.
   KHÔNG bị tính là đang dùng proxy pool.
 - Tự kiểm tra sức khoẻ proxy định kỳ.
 
+### Cảnh báo tự sửa lỗi mạng (từ 0.4.227)
+- Khi router tự phát hiện và gỡ một lỗi mạng (socket UDP bị kẹt của proxy nuốt
+  DNS của mọi máy — triệu chứng: Wi-Fi hiện "!", Zalo báo mất mạng, PC không
+  vào được web), mọi tab của Web Admin hiện một dải cảnh báo cho tới khi admin
+  bấm **Xem log**, xem lỗi ở đâu (socket, tiến trình, proxy, máy bị ảnh hưởng,
+  router đã làm gì) rồi tắt cảnh báo.
+
 ### Logs
 - Lịch sử 200 lệnh gần nhất agent đã thực thi (thời gian, loại lệnh, mã trả
   về, có phải dry-run hay không).
@@ -232,6 +239,7 @@ số cổng, không cần tài khoản.
 
 ### Info
 - Phiên bản hiện tại, hostname, uptime, repo cập nhật đang dùng.
+- Ô "Tự động cập nhật bản vá" (từ 0.4.227, mặc định bật, chỉ ZIP).
 - Nút khởi động lại (agent tự đồng bộ DB trước khi tắt).
 - Xem [mục Cập nhật](#4-cập-nhật-hệ-thống) bên dưới.
 
@@ -306,6 +314,13 @@ bao giờ đưa máy về `direct`** — gỡ proxy sẽ fail-closed (mất inte
 ra thẳng mạng. Hợp đồng đầy đủ cho bên viết APK nằm ở `docs/API_SELF_SERVICE.md`
 trong repo mã nguồn.
 
+**Máy tự xoá bản ghi của chính nó (từ 0.4.227):** `POST
+/api/public/self/delete` (chỉ từ LAN, theo IP nguồn) xoá bản ghi của chính máy
+gọi và dọn sạch mọi thứ gắn với IP đó (proxy riêng, rule bypass, NAT port, giữ
+chỗ IP + lease DHCP, kết nối đang mở, ARP), rồi kiểm tra lại không còn sót. Bị
+từ chối (`403`) khi admin đang khoá trường proxy/chế độ. Xoá máy KHÁC chỉ admin
+làm được.
+
 > **API cho tool (link "API Xoay" nhanh, `pppoe_rotate`) nay cần xác thực** từ
 > 0.4.181: phiên admin, hoặc token `tool_api_token`, hoặc gọi từ LAN — không
 > còn mở ẩn danh ra Internet qua cổng `4`.
@@ -346,6 +361,16 @@ GitHub Release trên repo này:
 
 Cả hai kiểu cập nhật đều không đụng tới database người dùng
 (`/var/lib/daomai/router.db`).
+
+**Tự động cập nhật bản vá (từ 0.4.227, mặc định BẬT):** router tự kiểm tra
+bản mới trên repo này khoảng **3 giờ một lần** (lần đầu ~15 phút sau khi khởi
+động) và tự cài **gói ZIP đã ký** — đúng đường của nút Update zip (kiểm chữ
+ký, backup, thay, tự kiểm tra, lỗi thì quay về bản cũ, lưu xuống USB/SSD),
+không khởi động lại máy. **Không bao giờ tự ghi ISO**: Update ISO vẫn là việc
+admin tự bấm và xác nhận. Một bản lỗi sẽ không bị thử lại trong 24 giờ. Tắt/bật
+ở tab **Info** → "Cập nhật hệ thống" → ô "Tự động cập nhật bản vá". Lưu ý: chỉ
+router đã chạy 0.4.227 trở lên mới tự cập nhật; router đang ở bản cũ hơn cần
+bấm Update zip một lần.
 
 Từ 0.4.174, giao diện web (trang admin, trang mobile, trang brand, ảnh) nằm
 ngay trong file `daomai-agent`, nên chương trình và giao diện luôn khớp nhau.

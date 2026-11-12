@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.226",
-  "released_at": "2026-11-08",
-  "notes": "0.4.226: logo thương hiệu mới (hổ con + hoa đào) cho giao diện quản trị và trang điện thoại; thêm Chống nghẽn (SQM) theo cổng WAN ở tab Internet để upload không làm giật livestream. Kèm ISO đầy đủ + gói cập nhật nóng.",
+  "latest": "0.4.227",
+  "released_at": "2026-11-11",
+  "notes": "0.4.227: sửa lỗi Wi-Fi chấm than / Zalo mất mạng / PC không vào web do proxy nuốt DNS (router tự phát hiện + tự sửa, có cảnh báo trên Web Admin); sửa xoá hàng loạt vài nghìn IP bị sót/quay lại (dọn sạch + kiểm tra lại từng IP); tự động cập nhật bản vá mặc định bật (chỉ ZIP, không tự ghi ISO); combobox mở đúng chỗ, tự mở lên khi sát mép dưới. Kèm ISO đầy đủ + gói cập nhật nóng.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

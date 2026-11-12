@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.231 - 2026-11-12
+
+Sửa lệch giao diện thẻ lưu lượng egress, thêm bộ test gán/xoá proxy ngẫu nhiên.
+**Kèm ISO đầy đủ + gói cập nhật nóng.** Từ bản này chỉ giữ bản phát hành mới nhất trên GitHub.
+
+- **Sửa lệch giao diện thẻ "Lưu lượng theo egress" (Tổng quan).** IP công khai dài (ví dụ `115.79.181.222`) đẩy nhãn "online" xuống dòng mới, làm tốc độ và biểu đồ của thẻ đó lệch khỏi các thẻ bên cạnh. Giờ phần đầu thẻ luôn nằm trên một dòng: thiếu chỗ thì IP được rút gọn bằng "…" trước, tên egress giữ đủ; di chuột vào để xem đầy đủ. Hàng tốc độ cũng không xuống dòng nữa.
+- **Bộ test mới: gán proxy ngẫu nhiên + thêm/sửa/xoá proxy và máy ngẫu nhiên, chạy song song** (`tests/stress/test_proxy_churn_offline.py`). Sau mỗi vòng kiểm tra firewall vẫn áp dụng được, mọi set được tham chiếu đều đã khai báo, không còn cấu hình sing-box của proxy đã xoá, và máy đi proxy có mặt trong firewall. Vòng cuối xoá hết máy đi proxy rồi xoá hết proxy, đúng tình huống làm vỡ 0.4.228 (đã kiểm: test bắt được lỗi đó).
+- Gồm toàn bộ các bản sửa của 0.4.228–0.4.230 (DNS của máy đi proxy, firewall khi không còn máy proxy, dnsmasq khởi động lại liên tục).
+
 ## v0.4.230 - 2026-11-12
 
 Hoàn tất sửa lỗi dnsmasq khởi động lại liên tục (máy khởi động lại không lấy được IP).

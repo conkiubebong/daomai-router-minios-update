@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.231",
-  "released_at": "2026-11-12",
-  "notes": "0.4.231: sửa lệch giao diện thẻ lưu lượng egress khi IP công khai dài; thêm bộ test gán/thêm/sửa/xoá proxy ngẫu nhiên. Gồm toàn bộ các bản sửa của 0.4.228-0.4.230.",
+  "latest": "0.4.232",
+  "released_at": "2026-11-25",
+  "notes": "0.4.232: chọn đường ra Internet cho từng module (ép traffic module ra đúng WAN qua fwmark; mặc định WAN đầu tiên, module quản mạng riêng như Tailscale giữ bảng chính); làm đẹp lại tab Doc API; sửa ô tick RTC/Scan và combobox co lại khi bấm ở tab Máy.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"

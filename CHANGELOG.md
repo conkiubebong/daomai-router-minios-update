@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.232 - 2026-11-25
+
+Chọn đường ra Internet cho từng module + làm đẹp tab Doc API + vài sửa giao diện tab Máy.
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Chọn đường ra Internet cho từng module.** Trong Cấu hình mỗi module giờ luôn có mục "Đường ra Internet" liệt kê các WAN (PPPoE / dhcp_wan). Router ép traffic Internet của chính module đi đúng WAN đã chọn bằng fwmark (cùng cơ chế client/sing-box), còn LAN / router / tailnet vẫn đi thẳng; khi không ép thì bộ luật firewall không đổi một byte. Mặc định = WAN đầu tiên; module tự quản mạng (quyền `net_admin`, ví dụ Tailscale) giữ bảng định tuyến chính trừ khi admin chọn tay. Thêm `PUT /api/modules/{id}/egress` và biến môi trường `DAOMAI_EGRESS_*` cho module.
+- **Làm đẹp lại tab "Doc API".** Nhóm endpoint dạng thẻ accordion (mũi tên xoay, số đếm), thanh công cụ và nút "Prompt API" theo phong cách DaoMai.
+- **Sửa giao diện tab Máy.** Ô tick cột RTC và Scan giờ cùng cỡ (16px); combobox chế độ / loại IP / loại proxy không còn co nhỏ lại khi bấm (cố định một cỡ).
+
 ## v0.4.231 - 2026-11-12
 
 Sửa lệch giao diện thẻ lưu lượng egress, thêm bộ test gán/xoá proxy ngẫu nhiên.

@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.233 - 2026-11-28
+
+Sửa lỗi module đã tắt vẫn giữ cổng firewall.
+**Kèm ISO đầy đủ + gói cập nhật nóng.**
+
+- **Module đã TẮT không còn giữ cổng.** Khi tắt một module, trước đây nó vẫn sinh một luật firewall `drop` cho cổng đã khai báo. Vì luật của các module xếp theo id, luật `drop` cũ đó có thể nằm TRƯỚC luật `accept` của một module ĐANG BẬT dùng chung cổng và che mất nó — module đã tắt thì không có gì lắng nghe (không phản hồi), còn module đang chạy lại không truy cập được. Giờ module đã tắt **không sinh luật firewall nào**, nhả hẳn cổng cho module đang chạy. (Phần kiểm tra xung đột cổng vốn đã bỏ qua module đã tắt, nên một cặp module tắt/bật vẫn có thể dùng chung một cổng.)
+
 ## v0.4.232 - 2026-11-25
 
 Chọn đường ra Internet cho từng module + làm đẹp tab Doc API + vài sửa giao diện tab Máy.

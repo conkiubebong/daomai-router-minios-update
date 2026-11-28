@@ -1,7 +1,7 @@
 {
-  "latest": "0.4.232",
-  "released_at": "2026-11-25",
-  "notes": "0.4.232: chọn đường ra Internet cho từng module (ép traffic module ra đúng WAN qua fwmark; mặc định WAN đầu tiên, module quản mạng riêng như Tailscale giữ bảng chính); làm đẹp lại tab Doc API; sửa ô tick RTC/Scan và combobox co lại khi bấm ở tab Máy.",
+  "latest": "0.4.233",
+  "released_at": "2026-11-28",
+  "notes": "0.4.233: sửa lỗi module đã TẮT vẫn giữ cổng firewall, làm module đang BẬT dùng chung cổng đó không truy cập được; giờ module tắt không sinh luật firewall nào, nhả cổng cho module đang chạy.",
   "asset_pattern": "*.zip",
   "iso_asset_pattern": "*.iso",
   "iso_sha256_asset_pattern": "*.iso.sha256"
